@@ -5,16 +5,17 @@ const BlogPage = ({ allPosts }) => {
   const [pinnedPosts, setPinnedPosts] = useState([{}]);
 
   return (
-    <main>
-      <div>
-        <h1>Welcome to React-CMSBlog</h1>
+    <div className="bg-main pt-1">
+      <div className="container">
+        <h2>Pinned Posts</h2>
+        <div>Posts Data</div>
       </div>
-    </main>
+    </div>
   );
 };
 
 BlogPage.propTypes = {
-  allPosts: propTypes.instanceOf(array).isRequired,
+  allPosts: propTypes.instanceOf(Array).isRequired,
 };
 
 export default BlogPage;
