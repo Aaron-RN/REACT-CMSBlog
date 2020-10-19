@@ -4,13 +4,14 @@ import {
   Route,
 } from 'react-router-dom';
 import BlogPage from './components/functional/blogPage';
+import allPostsData from './components/functional/blogPage/presets/allPostsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
 
 const App = () => {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
-  const [allPosts, setAllPosts] = useState([{}]);
+  const [allPosts, setAllPosts] = useState(allPostsData);
 
   return (
     <div className="App">
@@ -22,10 +23,12 @@ const App = () => {
       </header>
       <main className="bg-main pt-1">
         <p className="container mt-0">
-          {'Welcome to the '}
+          Welcome to the
+          {' '}
           <a href="https://hackernoon.com/">React.js CMS-Blog Demo</a>
-          {` which uses React-Quill as the rich-text editor
-           and Cloudinary for image management, glued together by react and powered by Rails.`}
+          {' '}
+          {`which uses React-Quill as the rich-text editor and Cloudinary
+          for image management, glued together by react and powered by Rails.`}
         </p>
         <Switch>
           <Route
