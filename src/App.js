@@ -32,7 +32,7 @@ const App = () => {
         <Route
           exact
           path="/"
-          render={() => <BlogPage allPosts={} />}
+          render={() => <BlogPage allPosts={allPosts} />}
         />
       </Switch>
     </div>
