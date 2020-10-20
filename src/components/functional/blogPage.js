@@ -18,7 +18,7 @@ const BlogPage = ({ allPosts }) => {
   useEffect(() => {
     const postPins = allPosts.filter(post => post.is_pinned);
     setPinnedPosts(postPins);
-  });
+  }, [allPosts, setPinnedPosts]);
 
   return (
     <div className="bg-main pt-1">
