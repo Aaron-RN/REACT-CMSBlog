@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 
 const Paginate = ({ posts, populatePosts, postsPages }) => {
   const [selectedPosts, setPosts] = useState([]);
-  const [postsPerPage, setPostsPerPage] = useState(postsPages);
+  const [postsPerPage] = useState(postsPages);
   const [page, setPage] = useState(1);
   const [maxPages, setMaxPages] = useState(1);
 
@@ -22,7 +22,7 @@ const Paginate = ({ posts, populatePosts, postsPages }) => {
   useEffect(() => {
     const pageMax = posts.length / postsPerPage;
     setMaxPages(pageMax);
-  }, [posts]);
+  }, [posts, postsPerPage]);
 
   useEffect(() => {
     const startingIndex = (page * postsPerPage) - postsPerPage;
@@ -39,9 +39,11 @@ const Paginate = ({ posts, populatePosts, postsPages }) => {
   return (
     <div>
       {populatePosts(selectedPosts)}
-      <button type="button" onClick={handlePrev}>Prev</button>
-      {page}
-      <button type="button" onClick={handleNext}>Next</button>
+      <div className="paginate">
+        <button type="button" onClick={handlePrev}>Prev</button>
+        <span>{page}</span>
+        <button type="button" onClick={handleNext}>Next</button>
+      </div>
     </div>
   );
 };
