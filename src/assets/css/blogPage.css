@@ -1,7 +1,14 @@
 #BlogPage .header-title {
+  display: flex;
+  align-items: center;
   padding: 2px 6px;
   background-color: #e9e4b4;
   margin-bottom: 0.5em;
+}
+#BlogPage .header-title button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 #BlogPage .forum-section {
@@ -21,26 +28,33 @@
 #BlogPage .pinned-post {
   display: flex;
   flex-direction: column;
-  padding: 6px;
+  padding: 8px 16px;
   min-height: 140px; max-height: 140px;
   min-width: auto; max-width: 420px;
   background-color: #fff8e6;
   border-right: 2px solid khaki;
   border-bottom: 2px solid khaki;
   border-radius: 12px;
+  margin-bottom: 6px;
+  cursor: pointer;
 }
-
+#BlogPage .pinned-post:hover {
+  /* background-color: #f8e4b0;
+  border-right: 2px solid #cec46e;
+  border-bottom: 2px solid #cec46e; */
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+}
 #BlogPage .pinned-post-title {
   border-radius: 0 8px 0px 0;
   margin-bottom: 0px;
 }
 #BlogPage .pinned-post-author {
-  color: #666;
-  font-size: 0.8em;
+  color: #684d4d;
+  font-size: 15px;
   border-radius: 0 0px 8px 0;
 }
 #BlogPage .pinned-post-body {
-  font-size: 16px;
+  font-size: 17px;
 }
 #BlogPage .pinned-post-date {
   color: #888;
@@ -49,35 +63,40 @@
 
 #BlogPage .post {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   padding: 6px;
   min-height: 40px;
   background-color: #fff8e6;
   border-right: 2px solid khaki;
   border-bottom: 2px solid khaki;
-  border-radius: 12px;
+  border-radius: 6px;
+  cursor: pointer;
 }
-
+#BlogPage .post:hover {
+  background-color: #fdf3db;
+  border-right: 2px solid #cec46e;
+  border-bottom: 2px solid #cec46e;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+}
 #BlogPage .post-title {
-  font-size: 0.7em;
+  font-size: 0.9em;
   font-weight: bold;
   padding: 0 4px;
   margin-bottom: 0;
 }
 #BlogPage .post-author {
-  color: #666;
-  font-size: 0.6em;
+  color: #684d4d;
+  font-size: 0.8em;
   padding: 0 4px;
   margin-bottom: 0;
 }
 #BlogPage .post-body {
-  font-size: 16px;
+  font-size: 15px;
   padding: 0 4px;
 }
 #BlogPage .post-date {
   color: #888;
-  font-size: 14px;
+  font-size: 13px;
   padding: 0 4px;
 }
 
@@ -102,6 +121,9 @@
 /* Medium devices (landscape tablets, 720px - 1023px) */
 @media only screen and (min-width: 721px) and (max-width: 1023px) {
   #BlogPage .pinned-post:last-child { border-right: none; }
+  #BlogPage .post { flex-direction: row; align-items: center; }
+  #BlogPage .post-title { font-size: 0.7em; }
+  #BlogPage .post-author { font-size: 0.6em; }
 }
 /* laptop devices (landscape tablets, 1024px - 1439px) */
 @media only screen and (min-width: 1024px) {
@@ -113,4 +135,9 @@
     border-left: 2px solid khaki;
     border-right: none;
   }
+  #BlogPage .post { flex-direction: row; align-items: center; }
+  #BlogPage .post-title { font-size: 0.7em; }
+  #BlogPage .post-author { font-size: 0.6em; }
+  #BlogPage .post-body { font-size: 17px; }
+  #BlogPage .post-date { font-size: 14px; }
 }

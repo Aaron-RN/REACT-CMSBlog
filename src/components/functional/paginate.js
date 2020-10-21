@@ -20,7 +20,7 @@ const Paginate = ({ posts, populatePosts, postsPages }) => {
   };
 
   useEffect(() => {
-    const pageMax = posts.length / postsPerPage;
+    const pageMax = Math.ceil(posts.length / postsPerPage);
     setMaxPages(pageMax);
   }, [posts, postsPerPage]);
 
@@ -41,7 +41,11 @@ const Paginate = ({ posts, populatePosts, postsPages }) => {
       {populatePosts(selectedPosts)}
       <div className="paginate">
         <button type="button" onClick={handlePrev}>Prev</button>
-        <span>{page}</span>
+        <span>
+          {page}
+          /
+          {maxPages}
+        </span>
         <button type="button" onClick={handleNext}>Next</button>
       </div>
     </div>
