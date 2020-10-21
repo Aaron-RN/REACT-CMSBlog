@@ -19,7 +19,10 @@ const PostDisplay = ({ post }) => {
   return (
     <div className="post">
       <h4 className="post-title">{shortTitle}</h4>
-      <div className="post-author">{post.author}</div>
+      <div className="post-author">
+        {'by '}
+        <span className="text-author">{post.author}</span>
+      </div>
       <div ref={bodyElem} className="post-body" />
       <div className="post-date">{post.date}</div>
     </div>

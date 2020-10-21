@@ -7,7 +7,7 @@ a:hover { text-decoration: underline; }
 
 .mt-0 { margin-top: 0; }
 .mb-1 { margin-bottom: 1em; }
-.pt-1 { padding-top: 1em; }
+.pt-1 { padding-top: 0.5em; }
 
 .App {
   font-size: calc(10px + 2vmin);
@@ -78,4 +78,5 @@ a:hover { text-decoration: underline; }
 @media only screen and (min-width: 1024px) {
   .text-center-sm { text-align: inherit; justify-content: inherit; }
   .App-logo { height: 38px; width: 38px; }
+  .pt-1 { padding-top: 0.9em; }
 }

@@ -1,3 +1,5 @@
+.text-author { color: #684d4d; font-weight: 700;}
+
 #BlogPage .header-title {
   display: flex;
   align-items: center;
@@ -45,13 +47,14 @@
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
 }
 #BlogPage .pinned-post-title {
+  font-size: 16px;
   border-radius: 0 8px 0px 0;
   margin-bottom: 0px;
 }
 #BlogPage .pinned-post-author {
-  color: #684d4d;
   font-size: 15px;
   border-radius: 0 0px 8px 0;
+  margin-bottom: 4px;
 }
 #BlogPage .pinned-post-body {
   font-size: 17px;
@@ -106,8 +109,9 @@
   padding: 2px 12px;
 }
 #BlogPage .post-section .paginate button{
-  padding: 4px 12px;
-  background-color: transparent;
+  padding: 6px 14px;
+  color: #fff;
+  background-color: #382d1b;
   border-color: lavenderblush;
   border-radius: 6px;
   cursor: pointer;
@@ -135,6 +139,8 @@
     border-left: 2px solid khaki;
     border-right: none;
   }
+  #BlogPage .pinned-post-title { font-size: 20px; }
+
   #BlogPage .post { flex-direction: row; align-items: center; }
   #BlogPage .post-title { font-size: 0.7em; }
   #BlogPage .post-author { font-size: 0.6em; }

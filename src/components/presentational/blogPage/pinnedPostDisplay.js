@@ -18,8 +18,11 @@ const PinnedPostDisplay = ({ post }) => {
 
   return (
     <div className="pinned-post">
-      <h4 className="pinned-post-title">{shortTitle}</h4>
-      <h5 className="pinned-post-author">{post.author}</h5>
+      <h5 className="pinned-post-title">{shortTitle}</h5>
+      <div className="pinned-post-author">
+        {'by '}
+        <span className="text-author">{post.author}</span>
+      </div>
       <div ref={bodyElem} className="pinned-post-body" />
       <div className="pinned-post-date">{post.date}</div>
     </div>
