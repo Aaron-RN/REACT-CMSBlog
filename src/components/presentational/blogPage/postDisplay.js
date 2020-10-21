@@ -2,11 +2,11 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 const PostDisplay = ({ post }) => (
-  <div>
-    <h3>{post.title}</h3>
-    <h5>{post.author}</h5>
-    <div>{`${post.body.substring(0, 220)}...`}</div>
-    <div>{post.date}</div>
+  <div className="post">
+    <div className="post-title">{post.title}</div>
+    <div className="post-author">{post.author}</div>
+    <div className="post-body">{`${post.body.substring(0, 60)}...`}</div>
+    <div className="post-date">{post.date}</div>
   </div>
 );
 

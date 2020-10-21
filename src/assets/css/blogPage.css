@@ -1,0 +1,99 @@
+#BlogPage .header-title {
+  padding: 2px 6px;
+  background-color: #e9e4b4;
+  margin-bottom: 0.5em;
+}
+
+#BlogPage .forum-section {
+  /* border: 1px solid #e9e4b4; */
+  /* background-color: #fffbf5; */
+  margin-bottom: 1em;
+  /* box-shadow: 0px 6px 12px #e9e4b4; */
+}
+
+#BlogPage .pinned-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  padding: 3px;
+}
+#BlogPage .pinned-post {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+  min-height: 140px; max-height: 140px;
+  min-width: auto; max-width: 420px;
+  background-color: #fff8e6;
+  border-right: 2px solid khaki;
+  border-bottom: 2px solid khaki;
+  border-radius: 12px;
+}
+
+#BlogPage .pinned-post-title {
+  border-radius: 0 8px 0px 0;
+  margin-bottom: 0px;
+}
+#BlogPage .pinned-post-author {
+  color: #666;
+  font-size: 0.8em;
+  border-radius: 0 0px 8px 0;
+}
+#BlogPage .pinned-post-body {
+  font-size: 16px;
+}
+#BlogPage .pinned-post-date {
+  color: #888;
+  font-size: 14px;
+}
+
+#BlogPage .post {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 6px;
+  min-height: 40px;
+  background-color: #fff8e6;
+  border-right: 2px solid khaki;
+  border-bottom: 2px solid khaki;
+  border-radius: 12px;
+}
+
+#BlogPage .post-title {
+  font-size: 0.7em;
+  font-weight: bold;
+  padding: 0 4px;
+  margin-bottom: 0;
+}
+#BlogPage .post-author {
+  color: #666;
+  font-size: 0.6em;
+  padding: 0 4px;
+  margin-bottom: 0;
+}
+#BlogPage .post-body {
+  font-size: 16px;
+  padding: 0 4px;
+}
+#BlogPage .post-date {
+  color: #888;
+  font-size: 14px;
+  padding: 0 4px;
+}
+/* Media queries */
+
+/* Medium devices (landscape tablets, 720px - 1023px) */
+@media only screen and (min-width: 721px) and (max-width: 1023px) {
+  #BlogPage .pinned-post:last-child { border-right: none; }
+}
+/* laptop devices (landscape tablets, 1024px - 1439px) */
+@media only screen and (min-width: 1024px) {
+  #BlogPage .pinned-post {
+    min-height: 140px; max-height: 140px;
+    min-width: 420px; max-width: 420px;
+  }
+  #BlogPage .pinned-post:last-child {
+    border-left: 2px solid khaki;
+    border-right: none;
+  }
+}

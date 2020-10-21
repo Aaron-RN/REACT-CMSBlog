@@ -2,11 +2,11 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 const pinnedPostDisplay = ({ post }) => (
-  <div>
-    <h3>{post.title}</h3>
-    <h5>{post.author}</h5>
-    <div>{`${post.body.substring(0, 100)}...`}</div>
-    <div>{post.date}</div>
+  <div className="pinned-post">
+    <h4 className="pinned-post-title">{post.title}</h4>
+    <h5 className="pinned-post-author">{post.author}</h5>
+    <div className="pinned-post-body">{`${post.body.substring(0, 70)}...`}</div>
+    <div className="pinned-post-date">{post.date}</div>
   </div>
 );
 

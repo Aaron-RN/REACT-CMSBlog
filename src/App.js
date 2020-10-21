@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Switch,
   Route,
@@ -13,6 +13,11 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [allPosts, setAllPosts] = useState(allPostsData);
 
+  useEffect(() => {
+    const allPostsSorted = allPosts.sort((a, b) => b.id - a.id);
+    setAllPosts(allPostsSorted);
+  }, [allPosts]);
+
   return (
     <div className="App">
       <header className="bg-navbar">
@@ -21,7 +26,7 @@ const App = () => {
           <h3 className="inline-block">React.js CMS-Blog</h3>
         </nav>
       </header>
-      <main className="bg-main pt-1">
+      <main className="bg-navbar pt-1">
         <p className="container mt-0">
           Welcome to the
           {' '}
