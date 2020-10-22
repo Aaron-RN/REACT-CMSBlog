@@ -30,11 +30,15 @@ const BlogPage = ({ allPosts }) => {
   };
 
   const populatePins = () => pinnedPosts.map(post => (
-    <PinnedPostDisplay key={post.id} post={post} />
+    <Link to={`/${post.forum}/posts/${post.id}`} key={post.id} className="text-black">
+      <PinnedPostDisplay key={post.id} post={post} />
+    </Link>
   ));
 
   const populatePosts = postsArray => postsArray.map(post => (
-    <PostDisplay key={post.id} post={post} />
+    <Link to={`/${post.forum}/posts/${post.id}`} key={post.id} className="text-black">
+      <PostDisplay post={post} />
+    </Link>
   ));
 
   // Grab all pinned Post on Component Load
@@ -68,10 +72,13 @@ const BlogPage = ({ allPosts }) => {
                 {handleIcon(showAnnouncements)}
               </button>
             </div>
-            <Link to="/announcements/posts/new" className="new-post-btn">New Topic</Link>
+            <Link to="/announcements/posts/new" className="new-post-btn announcement-btn">New Topic</Link>
             {showAnnouncements && (
             <div className="post-section">
-              <Paginate posts={announcements} populatePosts={populatePosts} />
+              <Paginate
+                posts={announcements}
+                populatePosts={populatePosts}
+              />
             </div>
             )}
           </div>
@@ -82,9 +89,14 @@ const BlogPage = ({ allPosts }) => {
                 {handleIcon(showMisc)}
               </button>
             </div>
+            <Link to="/misc/posts/new" className="new-post-btn">New Topic</Link>
             {showMisc && (
             <div className="post-section">
-              <Paginate posts={miscPosts} populatePosts={populatePosts} postsPages={3} />
+              <Paginate
+                posts={miscPosts}
+                populatePosts={populatePosts}
+                postsPages={3}
+              />
             </div>
             )}
           </div>

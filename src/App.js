@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import propTypes from 'prop-types';
 import {
+  Link,
   Switch,
   Route,
 } from 'react-router-dom';
 import BlogPage from './components/functional/blogPage';
+import PostPage from './components/presentational/blogPage/postPage';
 import allPostsData from './components/functional/blogPage/presets/allPostsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
@@ -13,7 +16,6 @@ const App = () => {
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [allPosts, setAllPosts] = useState(allPostsData);
-  const [selectedPost, setSelectedPost] = useState();
 
   useEffect(() => {
     const allPostsSorted = allPosts.sort((a, b) => b.id - a.id);
@@ -23,10 +25,12 @@ const App = () => {
   return (
     <div className="App">
       <header className="bg-navbar">
-        <nav className="container flex-row text-center-sm">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>React.js CMS-Blog</h2>
-        </nav>
+        <Link to="/">
+          <nav className="container flex-row text-center-sm text-black">
+            <img src={logo} className="App-logo" alt="logo" />
+            <h2>React.js CMS-Blog</h2>
+          </nav>
+        </Link>
       </header>
       <main className="bg-navbar pt-1">
         <p className="container mt-0">
@@ -48,6 +52,16 @@ const App = () => {
             path="/"
             render={() => <BlogPage allPosts={allPosts} />}
           />
+          <Route
+            exact
+            path="/:forum/posts/:id"
+            render={props => (
+              <PostPage
+                match={props.match}
+                allPosts={allPosts}
+              />
+            )}
+          />
         </Switch>
       </main>
       <div className="blend-main-footer" />
@@ -58,6 +72,14 @@ const App = () => {
       </footer>
     </div>
   );
+};
+
+App.defaultProps = {
+  match: {},
+};
+
+App.propTypes = {
+  match: propTypes.instanceOf(Object),
 };
 
 export default App;

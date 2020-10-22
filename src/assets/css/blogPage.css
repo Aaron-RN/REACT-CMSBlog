@@ -1,5 +1,6 @@
 .text-author { color: #772a2a; font-weight: 700;}
 
+#BlogPage .announcement-btn { color: #af4040 !important; }
 #BlogPage .new-post-btn {
   display: inline-block;
   text-decoration: none;
@@ -18,8 +19,9 @@
 #BlogPage .header-title {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   padding: 2px 6px;
-  background-color: #e9e4b4;
+  background-color: var(--headerBG);
   margin-bottom: 0.5em;
 }
 #BlogPage .header-title button {
@@ -48,7 +50,7 @@
   padding: 8px 16px;
   min-height: 140px; max-height: 140px;
   min-width: auto; max-width: 420px;
-  background-color: #fff8e6;
+  background-color: var(--postBG);
   border-right: 2px solid khaki;
   border-bottom: 2px solid khaki;
   border-radius: 12px;
@@ -85,7 +87,7 @@
   flex-direction: column;
   padding: 6px;
   min-height: 40px;
-  background-color: #fff8e6;
+  background-color: var(--postBG);
   border-right: 2px solid khaki;
   border-bottom: 2px solid khaki;
   border-radius: 6px;

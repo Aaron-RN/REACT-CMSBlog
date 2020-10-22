@@ -53,7 +53,7 @@ const Paginate = ({ posts, populatePosts, postsPages }) => {
 };
 
 Paginate.defaultProps = {
-  postsPages: 4,
+  postsPages: 5,
 };
 
 Paginate.propTypes = {
