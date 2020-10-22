@@ -39,6 +39,7 @@ const App = () => {
           powered by <span className="header">Rails</span>.
           {/* eslint-enable react/jsx-one-expression-per-line */}
         </p>
+        <div className="blend-nav-main" />
         <Switch>
           <Route
             exact
@@ -47,6 +48,12 @@ const App = () => {
           />
         </Switch>
       </main>
+      <div className="blend-main-footer" />
+      <footer className="footer">
+        <div className="container">
+          © Aaron Rory Newbold 2020
+        </div>
+      </footer>
     </div>
   );
 };

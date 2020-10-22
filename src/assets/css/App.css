@@ -58,7 +58,23 @@ a:hover { text-decoration: underline; }
 }
 .bg-navbar { position: relative; background-color: #f1ebb3; color: #4b4723; }
 .bg-main { background-color: #fffcf0; } /* #fdfaee */
-
+.blend-nav-main {
+  width: 100%;
+  height: 40px;
+  background-image: linear-gradient(#f1ebb3, #fffcf0);
+}
+.blend-main-footer {
+  width: 100%;
+  height: 40px;
+  background-image: linear-gradient(#fffcf0, #f1ebb3);
+}
+.footer {
+  font-size: 0.8em;
+  padding: 4px 12px;
+  color: #969183;
+  background-color: #f1ebb3;
+  text-align: right;
+}
 .App-logo {
   display: inline-block;
   padding: 2px;
