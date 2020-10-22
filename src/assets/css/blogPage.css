@@ -1,5 +1,19 @@
-.text-author { color: #684d4d; font-weight: 700;}
+.text-author { color: #772a2a; font-weight: 700;}
 
+#BlogPage .new-post-btn {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 4px 8px;
+  color: #4c9ca1;
+  background-color: #fdf4dd;
+  border: 2px solid #ccc292;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+#BlogPage .new-post-btn:hover { transform: scale(1.035); }
 #BlogPage .bg-announcement { background-color: #e9ddb4 !important; }
 #BlogPage .header-title {
   display: flex;

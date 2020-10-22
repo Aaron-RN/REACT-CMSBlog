@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import PinnedPostDisplay from '../presentational/blogPage/pinnedPostDisplay';
 import PostDisplay from '../presentational/blogPage/postDisplay';
 import '../../assets/css/blogPage.css';
@@ -67,6 +68,7 @@ const BlogPage = ({ allPosts }) => {
                 {handleIcon(showAnnouncements)}
               </button>
             </div>
+            <Link to="/announcements/posts/new" className="new-post-btn">New Topic</Link>
             {showAnnouncements && (
             <div className="post-section">
               <Paginate posts={announcements} populatePosts={populatePosts} />

@@ -9,9 +9,11 @@ import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
 
 const App = () => {
+  const [allUsers, setAllUsers] = useState({});
   const [user, setUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [allPosts, setAllPosts] = useState(allPostsData);
+  const [selectedPost, setSelectedPost] = useState();
 
   useEffect(() => {
     const allPostsSorted = allPosts.sort((a, b) => b.id - a.id);
@@ -23,7 +25,7 @@ const App = () => {
       <header className="bg-navbar">
         <nav className="container flex-row text-center-sm">
           <img src={logo} className="App-logo" alt="logo" />
-          <h2 className="inline-block">React.js CMS-Blog</h2>
+          <h2>React.js CMS-Blog</h2>
         </nav>
       </header>
       <main className="bg-navbar pt-1">

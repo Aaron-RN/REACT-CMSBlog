@@ -1,3 +1,16 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Set default transition durations */
+* {
+  -webkit-transition-duration: 0.25s;
+  -moz-transition-duration: 0.25s;
+  transition-duration: 0.25s;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Teko', sans-serif;
   margin: 0;
@@ -5,6 +18,8 @@ h1, h2, h3, h4, h5, h6 {
 .header { font-family: 'Oswald', sans-serif; font-weight: 400; }
 a { color: #43b6da; text-decoration: none;}
 a:hover { text-decoration: underline; }
+
+button:hover { transform: scale(1.035); }
 
 .mt-0 { margin-top: 0; }
 .mb-1 { margin-bottom: 1em; }
