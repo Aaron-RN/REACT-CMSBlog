@@ -48,43 +48,44 @@ const BlogPage = ({ allPosts }) => {
 
   return (
     <div id="BlogPage" className="bg-main pt-1">
-      <div className="container">
-        <div className="forum-section z-2">
-          <h4 className="header-title">
-            <i className="fas fa-star text-blue" />
-            {' Pinned Posts'}
-          </h4>
-          <div className="pinned-section">{populatePins()}</div>
-        </div>
-        <div>
-          <h4 className="text-grey">Forums</h4>
-        </div>
-
-        <div className="forum-section z-2">
-          <div className="header-title">
-            <h4 className="inline-block">Announcements</h4>
-            <button type="button" onClick={() => handleShowForum(showAnnouncements, setShowAnnouncements)}>
-              {handleIcon(showAnnouncements)}
-            </button>
+      <div className="container-md">
+        <div className="section">
+          <div className="forum-section z-2">
+            <div className="header-title bg-announcement align-items-base">
+              <i className="fas fa-star text-blue" />
+              <h3>{' Pinned Posts'}</h3>
+            </div>
+            <div className="pinned-section">{populatePins()}</div>
           </div>
-          {showAnnouncements && (
+        </div>
+        <div className="section">
+          <h4 className="text-grey">Forums</h4>
+          <div className="forum-section z-2">
+            <div className="header-title bg-announcement">
+              <h3 className="inline-block">Announcements</h3>
+              <button type="button" onClick={() => handleShowForum(showAnnouncements, setShowAnnouncements)}>
+                {handleIcon(showAnnouncements)}
+              </button>
+            </div>
+            {showAnnouncements && (
             <div className="post-section">
               <Paginate posts={announcements} populatePosts={populatePosts} />
             </div>
-          )}
-        </div>
-        <div className="forum-section z-2">
-          <div className="header-title">
-            <h4 className="inline-block">Misc</h4>
-            <button type="button" onClick={() => handleShowForum(showMisc, setShowMisc)}>
-              {handleIcon(showMisc)}
-            </button>
+            )}
           </div>
-          {showMisc && (
+          <div className="forum-section z-2">
+            <div className="header-title">
+              <h3 className="inline-block">Misc</h3>
+              <button type="button" onClick={() => handleShowForum(showMisc, setShowMisc)}>
+                {handleIcon(showMisc)}
+              </button>
+            </div>
+            {showMisc && (
             <div className="post-section">
               <Paginate posts={miscPosts} populatePosts={populatePosts} postsPages={3} />
             </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
     </div>

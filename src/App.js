@@ -23,17 +23,21 @@ const App = () => {
       <header className="bg-navbar">
         <nav className="container flex-row text-center-sm">
           <img src={logo} className="App-logo" alt="logo" />
-          <h3 className="inline-block">React.js CMS-Blog</h3>
+          <h2 className="inline-block">React.js CMS-Blog</h2>
         </nav>
       </header>
       <main className="bg-navbar pt-1">
         <p className="container mt-0">
           Welcome to the
           {' '}
-          <a href="https://hackernoon.com/">React.js CMS-Blog Demo</a>
+          <a className="header" href="https://hackernoon.com/">React.js CMS-Blog Demo</a>
           {' '}
-          {`which uses React-Quill as the rich-text editor and Cloudinary
-          for image management, glued together by react and powered by Rails.`}
+          {/* eslint-disable react/jsx-one-expression-per-line */}
+          which uses <span className="header">React-Quill</span> as the rich-text editor
+          and <span className="header">Cloudinary</span> for
+          image management, glued together by <span className="header">React</span> and
+          powered by <span className="header">Rails</span>.
+          {/* eslint-enable react/jsx-one-expression-per-line */}
         </p>
         <Switch>
           <Route

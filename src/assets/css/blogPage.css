@@ -1,5 +1,6 @@
 .text-author { color: #684d4d; font-weight: 700;}
 
+#BlogPage .bg-announcement { background-color: #e9ddb4 !important; }
 #BlogPage .header-title {
   display: flex;
   align-items: center;
@@ -41,10 +42,10 @@
   cursor: pointer;
 }
 #BlogPage .pinned-post:hover {
-  /* background-color: #f8e4b0;
+  background-color: #f7edd5;
   border-right: 2px solid #cec46e;
-  border-bottom: 2px solid #cec46e; */
-  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #cec46e;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.05);
 }
 #BlogPage .pinned-post-title {
   font-size: 16px;
@@ -57,11 +58,12 @@
   margin-bottom: 4px;
 }
 #BlogPage .pinned-post-body {
-  font-size: 17px;
+  font-size: 15px;
 }
 #BlogPage .pinned-post-date {
   color: #888;
   font-size: 14px;
+  text-align: right;
 }
 
 #BlogPage .post {
@@ -82,14 +84,14 @@
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
 }
 #BlogPage .post-title {
-  font-size: 0.9em;
+  font-size: 1.2em;
   font-weight: bold;
   padding: 0 4px;
   margin-bottom: 0;
 }
 #BlogPage .post-author {
   color: #684d4d;
-  font-size: 0.8em;
+  font-size: 1em;
   padding: 0 4px;
   margin-bottom: 0;
 }
@@ -140,10 +142,10 @@
     border-right: none;
   }
   #BlogPage .pinned-post-title { font-size: 20px; }
-
+  #BlogPage .pinned-post-body { font-size: 17px; }
   #BlogPage .post { flex-direction: row; align-items: center; }
-  #BlogPage .post-title { font-size: 0.7em; }
-  #BlogPage .post-author { font-size: 0.6em; }
-  #BlogPage .post-body { font-size: 17px; }
+  #BlogPage .post-title { font-size: 0.8em; }
+  #BlogPage .post-author { font-size: 0.7em; }
+  #BlogPage .post-body { font-size: 16px; }
   #BlogPage .post-date { font-size: 14px; }
 }

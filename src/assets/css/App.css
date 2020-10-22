@@ -1,7 +1,8 @@
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Oswald', sans-serif;
-  margin: 0 0 8px 0;
+  font-family: 'Teko', sans-serif;
+  margin: 0;
 }
+.header { font-family: 'Oswald', sans-serif; font-weight: 400; }
 a { color: #43b6da; text-decoration: none;}
 a:hover { text-decoration: underline; }
 
@@ -10,13 +11,24 @@ a:hover { text-decoration: underline; }
 .pt-1 { padding-top: 0.5em; }
 
 .App {
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 2vmin);
 }
 .container {
-  padding: 8px 4px;
+  padding: 8px 12px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+.container-md {
+  padding: 8px 12px;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.section {
+  /* padding: 12px; */
+  margin-bottom: 1em;
+  border-radius: 8px;
 }
 .pos-relative { position: relative; }
 .inline-block { display: inline-block; }
@@ -24,6 +36,8 @@ a:hover { text-decoration: underline; }
   display: flex;
   align-items: center;
 }
+.align-items-base { align-items: baseline !important; }
+
 .text-center-sm { 
   text-align: center;
   justify-content: center;
@@ -43,7 +57,7 @@ a:hover { text-decoration: underline; }
   z-index: 1;
 }
 .bg-navbar { position: relative; background-color: #f1ebb3; color: #4b4723; }
-.bg-main { background-color: #fffbf5; }
+.bg-main { background-color: #fffcf0; } /* #fdfaee */
 
 .App-logo {
   display: inline-block;
@@ -76,7 +90,9 @@ a:hover { text-decoration: underline; }
 }
 /* laptop devices (landscape tablets, 1024px - 1439px) */
 @media only screen and (min-width: 1024px) {
+  .App { font-size: calc(6px + 2vmin); }
   .text-center-sm { text-align: inherit; justify-content: inherit; }
   .App-logo { height: 38px; width: 38px; }
   .pt-1 { padding-top: 0.9em; }
+  .container { padding: 8px 4px; }
 }
