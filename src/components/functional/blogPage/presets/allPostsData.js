@@ -66,7 +66,7 @@ const allPosts = [
     id: 6,
     author: 'Anonymous Doe',
     title: 'My First Diagnosis',
-    body: `<h2>It</h2> was difficult to explain to them how the diagnosis of certain death had actually given him life.
+    body: `<b>It</b> was difficult to explain to them how the diagnosis of certain death had actually given him life.
     While everyone around him was in tears and upset, he actually felt more at ease. The doctor said it would be
     less than a year. That gave him a year to live, something he'd failed to do with his daily drudgery of a routine
     that had passed as life until then.`,

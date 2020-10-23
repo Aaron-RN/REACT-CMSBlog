@@ -37,7 +37,7 @@ const NewBlogPost = ({
   };
 
   const renderMain = (
-    <main id="BlogPage" className="bg-main">
+    <div id="BlogPage" className="bg-main">
       <div className="container-md">
         <form className="newPost" onSubmit={handleSubmitPost} encType="multipart/form-data">
           <Link to={`/${forum}`}>
@@ -66,7 +66,7 @@ const NewBlogPost = ({
           <button type="submit" className="submit-btn">Submit</button>
         </form>
       </div>
-    </main>
+    </div>
   );
 
   return renderMain;

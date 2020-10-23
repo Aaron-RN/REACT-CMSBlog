@@ -8,14 +8,15 @@ import {
 import BlogPage from './components/functional/blogPage';
 import PostPage from './components/functional/blogPage/postPage';
 import TopicForum from './components/functional/blogPage/topicForum';
+import NewPost from './components/functional/blogPage/newPost';
+import EditPost from './components/functional/blogPage/editPost';
 import allPostsData from './components/functional/blogPage/presets/allPostsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
-import NewPost from './components/functional/blogPage/newPost';
 
 const App = () => {
   // const [allUsers, setAllUsers] = useState({});
-  // const [user, setUser] = useState({});
+  const [user, setUser] = useState({ id: 1, username: 'John Doe', admin_level: 1, });
   // const [loggedIn, setLoggedIn] = useState(false);
   const [allPosts, setAllPosts] = useState(allPostsData);
 
@@ -67,12 +68,12 @@ const App = () => {
           <Route
             exact
             path="/announcements/posts/new"
-            render={() => <NewPost forum="announcements" />}
+            render={() => <NewPost user={user} forum="announcements" />}
           />
           <Route
             exact
             path="/misc/posts/new"
-            render={() => <NewPost forum="misc" />}
+            render={() => <NewPost user={user} forum="misc" />}
           />
           <Route
             exact
@@ -80,6 +81,18 @@ const App = () => {
             render={props => (
               <PostPage
                 match={props.match}
+                user={user}
+                allPosts={allPosts}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/:forum/posts/:id/edit"
+            render={props => (
+              <EditPost
+                match={props.match}
+                user={user}
                 allPosts={allPosts}
               />
             )}

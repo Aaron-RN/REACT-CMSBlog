@@ -15,6 +15,21 @@
   cursor: pointer;
 }
 #BlogPage .new-post-btn:hover { transform: scale(1.035); }
+#BlogPage .edit-post-btn {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 2px 8px;
+  color: #a14c4c;
+  background-color: #fdf4dd;
+  border: 2px solid #ccc292;
+  border-radius: 6px;
+  margin-left: auto;
+  cursor: pointer;
+}
+#BlogPage .edit-post-btn:hover { transform: scale(1.035); }
+
 #BlogPage .bg-announcement { background-color: #e9ddb4 !important; }
 #BlogPage .header-title {
   display: flex;

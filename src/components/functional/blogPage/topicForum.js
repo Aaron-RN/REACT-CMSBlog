@@ -18,7 +18,7 @@ const TopicForum = ({ allPosts, forum }) => {
   useEffect(() => {
     const postTopics = allPosts.filter(post => post.forum === forum);
     setForumTopics(postTopics);
-  }, [allPosts]);
+  }, [allPosts, forum]);
 
   return (
     <div id="BlogPage" className="bg-main pt-1">

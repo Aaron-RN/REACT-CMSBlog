@@ -7,7 +7,7 @@ const PostPage = ({ allPosts, match }) => {
     id: 0, title: '', body: '', author: '', forum: '',
   });
   const {
-    forum, title, body, author,
+    id, forum, title, body, author,
   } = selectedPost;
   const bodyElem = useRef(null);
 
@@ -34,8 +34,9 @@ const PostPage = ({ allPosts, match }) => {
         </div>
         <div className="header-title">
           <h3>{title}</h3>
-          <span className="pl-1">by</span>
-          <h4 className="post-author">{author}</h4>
+          <span className="pl-1 size-16">by</span>
+          <h3 className="pl-01 size-18 text-author">{author}</h3>
+          <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>
         </div>
         <div ref={bodyElem} />
       </div>
