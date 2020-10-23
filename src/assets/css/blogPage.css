@@ -118,6 +118,7 @@
 #BlogPage .post-date {
   color: #888;
   font-size: 13px;
+  text-align: right;
   padding: 0 4px;
 }
 
@@ -139,6 +140,26 @@
   font-size: 0.8em;
   padding: 4px 12px;
 }
+
+#BlogPage .ql-editor { min-height: 60vh; font-size: 16px; }
+#BlogPage .newPost input[type=text] {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 2px 6px;
+  color: #4b4723;
+  background-color: var(--headerBG);
+  min-width: 200px;
+}
+#BlogPage .newPost .submit-btn{
+  padding: 4px 14px;
+  color: #fff;
+  background-color: #4b463e;
+  border-color: #ffffff;
+  border-radius: 6px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
 /* Media queries */
 
 /* Medium devices (landscape tablets, 720px - 1023px) */
@@ -164,5 +185,5 @@
   #BlogPage .post-title { font-size: 0.8em; }
   #BlogPage .post-author { font-size: 0.7em; }
   #BlogPage .post-body { font-size: 16px; }
-  #BlogPage .post-date { font-size: 14px; }
+  #BlogPage .post-date { font-size: 14px; text-align: left; }
 }

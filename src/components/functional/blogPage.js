@@ -95,7 +95,6 @@ const BlogPage = ({ allPosts }) => {
               <Paginate
                 posts={miscPosts}
                 populatePosts={populatePosts}
-                postsPages={3}
               />
             </div>
             )}

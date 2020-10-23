@@ -11,6 +11,7 @@ import TopicForum from './components/functional/blogPage/topicForum';
 import allPostsData from './components/functional/blogPage/presets/allPostsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
+import NewPost from './components/functional/blogPage/newPost';
 
 const App = () => {
   // const [allUsers, setAllUsers] = useState({});
@@ -26,18 +27,18 @@ const App = () => {
   return (
     <div className="App">
       <header className="bg-navbar">
-        <Link to="/">
-          <nav className="container flex-row text-center-sm text-black">
+        <nav className="container">
+          <Link to="/" className="inline-flex text-home">
             <img src={logo} className="App-logo" alt="logo" />
-            <h2>React.js CMS-Blog</h2>
-          </nav>
-        </Link>
+            <h2>React.js CMS-Forum</h2>
+          </Link>
+        </nav>
       </header>
       <main className="bg-navbar pt-1">
         <p className="container mt-0">
           Welcome to the
           {' '}
-          <a className="header" href="https://hackernoon.com/">React.js CMS-Blog Demo</a>
+          <a className="header" href="https://hackernoon.com/">React.js CMS-Forum Demo</a>
           {' '}
           {/* eslint-disable react/jsx-one-expression-per-line */}
           which uses <span className="header">React-Quill</span> as the rich-text editor
@@ -62,6 +63,16 @@ const App = () => {
             exact
             path="/misc"
             render={() => <TopicForum allPosts={allPosts} forum="misc" />}
+          />
+          <Route
+            exact
+            path="/announcements/posts/new"
+            render={() => <NewPost forum="announcements" />}
+          />
+          <Route
+            exact
+            path="/misc/posts/new"
+            render={() => <NewPost forum="misc" />}
           />
           <Route
             exact
