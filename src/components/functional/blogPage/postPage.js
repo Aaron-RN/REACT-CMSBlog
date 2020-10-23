@@ -27,14 +27,15 @@ const PostPage = ({ allPosts, match }) => {
     <div id="BlogPage" className="bg-main">
       <div className="container-md">
         <div>
-          <Link to="/" className="header text-caps">{forum}</Link>
+          <Link to={`/${forum}`}><i className="fas fa-chevron-circle-left pr-1" /></Link>
+          <Link to={`/${forum}`} className="header text-caps">{forum}</Link>
           {' / '}
           <Link to={match.url}>{title}</Link>
         </div>
         <div className="header-title">
           <h3>{title}</h3>
           <span className="pl-1">by</span>
-          <h5 className="post-author">{author}</h5>
+          <h4 className="post-author">{author}</h4>
         </div>
         <div ref={bodyElem} />
       </div>

@@ -6,15 +6,16 @@ import {
   Route,
 } from 'react-router-dom';
 import BlogPage from './components/functional/blogPage';
-import PostPage from './components/presentational/blogPage/postPage';
+import PostPage from './components/functional/blogPage/postPage';
+import TopicForum from './components/functional/blogPage/topicForum';
 import allPostsData from './components/functional/blogPage/presets/allPostsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
 
 const App = () => {
-  const [allUsers, setAllUsers] = useState({});
-  const [user, setUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [allUsers, setAllUsers] = useState({});
+  // const [user, setUser] = useState({});
+  // const [loggedIn, setLoggedIn] = useState(false);
   const [allPosts, setAllPosts] = useState(allPostsData);
 
   useEffect(() => {
@@ -51,6 +52,16 @@ const App = () => {
             exact
             path="/"
             render={() => <BlogPage allPosts={allPosts} />}
+          />
+          <Route
+            exact
+            path="/announcements"
+            render={() => <TopicForum allPosts={allPosts} forum="announcements" />}
+          />
+          <Route
+            exact
+            path="/misc"
+            render={() => <TopicForum allPosts={allPosts} forum="misc" />}
           />
           <Route
             exact

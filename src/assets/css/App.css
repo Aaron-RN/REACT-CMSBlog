@@ -33,10 +33,11 @@ button:hover { transform: scale(1.035); }
 .px-1 { padding-left: 0.5em; padding-right: 0.5em; }
 .pt-1 { padding-top: 0.5em; }
 .pl-1 { padding-left: 0.5em; }
-.pr-01 { padding-left: 0.1em; }
+.pr-01 { padding-right: 0.1em; }
+.pr-1 { padding-right: 0.5em; }
 
 .App {
-  font-size: calc(8px + 2vmin);
+  font-size: calc(8.5px + 2vmin);
 }
 .container {
   padding: 8px 12px;
@@ -63,6 +64,7 @@ button:hover { transform: scale(1.035); }
 }
 .align-items-base { align-items: baseline !important; }
 
+.text-camel { text-transform: capitalize; }
 .text-caps { text-transform: uppercase; }
 .text-center-sm { 
   text-align: center;
@@ -139,6 +141,7 @@ button:hover { transform: scale(1.035); }
   .px-1 { padding-left: 0.9em; padding-right: 0.9em; }
   .pt-1 { padding-top: 0.9em; }
   .pl-1 { padding-left: 0.9em; }
-  .pr-01 { padding-left: 0.2em; }
+  .pr-01 { padding-right: 0.2em; }
+  .pr-1 { padding-right: 0.9em; }
   .container { padding: 8px 4px; }
 }

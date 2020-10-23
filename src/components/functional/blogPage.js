@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PinnedPostDisplay from '../presentational/blogPage/pinnedPostDisplay';
 import PostDisplay from '../presentational/blogPage/postDisplay';
 import '../../assets/css/blogPage.css';
-import Paginate from './paginate';
+import Paginate from './blogPage/paginate';
 
 const BlogPage = ({ allPosts }) => {
   const [pinnedPosts, setPinnedPosts] = useState([]);
@@ -41,7 +41,7 @@ const BlogPage = ({ allPosts }) => {
     </Link>
   ));
 
-  // Grab all pinned Post on Component Load
+  // Grab all pinned Posts, and sort all other posts by forum on Component Load
   useEffect(() => {
     const postPins = allPosts.filter(post => post.is_pinned);
     const postAnnouncements = allPosts.filter(post => post.forum === 'announcements');
@@ -67,7 +67,7 @@ const BlogPage = ({ allPosts }) => {
           <h4 className="text-grey">Forums</h4>
           <div className="forum-section z-2">
             <div className="header-title bg-announcement">
-              <h3 className="inline-block">Announcements</h3>
+              <Link to="/announcements" className="text-black"><h3>Announcements</h3></Link>
               <button type="button" onClick={() => handleShowForum(showAnnouncements, setShowAnnouncements)}>
                 {handleIcon(showAnnouncements)}
               </button>
@@ -84,7 +84,7 @@ const BlogPage = ({ allPosts }) => {
           </div>
           <div className="forum-section z-2">
             <div className="header-title">
-              <h3 className="inline-block">Misc</h3>
+              <Link to="/misc" className="text-black"><h3>Misc</h3></Link>
               <button type="button" onClick={() => handleShowForum(showMisc, setShowMisc)}>
                 {handleIcon(showMisc)}
               </button>

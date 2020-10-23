@@ -123,7 +123,7 @@
 
 #BlogPage .post-section .paginate{
   display: flex;
-  align-items: center;
+  align-items: baseline;
   padding: 2px 12px;
 }
 #BlogPage .post-section .paginate button{
@@ -132,6 +132,7 @@
   background-color: #4b463e;
   border-color: #ffffff;
   border-radius: 6px;
+  margin-top: 8px;
   cursor: pointer;
 }
 #BlogPage .post-section .paginate span{
