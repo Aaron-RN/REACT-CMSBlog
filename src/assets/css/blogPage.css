@@ -1,4 +1,4 @@
-.text-author { color: #772a2a; font-weight: 700;}
+.text-author { color: var(--authorColor); font-weight: 700;}
 
 #BlogPage .announcement-btn { color: #af4040 !important; }
 #BlogPage .new-post-btn {
@@ -121,7 +121,7 @@
   margin-bottom: 0;
 }
 #BlogPage .post-author {
-  color: #684d4d;
+  color: var(--authorColor);
   font-size: 1em;
   padding: 0 4px;
   margin-bottom: 0;

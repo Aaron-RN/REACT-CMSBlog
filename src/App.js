@@ -10,13 +10,15 @@ import PostPage from './components/functional/blogPage/postPage';
 import TopicForum from './components/functional/blogPage/topicForum';
 import NewPost from './components/functional/blogPage/newPost';
 import EditPost from './components/functional/blogPage/editPost';
+import NewUsers from './components/functional/users/newUsers';
+import allUsersData from './components/functional/users/presets/allUsersData';
 import allPostsData from './components/functional/blogPage/presets/allPostsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
 
 const App = () => {
-  // const [allUsers, setAllUsers] = useState({});
-  const [user, setUser] = useState({ id: 1, username: 'John Doe', admin_level: 1, });
+  const [allUsers] = useState(allUsersData);
+  const [user] = useState({ id: 1, username: 'John Doe', admin_level: 1 });
   // const [loggedIn, setLoggedIn] = useState(false);
   const [allPosts, setAllPosts] = useState(allPostsData);
 
@@ -101,7 +103,8 @@ const App = () => {
       </main>
       <div className="blend-main-footer" />
       <footer className="footer">
-        <div className="container">
+        <NewUsers allUsers={allUsers} />
+        <div className="container text-right">
           © Aaron Rory Newbold 2020
         </div>
       </footer>

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const PostPage = ({ allPosts, match }) => {
+const PostPage = ({ match, allPosts, user }) => {
   const [selectedPost, setSelectedPost] = useState({
     id: 0, title: '', body: '', author: '', forum: '',
   });
@@ -35,8 +35,8 @@ const PostPage = ({ allPosts, match }) => {
         <div className="header-title">
           <h3>{title}</h3>
           <span className="pl-1 size-16">by</span>
-          <h3 className="pl-01 size-18 text-author">{author}</h3>
-          <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>
+          <h3 className="pl-01 size-18 text-author user">{author}</h3>
+          {(user.username === selectedPost.author) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
         </div>
         <div ref={bodyElem} />
       </div>
@@ -46,8 +46,9 @@ const PostPage = ({ allPosts, match }) => {
 };
 
 PostPage.propTypes = {
-  allPosts: propTypes.instanceOf(Array).isRequired,
   match: propTypes.instanceOf(Object).isRequired,
+  allPosts: propTypes.instanceOf(Array).isRequired,
+  user: propTypes.instanceOf(Object).isRequired,
 };
 
 export default PostPage;

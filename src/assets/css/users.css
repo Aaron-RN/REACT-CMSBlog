@@ -1,0 +1,20 @@
+#LatestUser {
+  color: #555;
+}
+.user {
+  padding: 2px 6px;
+  color: var(--authorColor);
+  cursor: pointer;
+}
+.user:hover {
+  text-decoration: underline;
+  transform: scale(1.025);
+}
+
+#LatestUser .latest-user::after {
+  content: ", ";
+}
+
+#LatestUser .latest-user:last-of-type::after {
+  content: "";
+}

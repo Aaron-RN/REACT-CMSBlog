@@ -2,7 +2,8 @@
   --mainBG: #fffcf0;
   --navBG: #f1ebb3;
   --headerBG: #e9e4b4;
-  --postBG: #fff8e6
+  --postBG: #fff8e6;
+  --authorColor: #6b2f2f;
 }
 
 *,
@@ -67,6 +68,7 @@ button:hover { transform: scale(1.035); }
   display: inline-flex;
   align-items: center;
 }
+.flex-wrap { flex-wrap: wrap; }
 .align-items-base { align-items: baseline !important; }
 
 .text-camel { text-transform: capitalize; }
@@ -75,6 +77,8 @@ button:hover { transform: scale(1.035); }
   text-align: center;
   justify-content: center;
 }
+.text-right{ text-align: right; }
+
 .text-home { color: #4b4723; text-decoration-color: #43b6da !important; }
 .text-black { color: #4b4723; text-decoration: none !important; }
 .text-blue { color: #f3705f; }
@@ -111,7 +115,6 @@ button:hover { transform: scale(1.035); }
   padding: 4px 12px;
   color: #969183;
   background-color: #f1ebb3;
-  text-align: right;
 }
 .App-logo {
   display: inline-block;
