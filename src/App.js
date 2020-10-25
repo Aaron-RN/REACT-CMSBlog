@@ -43,7 +43,7 @@ const App = () => {
     }
   }, [selectedPost]);
 
-  useEffect(() => setRedirect(null), [redirect]);
+  useEffect(() => { setRedirect(null); setSelectedPost(null); }, [redirect]);
 
   return redirect || (
     <div className="App">
