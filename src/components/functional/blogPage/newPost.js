@@ -6,10 +6,11 @@ import { modules, formats } from './presets/quillModules';
 import 'react-quill/dist/quill.snow.css';
 
 const NewBlogPost = ({
-  user, forum,
+  match, user,
 }) => {
   const [newPostTitle, setPostTitle] = useState('');
   const [newPostBody, setPostBody] = useState('');
+  const { forum, subforum } = match.params;
   // const [newPostImage, setPostImage] = useState('');
 
   const handleChangeTitle = e => {
@@ -33,6 +34,7 @@ const NewBlogPost = ({
     formData.append('post[body]', newPostBody);
     // formData.append('post[bg_image]', newPostImage);
     formData.append('post[forum]', forum);
+    formData.append('post[subforum]', subforum);
     formData.append('post[user_id]', user.id);
   };
 
@@ -73,8 +75,8 @@ const NewBlogPost = ({
 };
 
 NewBlogPost.propTypes = {
+  match: PropTypes.instanceOf(Object).isRequired,
   user: PropTypes.instanceOf(Object).isRequired,
-  forum: PropTypes.string.isRequired,
 };
 
 export default NewBlogPost;

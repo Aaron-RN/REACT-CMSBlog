@@ -12,6 +12,7 @@ const allPosts = [
     esse eu duis adipisicing in cupidatat aute. Commodo culpa quis cupidatat ex anim sit esse nulla labore irure.`,
     date: newDate,
     forum: 'announcements',
+    subforum: 'rules',
     is_pinned: true,
   },
   {
@@ -25,6 +26,7 @@ const allPosts = [
     consequat aliquip consectetur do ullamco duis tempor eiusmod consequat.`,
     date: newDate,
     forum: 'announcements',
+    subforum: 'rules',
     is_pinned: true,
   },
   {

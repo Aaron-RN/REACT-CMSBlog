@@ -4,6 +4,7 @@ import {
   Link,
   Switch,
   Route,
+  Redirect,
 } from 'react-router-dom';
 import BlogPage from './components/functional/blogPage';
 import PostPage from './components/functional/blogPage/postPage';
@@ -20,14 +21,31 @@ const App = () => {
   const [allUsers] = useState(allUsersData);
   const [user] = useState({ id: 1, username: 'John Doe', admin_level: 1 });
   // const [loggedIn, setLoggedIn] = useState(false);
+  const [selectedPost, setSelectedPost] = useState(null);
   const [allPosts, setAllPosts] = useState(allPostsData);
+  const [redirect, setRedirect] = useState(null);
+
+  const handlePostSelect = post => {
+    setSelectedPost(post);
+  };
 
   useEffect(() => {
     const allPostsSorted = allPosts.sort((a, b) => b.id - a.id);
     setAllPosts(allPostsSorted);
   }, [allPosts]);
 
-  return (
+  useEffect(() => {
+    if (selectedPost) {
+      const { forum, subforum, id } = selectedPost;
+      if (!subforum) {
+        setRedirect(<Redirect to={`/${forum}/posts/${id}`} />);
+      } else { setRedirect(<Redirect to={`/${forum}/${subforum}/posts/${id}`} />); }
+    }
+  }, [selectedPost]);
+
+  useEffect(() => setRedirect(null), [redirect]);
+
+  return redirect || (
     <div className="App">
       <header className="bg-navbar">
         <nav className="container">
@@ -55,27 +73,39 @@ const App = () => {
           <Route
             exact
             path="/"
-            render={() => <BlogPage allPosts={allPosts} />}
+            render={() => <BlogPage allPosts={allPosts} handlePostSelect={handlePostSelect} />}
           />
           <Route
             exact
-            path="/announcements"
-            render={() => <TopicForum allPosts={allPosts} forum="announcements" />}
+            path="/:forum"
+            render={props => (
+              <TopicForum
+                match={props.match}
+                allPosts={allPosts}
+                handlePostSelect={handlePostSelect}
+              />
+            )}
           />
           <Route
             exact
-            path="/misc"
-            render={() => <TopicForum allPosts={allPosts} forum="misc" />}
+            path="/:forum/:subforum"
+            render={props => (
+              <TopicForum
+                match={props.match}
+                allPosts={allPosts}
+                handlePostSelect={handlePostSelect}
+              />
+            )}
           />
           <Route
             exact
-            path="/announcements/posts/new"
-            render={() => <NewPost user={user} forum="announcements" />}
+            path="/:forum/posts/new"
+            render={props => <NewPost match={props.match} user={user} />}
           />
           <Route
             exact
-            path="/misc/posts/new"
-            render={() => <NewPost user={user} forum="misc" />}
+            path="/:forum/:subforum/posts/new"
+            render={props => <NewPost match={props.match} user={user} />}
           />
           <Route
             exact
@@ -85,12 +115,36 @@ const App = () => {
                 match={props.match}
                 user={user}
                 allPosts={allPosts}
+                handlePostSelect={handlePostSelect}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/:forum/:subforum/posts/:id"
+            render={props => (
+              <PostPage
+                match={props.match}
+                user={user}
+                allPosts={allPosts}
+                handlePostSelect={handlePostSelect}
               />
             )}
           />
           <Route
             exact
             path="/:forum/posts/:id/edit"
+            render={props => (
+              <EditPost
+                match={props.match}
+                user={user}
+                allPosts={allPosts}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/:forum/:subforum/posts/:id/edit"
             render={props => (
               <EditPost
                 match={props.match}

@@ -27,7 +27,17 @@ h1, h2, h3, h4, h5, h6 {
 a { color: #43b6da; text-decoration: none;}
 a:hover { text-decoration: underline; }
 
-button:hover { transform: scale(1.035); }
+button:hover { transform: scale(1.025); }
+.bare-btn {
+  display: inherit;
+  appearance: none;
+  padding: inherit;
+  font: inherit;
+  text-align: inherit;
+  background-color: transparent;
+  border: none;
+}
+.bare-btn:hover { transform: scale(1.005); }
 
 .mt-0 { margin-top: 0; }
 .mb-1 { margin-bottom: 1em; }
@@ -60,6 +70,7 @@ button:hover { transform: scale(1.035); }
 }
 .pos-relative { position: relative; }
 .inline-block { display: inline-block; }
+.row { width: 100%; }
 .flex-row { 
   display: flex;
   align-items: center;

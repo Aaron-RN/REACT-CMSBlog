@@ -7,7 +7,7 @@ const PostPage = ({ match, allPosts, user }) => {
     id: 0, title: '', body: '', author: '', forum: '',
   });
   const {
-    id, forum, title, body, author,
+    id, forum, subforum, title, body, author,
   } = selectedPost;
   const bodyElem = useRef(null);
 
@@ -29,6 +29,8 @@ const PostPage = ({ match, allPosts, user }) => {
         <div>
           <Link to={`/${forum}`}><i className="fas fa-chevron-circle-left pr-1" /></Link>
           <Link to={`/${forum}`} className="header text-caps">{forum}</Link>
+          {subforum && ' / '}
+          {subforum && <Link to={`/${forum}/${subforum}`} className="header text-caps">{subforum}</Link>}
           {' / '}
           <Link to={match.url}>{title}</Link>
         </div>

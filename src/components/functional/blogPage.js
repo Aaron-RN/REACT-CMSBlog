@@ -5,8 +5,9 @@ import PinnedPostDisplay from '../presentational/blogPage/pinnedPostDisplay';
 import PostDisplay from '../presentational/blogPage/postDisplay';
 import '../../assets/css/blogPage.css';
 import Paginate from './blogPage/paginate';
+import ForumDisplay from '../presentational/blogPage/forumDisplay';
 
-const BlogPage = ({ allPosts }) => {
+const BlogPage = ({ allPosts, handlePostSelect }) => {
   const [pinnedPosts, setPinnedPosts] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
   const [miscPosts, setMiscPosts] = useState([]);
@@ -32,14 +33,20 @@ const BlogPage = ({ allPosts }) => {
   };
 
   const populatePins = () => pinnedPosts.map(post => (
-    <Link to={`/${post.forum}/posts/${post.id}`} key={post.id} className="text-black">
-      <PinnedPostDisplay key={post.id} post={post} />
-    </Link>
+    <button type="button" key={post.id} className="bare-btn" onClick={() => handlePostSelect(post)}>
+      <PinnedPostDisplay post={post} />
+    </button>
   ));
 
   const populatePosts = postsArray => postsArray.map(post => (
-    <Link to={`/${post.forum}/posts/${post.id}`} key={post.id} className="text-black">
+    <button type="button" key={post.id} className="bare-btn row" onClick={() => handlePostSelect(post)}>
       <PostDisplay post={post} />
+    </button>
+  ));
+
+  const populateSubForums = forumsArray => forumsArray.map(forum => (
+    <Link to={`/${forum.forum}/posts/${forum.id}`} key={forum.id} className="text-black">
+      <ForumDisplay forum={forum} />
     </Link>
   ));
 
@@ -88,23 +95,6 @@ const BlogPage = ({ allPosts }) => {
           </div>
           <div className="forum-section z-2">
             <div className="header-title">
-              <Link to="/misc" className="text-black"><h3>Misc</h3></Link>
-              <button type="button" onClick={() => handleShowForum(showMisc, setShowMisc)}>
-                {handleIcon(showMisc)}
-              </button>
-            </div>
-            <Link to="/misc/posts/new" className="new-post-btn">New Topic</Link>
-            {showMisc && (
-            <div className="post-section">
-              <Paginate
-                posts={miscPosts}
-                populatePosts={populatePosts}
-              />
-            </div>
-            )}
-          </div>
-          <div className="forum-section z-2">
-            <div className="header-title">
               <Link to="/misc" className="text-black"><h3>Features Requests/Bug Reports</h3></Link>
               <button type="button" onClick={() => handleShowForum(showBugs, setShowBugs)}>
                 {handleIcon(showBugs)}
@@ -120,6 +110,23 @@ const BlogPage = ({ allPosts }) => {
             </div>
             )}
           </div>
+          <div className="forum-section z-2">
+            <div className="header-title">
+              <Link to="/misc" className="text-black"><h3>Misc</h3></Link>
+              <button type="button" onClick={() => handleShowForum(showMisc, setShowMisc)}>
+                {handleIcon(showMisc)}
+              </button>
+            </div>
+            <Link to="/misc/posts/new" className="new-post-btn">New Topic</Link>
+            {showMisc && (
+            <div className="post-section">
+              <Paginate
+                posts={miscPosts}
+                populatePosts={populatePosts}
+              />
+            </div>
+            )}
+          </div>
         </div>
       </div>
     </div>
@@ -128,6 +135,7 @@ const BlogPage = ({ allPosts }) => {
 
 BlogPage.propTypes = {
   allPosts: propTypes.instanceOf(Array).isRequired,
+  handlePostSelect: propTypes.func.isRequired,
 };
 
 export default BlogPage;
