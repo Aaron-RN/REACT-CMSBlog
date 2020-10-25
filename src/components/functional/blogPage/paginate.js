@@ -21,7 +21,7 @@ const Paginate = ({ posts, populatePosts, postsPages }) => {
 
   useEffect(() => {
     const pageMax = Math.ceil(posts.length / postsPerPage);
-    setMaxPages(pageMax);
+    setMaxPages(pageMax || 1);
   }, [posts, postsPerPage]);
 
   useEffect(() => {

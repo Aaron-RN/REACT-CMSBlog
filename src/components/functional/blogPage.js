@@ -10,8 +10,10 @@ const BlogPage = ({ allPosts }) => {
   const [pinnedPosts, setPinnedPosts] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
   const [miscPosts, setMiscPosts] = useState([]);
+  const [bugPosts, setBugPosts] = useState([]);
   const [showAnnouncements, setShowAnnouncements] = useState(true);
   const [showMisc, setShowMisc] = useState(true);
+  const [showBugs, setShowBugs] = useState(true);
 
   const handleShowForum = (state, func) => {
     func(!state);
@@ -46,9 +48,11 @@ const BlogPage = ({ allPosts }) => {
     const postPins = allPosts.filter(post => post.is_pinned);
     const postAnnouncements = allPosts.filter(post => post.forum === 'announcements');
     const postMiscs = allPosts.filter(post => post.forum === 'misc');
+    const postBugs = allPosts.filter(post => post.forum === 'bugs');
     setPinnedPosts(postPins);
     setAnnouncements(postAnnouncements);
     setMiscPosts(postMiscs);
+    setBugPosts(postBugs);
   }, [allPosts]);
 
   return (
@@ -94,6 +98,23 @@ const BlogPage = ({ allPosts }) => {
             <div className="post-section">
               <Paginate
                 posts={miscPosts}
+                populatePosts={populatePosts}
+              />
+            </div>
+            )}
+          </div>
+          <div className="forum-section z-2">
+            <div className="header-title">
+              <Link to="/misc" className="text-black"><h3>Features Requests/Bug Reports</h3></Link>
+              <button type="button" onClick={() => handleShowForum(showBugs, setShowBugs)}>
+                {handleIcon(showBugs)}
+              </button>
+            </div>
+            <Link to="/misc/posts/new" className="new-post-btn">New Topic</Link>
+            {showBugs && (
+            <div className="post-section">
+              <Paginate
+                posts={bugPosts}
                 populatePosts={populatePosts}
               />
             </div>
