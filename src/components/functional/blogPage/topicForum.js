@@ -36,10 +36,10 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
     if (forumTopics.length) {
       const subPosts = forumTopics.filter(data => data.subforum === subforum)[0].posts;
       return (
-        <div>
+        <div className="ml-1">
           <div className="header-title">
             <Link to={`/${forum}/${subforum}`} className="text-black">
-              <h4 className="text-camel pl-1">{subforum}</h4>
+              <h4 className="text-camel">{subforum}</h4>
             </Link>
           </div>
           <Link to={`/${forum}/${subforum}/posts/new`} className="new-post-btn">New Topic</Link>
@@ -60,10 +60,10 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
   const populateSubForums = () => subForums.map(forumData => {
     const subPosts = forumTopics.filter(data => data.subforum === forumData)[0].posts;
     return (
-      <div key={forumData}>
+      <div key={forumData} className="ml-1">
         <div className="header-title">
           <Link to={`/${forum}/${forumData}`} className="text-black">
-            <h4 className="text-camel pl-1">{forumData}</h4>
+            <h4 className="text-camel">{forumData}</h4>
           </Link>
         </div>
         <Link to={`/${forum}/${forumData}/posts/new`} className="new-post-btn">New Topic</Link>

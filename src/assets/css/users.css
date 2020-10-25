@@ -11,10 +11,10 @@
   transform: scale(1.025);
 }
 
-#LatestUser .latest-user::after {
+#LatestUser .user::after {
   content: ", ";
 }
 
-#LatestUser .latest-user:last-of-type::after {
+#LatestUser .user:last-of-type::after {
   content: "";
 }
