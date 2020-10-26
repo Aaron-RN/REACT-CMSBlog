@@ -1,81 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Paginate from './paginate';
 import ForumDisplay from '../../presentational/blogPage/forumDisplay';
-import PopulatePosts from '../../presentational/blogPage/populatePosts';
 import '../../../assets/css/blogPage.css';
 
 const TopicForum = ({
   match, allPosts, allForums, handlePostSelect,
 }) => {
   const [forumTopics, setForumTopics] = useState([]);
-  const [subForums, setSubForums] = useState([]);
   const { forum, subforum } = match.params;
 
-  // Populate all posts when forum has no subforums
-  const populateAllPosts = () => {
-    const postTopics = allPosts.filter(post => post.forum === forum);
-    return (
-      <div className="post-section">
-        <Paginate
-          posts={postTopics}
-          handlePostSelect={handlePostSelect}
-          populatePosts={PopulatePosts}
-          postsPages={10}
-          showForumHeader={false}
-        />
-      </div>
-    );
-  };
-
-  // Populate all topics related to subforum
-  const populateSubPosts = () => {
-    if (forumTopics.length) {
-      const subPosts = forumTopics.filter(data => data.subforum === subforum)[0].posts;
-      return (
-        <ForumDisplay
-          forum={forum}
-          subforum={subforum}
-          posts={subPosts}
-          handlePostSelect={handlePostSelect}
-          populatePosts={PopulatePosts}
-          postsPages={10}
-          showForumHeader={false}
-        />
-      );
-    }
-    return null;
-  };
-
   // Populate all subforums and related posts paginated by 5 posts per page
-  const populateSubForums = () => subForums.map(forumData => {
-    const subPosts = forumTopics.filter(data => data.subforum === forumData)[0].posts;
-    return (
-      <ForumDisplay
-        key={forumData}
-        forum={forum}
-        subforum={forumData}
-        posts={subPosts}
-        handlePostSelect={handlePostSelect}
-        populatePosts={PopulatePosts}
-        postsPages={5}
-        showForumHeader={false}
-      />
-    );
-  });
+  const populateForums = () => forumTopics.map(forumData => (
+    <ForumDisplay
+      key={forumData.forum}
+      forum={forumData}
+      handlePostSelect={handlePostSelect}
+      postsPages={5}
+    />
+  ));
 
   // Grab all topics by forum on Component Load
   useEffect(() => {
-    const forumObj = allForums.filter(forumData => forumData.forum === forum)[0];
-    const allSubforums = forumObj.subforum;
-    const categorizedPosts = allSubforums.map(formData => ({
-      subforum: formData,
-      posts: allPosts.filter(post => post.forum === forum && post.subforum === formData),
-    }));
+    const selectedForum = allForums.filter(forumData => forumData.forum === forum);
+    const categorizedPosts = selectedForum.map(forumData => {
+      // checks if there is a subforum provided by match prop in address URL
+      const selectedSubForum = subforum
+        ? forumData.subforum.filter(subforumData => subforumData === subforum)
+        : forumData.subforum;
+      return ({
+        forum: forumData.forum,
+        posts: allPosts.filter(post => post.forum === forumData.forum && !post.subforum),
+        subforums: selectedSubForum.map(subforum => (
+          {
+            subforum,
+            posts: allPosts
+              .filter(post => post.forum === forumData.forum && post.subforum === subforum),
+          }
+        )),
+      });
+    });
     setForumTopics(categorizedPosts);
-    setSubForums(allSubforums);
-  }, [allForums, allPosts, forum]);
+  }, [allForums, allPosts, forum, subforum]);
 
   return (
     <div id="BlogPage" className="bg-main pt-1">
@@ -89,14 +55,7 @@ const TopicForum = ({
             {subforum && <Link to={`/${forum}/${subforum}`} className="header text-caps">{subforum}</Link>}
             {' / '}
           </div>
-          <div className="forum-section z-2">
-            <div className="header-title">
-              <Link to={`/${forum}`} className="text-black"><h3 className="text-camel">{forum}</h3></Link>
-            </div>
-            {(!subforum && !subForums.length) && populateAllPosts()}
-            {(!subforum && subForums) && populateSubForums()}
-            {subforum && populateSubPosts()}
-          </div>
+          {populateForums()}
         </div>
       </div>
     </div>

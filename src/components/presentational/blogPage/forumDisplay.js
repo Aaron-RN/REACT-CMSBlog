@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Paginate from '../../functional/blogPage/paginate';
 import populatePosts from './populatePosts';
+import SubForumDisplay from './subForumDisplay';
 
 const ForumDisplay = ({
-  forum, subforum, posts, postsPages, handlePostSelect, showForumHeader,
+  forum, postsPages, handlePostSelect,
 }) => {
   const [showForum, setShowForum] = useState(true);
+  const [forumTitle, setForumTitle] = useState('');
+  const [subForums, setSubForums] = useState([]);
 
   const handleShowForum = () => {
     setShowForum(!showForum);
@@ -26,64 +29,55 @@ const ForumDisplay = ({
     );
   };
 
+  const populateSubForums = () => subForums.map(subforumData => (
+    <SubForumDisplay
+      key={subforumData.subforum}
+      forum={forum.forum}
+      subforum={subforumData}
+      handleIcon={handleIcon}
+      handlePostSelect={handlePostSelect}
+    />
+  ));
+
+  useEffect(() => {
+    setForumTitle(forum.forum);
+    setSubForums(forum.subforums);
+  }, [forum]);
+
   return (
     <div className="forum-section z-2">
-      {showForumHeader && (
       <div className="header-title">
-        <Link to={`/${forum}`} className="text-black"><h3 className="text-camel">{forum}</h3></Link>
+        <Link to={`/${forumTitle}`} className="text-black"><h3 className="text-camel">{forumTitle}</h3></Link>
         <button type="button" onClick={() => handleShowForum(showForum)}>
           {handleIcon(showForum)}
         </button>
       </div>
-      )}
-      {(subforum && showForum) && (
-      <div className="ml-1">
-        <div className="header-title">
-          <Link to={`/${forum}/${subforum}`} className="text-black">
-            <h4 className="text-camel">{subforum}</h4>
-          </Link>
+      {(subForums.length && showForum) && populateSubForums()}
+      {(!subForums.length && showForum) && (
+        <div>
+          <Link to={`/${forumTitle}/posts/new`} className="new-post-btn">New Topic</Link>
+          <div className="post-section">
+            <Paginate
+              posts={forum.posts}
+              handlePostSelect={handlePostSelect}
+              populatePosts={populatePosts}
+              postsPages={postsPages}
+            />
+          </div>
         </div>
-        <Link to={`/${forum}/${subforum}/posts/new`} className="new-post-btn">New Topic</Link>
-        <div className="post-section">
-          <Paginate
-            posts={posts}
-            handlePostSelect={handlePostSelect}
-            populatePosts={populatePosts}
-            postsPages={postsPages}
-          />
-        </div>
-      </div>
-      )}
-      {(!subforum && showForum) && (
-      <div>
-        <Link to={`/${forum}/posts/new`} className="new-post-btn">New Topic</Link>
-        <div className="post-section">
-          <Paginate
-            posts={posts}
-            handlePostSelect={handlePostSelect}
-            populatePosts={populatePosts}
-            postsPages={postsPages}
-          />
-        </div>
-      </div>
       )}
     </div>
   );
 };
 
 ForumDisplay.defaultProps = {
-  subforum: '',
   postsPages: 5,
-  showForumHeader: true,
 };
 
 ForumDisplay.propTypes = {
-  forum: propTypes.string.isRequired,
-  subforum: propTypes.string,
-  posts: propTypes.instanceOf(Array).isRequired,
+  forum: propTypes.instanceOf(Object).isRequired,
   postsPages: propTypes.number,
   handlePostSelect: propTypes.func.isRequired,
-  showForumHeader: propTypes.bool,
 };
 
 export default ForumDisplay;

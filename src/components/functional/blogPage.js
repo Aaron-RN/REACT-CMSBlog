@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import PinnedPostDisplay from '../presentational/blogPage/pinnedPostDisplay';
-import Paginate from './blogPage/paginate';
-import PopulatePosts from '../presentational/blogPage/populatePosts';
 import ForumDisplay from '../presentational/blogPage/forumDisplay';
 import '../../assets/css/blogPage.css';
 
@@ -18,37 +15,14 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
   ));
 
   // Populate all subforums and related posts paginated by 5 posts per page
-  const populateAllForums = () => forumTopics.map(forumData => {
-    if (!forumData.subforums.length) {
-      return (
-        <ForumDisplay
-          key={forumData}
-          forum={forumData.forum}
-          subforum={forumData.subforums.toString()}
-          posts={forumData.posts}
-          handlePostSelect={handlePostSelect}
-          populatePosts={PopulatePosts}
-          postsPages={5}
-        />
-      );
-    }
-    if (forumData.subforums.length) {
-      const populateSubForums = () => forumData.subforums.map((subforumData, index) => (
-        <ForumDisplay
-          key={subforumData}
-          forum={forumData.forum}
-          subforum={subforumData.subforum}
-          posts={subforumData.posts}
-          handlePostSelect={handlePostSelect}
-          populatePosts={PopulatePosts}
-          postsPages={5}
-          showForumHeader={index === 0}
-        />
-      ));
-      return populateSubForums();
-    }
-    return null;
-  });
+  const populateAllForums = () => forumTopics.map(forumData => (
+    <ForumDisplay
+      key={forumData.forum}
+      forum={forumData}
+      handlePostSelect={handlePostSelect}
+      postsPages={5}
+    />
+  ));
 
   // Grab all pinned Posts, and sort all other posts by forum on Component Load
   useEffect(() => {
@@ -64,7 +38,6 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
         }
       )),
     }));
-    console.log(categorizedPosts);
     setPinnedPosts(postPins);
     setForumTopics(categorizedPosts);
   }, [allForums, allPosts]);
