@@ -14,6 +14,7 @@ import EditPost from './components/functional/blogPage/editPost';
 import NewUsers from './components/functional/users/newUsers';
 import allUsersData from './components/functional/users/presets/allUsersData';
 import allPostsData from './components/functional/blogPage/presets/allPostsData';
+import allForumsData from './components/functional/blogPage/presets/allForumsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
 
@@ -22,6 +23,7 @@ const App = () => {
   const [user] = useState({ id: 1, username: 'John Doe', admin_level: 1 });
   // const [loggedIn, setLoggedIn] = useState(false);
   const [selectedPost, setSelectedPost] = useState(null);
+  const [allForums, setAllForums] = useState(allForumsData);
   const [allPosts, setAllPosts] = useState(allPostsData);
   const [redirect, setRedirect] = useState(null);
 
@@ -29,6 +31,7 @@ const App = () => {
     setSelectedPost(post);
   };
 
+  useEffect(() => setAllForums(allForumsData), []);
   useEffect(() => {
     const allPostsSorted = allPosts.sort((a, b) => b.id - a.id);
     setAllPosts(allPostsSorted);
@@ -73,7 +76,13 @@ const App = () => {
           <Route
             exact
             path="/"
-            render={() => <BlogPage allPosts={allPosts} handlePostSelect={handlePostSelect} />}
+            render={() => (
+              <BlogPage
+                allForums={allForums}
+                allPosts={allPosts}
+                handlePostSelect={handlePostSelect}
+              />
+            )}
           />
           <Route
             exact
@@ -81,6 +90,7 @@ const App = () => {
             render={props => (
               <TopicForum
                 match={props.match}
+                allForums={allForums}
                 allPosts={allPosts}
                 handlePostSelect={handlePostSelect}
               />
@@ -92,6 +102,7 @@ const App = () => {
             render={props => (
               <TopicForum
                 match={props.match}
+                allForums={allForums}
                 allPosts={allPosts}
                 handlePostSelect={handlePostSelect}
               />

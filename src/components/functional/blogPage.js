@@ -7,30 +7,9 @@ import PopulatePosts from '../presentational/blogPage/populatePosts';
 import ForumDisplay from '../presentational/blogPage/forumDisplay';
 import '../../assets/css/blogPage.css';
 
-const BlogPage = ({ allPosts, handlePostSelect }) => {
+const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
   const [pinnedPosts, setPinnedPosts] = useState([]);
-  const [announcements, setAnnouncements] = useState([]);
-  const [miscPosts, setMiscPosts] = useState([]);
-  const [bugPosts, setBugPosts] = useState([]);
-  const [showAnnouncements, setShowAnnouncements] = useState(true);
-  const [showMisc, setShowMisc] = useState(true);
-  const [showBugs, setShowBugs] = useState(true);
-
-  const handleShowForum = (state, func) => {
-    func(!state);
-  };
-  const handleIcon = state => {
-    const plusIcon = (<i className="far fa-plus-square" />);
-    const minusIcon = (<i className="far fa-minus-square" />);
-    return (
-      <div className="inline-block">
-        {/* eslint-disable react/jsx-one-expression-per-line */}
-        {!state && (<span>{plusIcon} show</span>)}
-        {state && (<span>{minusIcon} hide</span>)}
-        {/* eslint-enable-line react/jsx-one-expression-per-line */}
-      </div>
-    );
-  };
+  const [forumTopics, setForumTopics] = useState([]);
 
   const populatePins = () => pinnedPosts.map(post => (
     <button type="button" key={post.id} className="bare-btn" onClick={() => handlePostSelect(post)}>
@@ -38,17 +17,57 @@ const BlogPage = ({ allPosts, handlePostSelect }) => {
     </button>
   ));
 
+  // Populate all subforums and related posts paginated by 5 posts per page
+  const populateAllForums = () => forumTopics.map(forumData => {
+    if (!forumData.subforums.length) {
+      return (
+        <ForumDisplay
+          key={forumData}
+          forum={forumData.forum}
+          subforum={forumData.subforums.toString()}
+          posts={forumData.posts}
+          handlePostSelect={handlePostSelect}
+          populatePosts={PopulatePosts}
+          postsPages={5}
+        />
+      );
+    }
+    if (forumData.subforums.length) {
+      const populateSubForums = () => forumData.subforums.map((subforumData, index) => (
+        <ForumDisplay
+          key={subforumData}
+          forum={forumData.forum}
+          subforum={subforumData.subforum}
+          posts={subforumData.posts}
+          handlePostSelect={handlePostSelect}
+          populatePosts={PopulatePosts}
+          postsPages={5}
+          showForumHeader={index === 0}
+        />
+      ));
+      return populateSubForums();
+    }
+    return null;
+  });
+
   // Grab all pinned Posts, and sort all other posts by forum on Component Load
   useEffect(() => {
     const postPins = allPosts.filter(post => post.is_pinned);
-    const postAnnouncements = allPosts.filter(post => post.forum === 'announcements');
-    const postMiscs = allPosts.filter(post => post.forum === 'misc');
-    const postBugs = allPosts.filter(post => post.forum === 'bugs');
+    const categorizedPosts = allForums.map(forumData => ({
+      forum: forumData.forum,
+      posts: allPosts.filter(post => post.forum === forumData.forum && !post.subforum),
+      subforums: forumData.subforum.map(subforum => (
+        {
+          subforum,
+          posts: allPosts
+            .filter(post => post.forum === forumData.forum && post.subforum === subforum),
+        }
+      )),
+    }));
+    console.log(categorizedPosts);
     setPinnedPosts(postPins);
-    setAnnouncements(postAnnouncements);
-    setMiscPosts(postMiscs);
-    setBugPosts(postBugs);
-  }, [allPosts]);
+    setForumTopics(categorizedPosts);
+  }, [allForums, allPosts]);
 
   return (
     <div id="BlogPage" className="bg-main pt-1">
@@ -64,60 +83,7 @@ const BlogPage = ({ allPosts, handlePostSelect }) => {
         </div>
         <div className="section">
           <h4 className="text-grey">Forums</h4>
-          <div className="forum-section z-2">
-            <div className="header-title bg-announcement">
-              <Link to="/announcements" className="text-black"><h3>Announcements</h3></Link>
-              <button type="button" onClick={() => handleShowForum(showAnnouncements, setShowAnnouncements)}>
-                {handleIcon(showAnnouncements)}
-              </button>
-            </div>
-            <Link to="/announcements/posts/new" className="new-post-btn announcement-btn">New Topic</Link>
-            {showAnnouncements && (
-            <div className="post-section">
-              <Paginate
-                posts={announcements}
-                populatePosts={PopulatePosts}
-                handlePostSelect={handlePostSelect}
-              />
-            </div>
-            )}
-          </div>
-          <div className="forum-section z-2">
-            <div className="header-title">
-              <Link to="/misc" className="text-black"><h3>Features Requests/Bug Reports</h3></Link>
-              <button type="button" onClick={() => handleShowForum(showBugs, setShowBugs)}>
-                {handleIcon(showBugs)}
-              </button>
-            </div>
-            <Link to="/misc/posts/new" className="new-post-btn">New Topic</Link>
-            {showBugs && (
-            <div className="post-section">
-              <Paginate
-                posts={bugPosts}
-                populatePosts={PopulatePosts}
-                handlePostSelect={handlePostSelect}
-              />
-            </div>
-            )}
-          </div>
-          <div className="forum-section z-2">
-            <div className="header-title">
-              <Link to="/misc" className="text-black"><h3>Misc</h3></Link>
-              <button type="button" onClick={() => handleShowForum(showMisc, setShowMisc)}>
-                {handleIcon(showMisc)}
-              </button>
-            </div>
-            <Link to="/misc/posts/new" className="new-post-btn">New Topic</Link>
-            {showMisc && (
-            <div className="post-section">
-              <Paginate
-                posts={miscPosts}
-                populatePosts={PopulatePosts}
-                handlePostSelect={handlePostSelect}
-              />
-            </div>
-            )}
-          </div>
+          {populateAllForums()}
         </div>
       </div>
     </div>
@@ -126,6 +92,7 @@ const BlogPage = ({ allPosts, handlePostSelect }) => {
 
 BlogPage.propTypes = {
   allPosts: propTypes.instanceOf(Array).isRequired,
+  allForums: propTypes.instanceOf(Array).isRequired,
   handlePostSelect: propTypes.func.isRequired,
 };
 

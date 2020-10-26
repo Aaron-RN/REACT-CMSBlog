@@ -6,9 +6,9 @@ const allForms = [
     ],
   },
   {
-    forum: 'qol',
+    forum: 'forum quality of life',
     subforum: [
-      'bugs', 'features',
+      'bugs', 'feature requests',
     ],
   },
   { forum: 'misc', subforum: [] },

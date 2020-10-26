@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import Paginate from './paginate';
 import ForumDisplay from '../../presentational/blogPage/forumDisplay';
 import PopulatePosts from '../../presentational/blogPage/populatePosts';
-import allForumsData from './presets/allForumsData';
 import '../../../assets/css/blogPage.css';
 
-const TopicForum = ({ match, allPosts, handlePostSelect }) => {
+const TopicForum = ({
+  match, allPosts, allForums, handlePostSelect,
+}) => {
   const [forumTopics, setForumTopics] = useState([]);
   const [subForums, setSubForums] = useState([]);
   const { forum, subforum } = match.params;
@@ -22,6 +23,7 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
           handlePostSelect={handlePostSelect}
           populatePosts={PopulatePosts}
           postsPages={10}
+          showForumHeader={false}
         />
       </div>
     );
@@ -39,6 +41,7 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
           handlePostSelect={handlePostSelect}
           populatePosts={PopulatePosts}
           postsPages={10}
+          showForumHeader={false}
         />
       );
     }
@@ -57,13 +60,14 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
         handlePostSelect={handlePostSelect}
         populatePosts={PopulatePosts}
         postsPages={5}
+        showForumHeader={false}
       />
     );
   });
 
   // Grab all topics by forum on Component Load
   useEffect(() => {
-    const forumObj = allForumsData.filter(forumData => forumData.forum === forum)[0];
+    const forumObj = allForums.filter(forumData => forumData.forum === forum)[0];
     const allSubforums = forumObj.subforum;
     const categorizedPosts = allSubforums.map(formData => ({
       subforum: formData,
@@ -71,7 +75,7 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
     }));
     setForumTopics(categorizedPosts);
     setSubForums(allSubforums);
-  }, [allPosts, forum]);
+  }, [allForums, allPosts, forum]);
 
   return (
     <div id="BlogPage" className="bg-main pt-1">
@@ -87,7 +91,7 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
           </div>
           <div className="forum-section z-2">
             <div className="header-title">
-              <h3 className="text-camel">{forum}</h3>
+              <Link to={`/${forum}`} className="text-black"><h3 className="text-camel">{forum}</h3></Link>
             </div>
             {(!subforum && !subForums.length) && populateAllPosts()}
             {(!subforum && subForums) && populateSubForums()}
@@ -101,6 +105,7 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
 
 TopicForum.propTypes = {
   match: propTypes.instanceOf(Object).isRequired,
+  allForums: propTypes.instanceOf(Array).isRequired,
   allPosts: propTypes.instanceOf(Array).isRequired,
   handlePostSelect: propTypes.func.isRequired,
 };
