@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import PostDisplay from '../../presentational/blogPage/postDisplay';
 import Paginate from './paginate';
+import ForumDisplay from '../../presentational/blogPage/forumDisplay';
+import PopulatePosts from '../../presentational/blogPage/populatePosts';
 import allForumsData from './presets/allForumsData';
 import '../../../assets/css/blogPage.css';
 
@@ -11,12 +12,6 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
   const [subForums, setSubForums] = useState([]);
   const { forum, subforum } = match.params;
 
-  const populatePosts = postsArray => postsArray.map(post => (
-    <button type="button" key={post.id} className="bare-btn row" onClick={() => handlePostSelect(post)}>
-      <PostDisplay post={post} />
-    </button>
-  ));
-
   // Populate all posts when forum has no subforums
   const populateAllPosts = () => {
     const postTopics = allPosts.filter(post => post.forum === forum);
@@ -24,33 +19,27 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
       <div className="post-section">
         <Paginate
           posts={postTopics}
-          populatePosts={populatePosts}
+          handlePostSelect={handlePostSelect}
+          populatePosts={PopulatePosts}
           postsPages={10}
         />
       </div>
     );
   };
 
-  // Populate all forums related to subforum
+  // Populate all topics related to subforum
   const populateSubPosts = () => {
     if (forumTopics.length) {
       const subPosts = forumTopics.filter(data => data.subforum === subforum)[0].posts;
       return (
-        <div className="ml-1">
-          <div className="header-title">
-            <Link to={`/${forum}/${subforum}`} className="text-black">
-              <h4 className="text-camel">{subforum}</h4>
-            </Link>
-          </div>
-          <Link to={`/${forum}/${subforum}/posts/new`} className="new-post-btn">New Topic</Link>
-          <div className="post-section">
-            <Paginate
-              posts={subPosts}
-              populatePosts={populatePosts}
-              postsPages={10}
-            />
-          </div>
-        </div>
+        <ForumDisplay
+          forum={forum}
+          subforum={subforum}
+          posts={subPosts}
+          handlePostSelect={handlePostSelect}
+          populatePosts={PopulatePosts}
+          postsPages={10}
+        />
       );
     }
     return null;
@@ -60,21 +49,15 @@ const TopicForum = ({ match, allPosts, handlePostSelect }) => {
   const populateSubForums = () => subForums.map(forumData => {
     const subPosts = forumTopics.filter(data => data.subforum === forumData)[0].posts;
     return (
-      <div key={forumData} className="ml-1">
-        <div className="header-title">
-          <Link to={`/${forum}/${forumData}`} className="text-black">
-            <h4 className="text-camel">{forumData}</h4>
-          </Link>
-        </div>
-        <Link to={`/${forum}/${forumData}/posts/new`} className="new-post-btn">New Topic</Link>
-        <div className="post-section">
-          <Paginate
-            posts={subPosts}
-            populatePosts={populatePosts}
-            postsPages={5}
-          />
-        </div>
-      </div>
+      <ForumDisplay
+        key={forumData}
+        forum={forum}
+        subforum={forumData}
+        posts={subPosts}
+        handlePostSelect={handlePostSelect}
+        populatePosts={PopulatePosts}
+        postsPages={5}
+      />
     );
   });
 

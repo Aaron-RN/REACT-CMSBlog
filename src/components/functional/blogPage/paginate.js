@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 
-const Paginate = ({ posts, populatePosts, postsPages }) => {
+const Paginate = ({ posts, populatePosts, postsPages, handlePostSelect }) => {
   const [selectedPosts, setPosts] = useState([]);
   const [postsPerPage] = useState(postsPages);
   const [page, setPage] = useState(1);
@@ -38,7 +38,7 @@ const Paginate = ({ posts, populatePosts, postsPages }) => {
 
   return (
     <div>
-      {populatePosts(selectedPosts)}
+      {populatePosts(selectedPosts, handlePostSelect)}
       <div className="paginate">
         <button type="button" onClick={handlePrev}>Prev</button>
         <span>
@@ -59,6 +59,7 @@ Paginate.defaultProps = {
 Paginate.propTypes = {
   posts: propTypes.instanceOf(Array).isRequired,
   populatePosts: propTypes.func.isRequired,
+  handlePostSelect: propTypes.func.isRequired,
   postsPages: propTypes.number,
 };
 

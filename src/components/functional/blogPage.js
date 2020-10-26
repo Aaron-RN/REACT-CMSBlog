@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import PinnedPostDisplay from '../presentational/blogPage/pinnedPostDisplay';
-import PostDisplay from '../presentational/blogPage/postDisplay';
-import '../../assets/css/blogPage.css';
 import Paginate from './blogPage/paginate';
+import PopulatePosts from '../presentational/blogPage/populatePosts';
 import ForumDisplay from '../presentational/blogPage/forumDisplay';
+import '../../assets/css/blogPage.css';
 
 const BlogPage = ({ allPosts, handlePostSelect }) => {
   const [pinnedPosts, setPinnedPosts] = useState([]);
@@ -36,18 +36,6 @@ const BlogPage = ({ allPosts, handlePostSelect }) => {
     <button type="button" key={post.id} className="bare-btn" onClick={() => handlePostSelect(post)}>
       <PinnedPostDisplay post={post} />
     </button>
-  ));
-
-  const populatePosts = postsArray => postsArray.map(post => (
-    <button type="button" key={post.id} className="bare-btn row" onClick={() => handlePostSelect(post)}>
-      <PostDisplay post={post} />
-    </button>
-  ));
-
-  const populateSubForums = forumsArray => forumsArray.map(forum => (
-    <Link to={`/${forum.forum}/posts/${forum.id}`} key={forum.id} className="text-black">
-      <ForumDisplay forum={forum} />
-    </Link>
   ));
 
   // Grab all pinned Posts, and sort all other posts by forum on Component Load
@@ -88,7 +76,8 @@ const BlogPage = ({ allPosts, handlePostSelect }) => {
             <div className="post-section">
               <Paginate
                 posts={announcements}
-                populatePosts={populatePosts}
+                populatePosts={PopulatePosts}
+                handlePostSelect={handlePostSelect}
               />
             </div>
             )}
@@ -105,7 +94,8 @@ const BlogPage = ({ allPosts, handlePostSelect }) => {
             <div className="post-section">
               <Paginate
                 posts={bugPosts}
-                populatePosts={populatePosts}
+                populatePosts={PopulatePosts}
+                handlePostSelect={handlePostSelect}
               />
             </div>
             )}
@@ -122,7 +112,8 @@ const BlogPage = ({ allPosts, handlePostSelect }) => {
             <div className="post-section">
               <Paginate
                 posts={miscPosts}
-                populatePosts={populatePosts}
+                populatePosts={PopulatePosts}
+                handlePostSelect={handlePostSelect}
               />
             </div>
             )}
