@@ -30,7 +30,7 @@
 }
 #BlogPage .edit-post-btn:hover { transform: scale(1.035); }
 
-#BlogPage .bg-announcement { background-color: #e9ddb4 !important; }
+#BlogPage .bg-announcement { background-color: #e9d8b4 !important; }
 #BlogPage .header-title {
   display: flex;
   align-items: center;
@@ -46,10 +46,7 @@
 }
 
 #BlogPage .forum-section {
-  /* border: 1px solid #e9e4b4; */
-  /* background-color: #fffbf5; */
   margin-bottom: 1em;
-  /* box-shadow: 0px 6px 12px #e9e4b4; */
 }
 
 #BlogPage .pinned-section {

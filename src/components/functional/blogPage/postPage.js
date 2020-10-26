@@ -26,23 +26,25 @@ const PostPage = ({ match, allPosts, user }) => {
   return (
     <div id="BlogPage" className="bg-main">
       <div className="container-md">
-        <div>
-          <Link to={`/${forum}`}><i className="fas fa-chevron-circle-left pr-1" /></Link>
-          <Link to={`/${forum}`} className="header text-caps">{forum}</Link>
-          {subforum && ' / '}
-          {subforum && <Link to={`/${forum}/${subforum}`} className="header text-caps">{subforum}</Link>}
-          {' / '}
-          <Link to={match.url}>{title}</Link>
+        <div className="section">
+          <h4 className="text-grey">Forums</h4>
+          <div>
+            <Link to={`/${forum}`}><i className="fas fa-chevron-circle-left pr-1" /></Link>
+            <Link to={`/${forum}`} className="header text-caps">{forum}</Link>
+            {subforum && ' / '}
+            {subforum && <Link to={`/${forum}/${subforum}`} className="header text-caps">{subforum}</Link>}
+            {' / '}
+            <Link to={match.url}>{title}</Link>
+          </div>
+          <div className="header-title">
+            <h3>{title}</h3>
+            <span className="pl-1 size-16">by</span>
+            <h3 className="pl-01 size-18 text-author user">{author}</h3>
+            {(user.username === selectedPost.author) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
+          </div>
+          <div ref={bodyElem} />
         </div>
-        <div className="header-title">
-          <h3>{title}</h3>
-          <span className="pl-1 size-16">by</span>
-          <h3 className="pl-01 size-18 text-author user">{author}</h3>
-          {(user.username === selectedPost.author) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
-        </div>
-        <div ref={bodyElem} />
       </div>
-
     </div>
   );
 };

@@ -46,13 +46,13 @@ const ForumDisplay = ({
 
   return (
     <div className="forum-section z-2">
-      <div className="header-title">
+      <div className="header-title bg-announcement">
         <Link to={`/${forumTitle}`} className="text-black"><h3 className="text-camel">{forumTitle}</h3></Link>
         <button type="button" onClick={() => handleShowForum(showForum)}>
           {handleIcon(showForum)}
         </button>
       </div>
-      {(subForums.length && showForum) && populateSubForums()}
+      {(subForums.length > 0 && showForum) && populateSubForums()}
       {(!subForums.length && showForum) && (
         <div>
           <Link to={`/${forumTitle}/posts/new`} className="new-post-btn">New Topic</Link>
