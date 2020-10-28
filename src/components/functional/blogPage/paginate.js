@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 
-const Paginate = ({ posts, populatePosts, postsPages, handlePostSelect }) => {
+const Paginate = ({
+  posts, populatePosts, postsPages, handlePostSelect,
+}) => {
   const [selectedPosts, setPosts] = useState([]);
   const [postsPerPage] = useState(postsPages);
   const [page, setPage] = useState(1);

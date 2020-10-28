@@ -177,16 +177,26 @@
   text-decoration: underline;
   margin-bottom: 12px;
 }
+
 #CommentsSection .comment {
   display: flex;
   align-items: center;
+  font-size: 0.8em;
   padding: 6px;
-  border-bottom: 1px solid khaki;
-  margin-bottom: 12px;
+  max-width: 420px;
+  background-color: #eed7ac54;
+  border: 2px solid var(--postBG);
+  border-radius: 6px;
+  box-shadow: 2px 6px #eec1ac5e;
+  margin-bottom: 8px;
 }
-
+#CommentsSection .sub-comment {
+  background-color: #eec1ac54;
+  box-shadow: none;
+  margin-left: 18px;
+}
 #CommentsSection .comment .comment-user-pic {
-  font-size: 32px;
+  font-size: 1.5em;
   padding: 6px 8px;
   border: 2px solid #333;
   border-radius: 28px;
@@ -194,7 +204,12 @@
 }
 #CommentsSection .comment .comment-author {
   font-weight: 600;
+  color: #925858;
   margin-right: 8px;
+  cursor: pointer;
+}
+#CommentsSection .comment .comment-author:hover {
+  text-decoration: underline;
 }
 #CommentsSection .comment .comment-date {
   font-weight: 300;

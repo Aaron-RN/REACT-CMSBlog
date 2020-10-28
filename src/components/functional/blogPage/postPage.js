@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Comments from '../comments';
+import CommentSection from '../commentSection';
 import { fetchAuthorName } from './presets/allUsersData';
 
 const PostPage = ({ match, allPosts, user }) => {
@@ -50,7 +50,7 @@ const PostPage = ({ match, allPosts, user }) => {
           <div ref={bodyElem} />
         </div>
       </div>
-      <Comments user={user} post={selectedPost} />
+      <CommentSection user={user} post={selectedPost} />
     </div>
   );
 };
