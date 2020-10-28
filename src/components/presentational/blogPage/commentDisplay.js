@@ -6,6 +6,7 @@ import compareDate from '../../misc/compareDate';
 
 const CommentDisplay = ({ comment }) => {
   const [subComments, setSubComments] = useState([]);
+  const [showReplies, setShowReply] = useState(false);
 
   const populateSubComments = () => subComments.map(comment => (
     <div key={comment.id} className="comment sub-comment">
@@ -34,7 +35,13 @@ const CommentDisplay = ({ comment }) => {
           <div className="comment-body">{comment.body}</div>
         </div>
       </div>
-      {populateSubComments()}
+
+      { subComments.length > 0 && (
+        <button type="button" className="comment-reply" onClick={() => setShowReply(!showReplies)}>
+          {showReplies ? 'hide replies' : 'show replies'}
+        </button>
+      )}
+      {showReplies && populateSubComments()}
     </div>
   );
 };

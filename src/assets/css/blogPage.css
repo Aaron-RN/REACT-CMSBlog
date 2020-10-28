@@ -218,6 +218,14 @@
 #CommentsSection .comment .comment-body {
   margin-left: 6px;
 }
+#CommentsSection .comment-reply {
+  color: #925858;
+  background-color: transparent;
+  border-color: wheat;
+  border-radius: 6px;
+  margin-left: 12px;
+  cursor: pointer;
+}
 
 /* Media queries */
 
