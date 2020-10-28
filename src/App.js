@@ -12,9 +12,9 @@ import TopicForum from './components/functional/blogPage/topicForum';
 import NewPost from './components/functional/blogPage/newPost';
 import EditPost from './components/functional/blogPage/editPost';
 import NewUsers from './components/functional/users/newUsers';
-import allUsersData from './components/functional/users/presets/allUsersData';
-import allPostsData from './components/functional/blogPage/presets/allPostsData';
-import allForumsData from './components/functional/blogPage/presets/allForumsData';
+import { allUsersData } from './components/misc/presets/allUsersData';
+import allPostsData from './components/misc/presets/allPostsData';
+import allForumsData from './components/misc/presets/allForumsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
 

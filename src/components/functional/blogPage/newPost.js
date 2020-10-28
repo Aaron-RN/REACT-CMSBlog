@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ReactQuill from 'react-quill';
-import { modules, formats } from './presets/quillModules';
+import { modules, formats } from '../../misc/presets/quillModules';
 import 'react-quill/dist/quill.snow.css';
 
 const NewBlogPost = ({

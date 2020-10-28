@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
-import { fetchAuthorName } from '../../functional/blogPage/presets/allUsersData';
+import { fetchAuthorName } from '../../misc/presets/allUsersData';
 
 const PostDisplay = ({ post }) => {
   const { title } = post;

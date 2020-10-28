@@ -1,4 +1,4 @@
-const allUsers = [
+const allUsersData = [
   {
     id: 1,
     username: 'John Doe',
@@ -26,8 +26,8 @@ const allUsers = [
 ];
 
 const fetchAuthorName = authorID => {
-  if (authorID) return allUsers.filter(user => user.id === authorID)[0].username;
+  if (authorID) return allUsersData.filter(user => user.id === authorID)[0].username;
   return null;
 };
 
-export { allUsers, fetchAuthorName };
+export { allUsersData, fetchAuthorName };

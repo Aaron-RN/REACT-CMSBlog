@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import CommentSection from '../commentSection';
-import { fetchAuthorName } from './presets/allUsersData';
+import CommentSection from '../comments/commentSection';
+import { fetchAuthorName } from '../../misc/presets/allUsersData';
 
 const PostPage = ({ match, allPosts, user }) => {
   const [selectedPost, setSelectedPost] = useState({

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import allCommentsData from './blogPage/presets/allCommentsData';
-import CommentDisplay from '../presentational/blogPage/commentDisplay';
+import allCommentsData from '../../misc/presets/allCommentsData';
+import CommentDisplay from './commentDisplay';
 
 const CommentSection = ({ user, post }) => {
   const [relatedComments, setComments] = useState([]);
