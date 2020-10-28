@@ -9,7 +9,7 @@
   padding: 4px 8px;
   color: #4c9ca1;
   background-color: #fdf4dd;
-  border: 2px solid #ccc292;
+  border: 1px solid #ccc292;
   border-radius: 6px;
   margin-bottom: 12px;
   cursor: pointer;
@@ -170,6 +170,38 @@
   border-radius: 6px;
   margin-top: 8px;
   cursor: pointer;
+}
+
+/* Comments Section */
+#CommentsSection h4 {
+  text-decoration: underline;
+  margin-bottom: 12px;
+}
+#CommentsSection .comment {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  border-bottom: 1px solid khaki;
+  margin-bottom: 12px;
+}
+
+#CommentsSection .comment .comment-user-pic {
+  font-size: 32px;
+  padding: 6px 8px;
+  border: 2px solid #333;
+  border-radius: 28px;
+  margin-right: 6px;
+}
+#CommentsSection .comment .comment-author {
+  font-weight: 600;
+  margin-right: 8px;
+}
+#CommentsSection .comment .comment-date {
+  font-weight: 300;
+  color: #777;
+}
+#CommentsSection .comment .comment-body {
+  margin-left: 6px;
 }
 
 /* Media queries */

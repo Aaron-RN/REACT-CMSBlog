@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
+import { fetchAuthorName } from '../../functional/blogPage/presets/allUsersData';
 
 const PostDisplay = ({ post }) => {
   const { title } = post;
@@ -21,7 +22,7 @@ const PostDisplay = ({ post }) => {
       <h4 className="post-title">{shortTitle}</h4>
       <div className="post-author">
         {'by '}
-        <span className="text-author">{post.author}</span>
+        <span className="text-author">{fetchAuthorName(post.author_id)}</span>
       </div>
       <div ref={bodyElem} className="post-body" />
       <div className="post-date">{post.date}</div>

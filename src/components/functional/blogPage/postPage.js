@@ -1,16 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Comments from '../comments';
+import { fetchAuthorName } from './presets/allUsersData';
 
 const PostPage = ({ match, allPosts, user }) => {
   const [selectedPost, setSelectedPost] = useState({
-    id: 0, title: '', body: '', author: '', forum: '',
+    id: 0, title: '', body: '', author_id: '', forum: '',
   });
   const {
-    id, forum, subforum, title, body, author,
+    // eslint-disable-next-line camelcase
+    id, forum, subforum, title, body, author_id,
   } = selectedPost;
   const bodyElem = useRef(null);
 
+  // Fetch Post by ID
   useEffect(() => {
     if (allPosts.length && match) {
       const post = allPosts.find(post => post.id === parseInt(match.params.id, 10));
@@ -18,6 +22,7 @@ const PostPage = ({ match, allPosts, user }) => {
     }
   }, [match, allPosts]);
 
+  // Fill body element of post with html rich text
   useEffect(() => {
     const bodyDiv = bodyElem.current;
     if (bodyDiv) bodyDiv.innerHTML = body;
@@ -39,12 +44,13 @@ const PostPage = ({ match, allPosts, user }) => {
           <div className="header-title">
             <h3>{title}</h3>
             <span className="pl-1 size-16">by</span>
-            <h3 className="pl-01 size-18 text-author user">{author}</h3>
-            {(user.username === selectedPost.author) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
+            <h3 className="pl-01 size-18 text-author user">{fetchAuthorName(author_id)}</h3>
+            {(user.id === author_id) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
           </div>
           <div ref={bodyElem} />
         </div>
       </div>
+      <Comments user={user} post={selectedPost} />
     </div>
   );
 };
