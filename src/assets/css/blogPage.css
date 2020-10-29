@@ -16,7 +16,6 @@
 }
 #BlogPage .new-post-btn:hover { transform: scale(1.035); }
 #BlogPage .edit-post-btn {
-  display: inline-block;
   text-decoration: none;
   font-size: 13px;
   font-weight: bold;
@@ -25,7 +24,7 @@
   background-color: #fdf4dd;
   border: 2px solid #ccc292;
   border-radius: 6px;
-  margin-left: auto;
+  margin-left: 12px;
   cursor: pointer;
 }
 #BlogPage .edit-post-btn:hover { transform: scale(1.035); }
@@ -183,6 +182,7 @@
 }
 
 /* Comments Section */
+#CommentsSection { padding-bottom: 22px; }
 #CommentsSection h4 {
   text-decoration: underline;
   margin-bottom: 12px;
@@ -235,6 +235,46 @@
   border-radius: 6px;
   margin-left: 12px;
   cursor: pointer;
+}
+
+#CommentsSection .comment-form {
+  min-width: 320px; max-width: 720px;
+  margin-bottom: 16px;
+}
+textarea::placeholder { font-family: 'Hind', sans-serif; }
+#CommentsSection .comment-form textarea:focus {
+  outline-color: var(--postBG);
+  border-bottom: 4px solid khaki;
+}
+#CommentsSection .comment-form textarea {
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid khaki;
+  width: 100%; 
+  min-width: 100%; max-width: 720px;
+  min-height: 40px; max-height: 40px;
+  resize: none;
+}
+#CommentsSection .comment-form .btn-container {
+  text-align: right;
+}
+#CommentsSection .comment-form button {
+  display: inline-block;
+  padding: 4px 8px;
+  color: #925858;
+  background-color: transparent;
+  border-color: #ccc292;
+  border-radius: 6px;
+  margin: 2px 4px;
+  cursor: pointer;
+}
+#CommentsSection .comment-form button:first-of-type {
+  font-weight: 600;
+  border: none;
+}
+#CommentsSection .comment-form button:last-of-type {
+  font-weight: 600;
+  background-color: #f8f1e2;
 }
 
 /* Media queries */

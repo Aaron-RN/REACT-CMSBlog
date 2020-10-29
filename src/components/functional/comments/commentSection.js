@@ -12,8 +12,14 @@ const CommentSection = ({ user, post }) => {
     <CommentDisplay key={comment.id} comment={comment} />
   ));
 
+  const handleReset = () => {
+    setBody('');
+  };
+
   const handleSubmit = e => {
     e.preventDefault();
+    const comment = { body, author: user.id };
+    console.log(comment);
   };
 
   // Fetch all comments related to selected post
@@ -27,9 +33,19 @@ const CommentSection = ({ user, post }) => {
     <div id="CommentsSection">
       <div className="container-md">
         <h4>Comments</h4>
-        <form className="flex-col" onSubmit={handleSubmit}>
-          <textarea value={body} onChange={e => setBody(e.target.value)} placeholder="Write message here..." />
-          <button type="submit">Comment</button>
+        <form className="comment-form" onSubmit={handleSubmit}>
+          <textarea
+            value={body}
+            onChange={e => setBody(e.target.value)}
+            placeholder="Add a comment here..."
+            wrap="hard"
+            maxLength="420"
+            required
+          />
+          <div className="btn-container">
+            <button type="button" onClick={handleReset}>Cancel</button>
+            <button type="submit">Comment</button>
+          </div>
         </form>
         <PaginateComments
           comments={relatedComments}

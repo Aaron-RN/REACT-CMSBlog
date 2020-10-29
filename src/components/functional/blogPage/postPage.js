@@ -6,19 +6,26 @@ import { fetchAuthorName } from '../../misc/presets/allUsersData';
 
 const PostPage = ({ match, allPosts, user }) => {
   const [selectedPost, setSelectedPost] = useState({
-    id: 0, title: '', body: '', author_id: '', forum: '',
+    id: 0, title: '', body: '', author_id: '', forum: '', is_pinned: false,
   });
+  const [postPinned, setPostPinned] = useState(selectedPost.is_pinned);
   const {
     // eslint-disable-next-line camelcase
     id, forum, subforum, title, body, author_id,
   } = selectedPost;
   const bodyElem = useRef(null);
 
+  // Handle pinning a post
+  const handlePinPost = () => {
+    setPostPinned(postPinned);
+  };
+
   // Fetch Post by ID
   useEffect(() => {
     if (allPosts.length && match) {
       const post = allPosts.find(post => post.id === parseInt(match.params.id, 10));
       setSelectedPost(post);
+      setPostPinned(post.is_pinned);
     }
   }, [match, allPosts]);
 
@@ -45,7 +52,14 @@ const PostPage = ({ match, allPosts, user }) => {
             <h3>{title}</h3>
             <span className="pl-1 size-16">by</span>
             <h3 className="pl-01 size-18 text-author user">{fetchAuthorName(author_id)}</h3>
-            {(user.id === author_id) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
+            <div className="ml-auto flex-row">
+              <button type="button" onClick={handlePinPost} className="bare-btn pin-btn" title="Pin/Unpin post">
+                {postPinned && <i className="fas fa-star text-red" />}
+                {!postPinned && <i className="far fa-star" />}
+              </button>
+              {/* eslint-disable-next-line camelcase */}
+              {(user.id === author_id) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
+            </div>
           </div>
           <div ref={bodyElem} />
         </div>

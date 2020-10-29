@@ -6,7 +6,7 @@ import allCommentsData from '../../misc/presets/allCommentsData';
 
 const CommentDisplay = ({ comment }) => {
   const [subComments, setSubComments] = useState([]);
-  const [showReplies, setShowReply] = useState(false);
+  const [showReplies, setShowReply] = useState(true);
 
   const populateSubComments = commentsArray => commentsArray.map(comment => (
     <Comment key={comment.id} comment={comment} subcomment="sub-comment" />
