@@ -48,7 +48,7 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
         <div className="section">
           <div className="forum-section z-2">
             <div className="header-title bg-announcement align-items-base">
-              <i className="fas fa-star text-blue" />
+              <i className="fas fa-star text-red" />
               <h3>{' Pinned Posts'}</h3>
             </div>
             <div className="pinned-section">{populatePins()}</div>

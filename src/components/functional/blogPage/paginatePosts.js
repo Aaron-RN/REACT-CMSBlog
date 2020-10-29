@@ -4,6 +4,7 @@ import propTypes from 'prop-types';
 const Paginate = ({
   posts, populatePosts, postsPages, handlePostSelect,
 }) => {
+  const [pinnedPosts, setPinnedPosts] = useState([]);
   const [selectedPosts, setPosts] = useState([]);
   const [postsPerPage] = useState(postsPages);
   const [page, setPage] = useState(1);
@@ -27,19 +28,23 @@ const Paginate = ({
   }, [posts, postsPerPage]);
 
   useEffect(() => {
+    const postsPinned = posts.filter(post => post.is_pinned);
+    const unPinnedPosts = posts.filter(post => !post.is_pinned);
     const startingIndex = (page * postsPerPage) - postsPerPage;
     const endingIndex = (page * postsPerPage) - 1;
-    const paginatedPosts = posts.filter((post, index) => {
+    const paginatedPosts = unPinnedPosts.filter((post, index) => {
       if (index >= startingIndex && index <= endingIndex) {
         return post;
       }
       return null;
     });
+    setPinnedPosts(postsPinned);
     setPosts(paginatedPosts);
   }, [page, posts, postsPerPage]);
 
   return (
     <div>
+      {populatePosts(pinnedPosts, handlePostSelect, true)}
       {populatePosts(selectedPosts, handlePostSelect)}
       <div className="paginate">
         <button type="button" onClick={handlePrev}>Prev</button>

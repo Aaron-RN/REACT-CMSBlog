@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Paginate from '../../functional/blogPage/paginate';
+import Paginate from '../../functional/blogPage/paginatePosts';
 import populatePosts from './populatePosts';
 
 const SubForumDisplay = ({

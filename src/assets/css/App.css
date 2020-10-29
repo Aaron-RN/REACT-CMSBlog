@@ -76,6 +76,10 @@ button:hover { transform: scale(1.025); }
   display: flex;
   align-items: center;
 }
+.flex-col { 
+  display: flex;
+  flex-direction: column;
+}
 .inline-flex { 
   display: inline-flex;
   align-items: center;
@@ -93,7 +97,7 @@ button:hover { transform: scale(1.025); }
 
 .text-home { color: #4b4723; text-decoration-color: #43b6da !important; }
 .text-black { color: #4b4723; text-decoration: none !important; }
-.text-blue { color: #f3705f; }
+.text-red { color: #f3705f; }
 .text-grey { color: grey; }
 
 .size-16 { font-size: 16px; }

@@ -12,6 +12,10 @@ const CommentSection = ({ user, post }) => {
     <CommentDisplay key={comment.id} comment={comment} />
   ));
 
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+
   // Fetch all comments related to selected post
   useEffect(() => {
     const postComments = allCommentsData
@@ -23,6 +27,10 @@ const CommentSection = ({ user, post }) => {
     <div id="CommentsSection">
       <div className="container-md">
         <h4>Comments</h4>
+        <form className="flex-col" onSubmit={handleSubmit}>
+          <textarea value={body} onChange={e => setBody(e.target.value)} placeholder="Write message here..." />
+          <button type="submit">Comment</button>
+        </form>
         <PaginateComments
           comments={relatedComments}
           populateComments={populateComments}

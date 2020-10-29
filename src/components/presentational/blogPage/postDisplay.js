@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import { fetchAuthorName } from '../../misc/presets/allUsersData';
 
-const PostDisplay = ({ post }) => {
+const PostDisplay = ({ post, isPinned }) => {
   const { title } = post;
   const shortTitle = title.length > 30 ? `${title.substring(0, 30)}...` : title;
   const bodyElem = useRef(null);
@@ -19,7 +19,10 @@ const PostDisplay = ({ post }) => {
 
   return (
     <div className="post">
-      <h4 className="post-title">{shortTitle}</h4>
+      <h4 className="post-title">
+        {isPinned && <i className="fas fa-star text-red" />}
+        {shortTitle}
+      </h4>
       <div className="post-author">
         {'by '}
         <span className="text-author">{fetchAuthorName(post.author_id)}</span>
@@ -32,6 +35,7 @@ const PostDisplay = ({ post }) => {
 
 PostDisplay.propTypes = {
   post: propTypes.instanceOf(Object).isRequired,
+  isPinned: propTypes.bool.isRequired,
 };
 
 export default PostDisplay;
