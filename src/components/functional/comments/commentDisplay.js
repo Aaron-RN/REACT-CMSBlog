@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import Comment from '../../presentational/comments/comment';
+import PaginateComments from './paginateComments';
 import allCommentsData from '../../misc/presets/allCommentsData';
 
 const CommentDisplay = ({ comment }) => {
   const [subComments, setSubComments] = useState([]);
   const [showReplies, setShowReply] = useState(false);
 
-  const populateSubComments = () => subComments.map(comment => (
+  const populateSubComments = commentsArray => commentsArray.map(comment => (
     <Comment key={comment.id} comment={comment} subcomment="sub-comment" />
   ));
 
@@ -25,7 +26,12 @@ const CommentDisplay = ({ comment }) => {
           {showReplies ? 'hide replies' : 'show replies'}
         </button>
       )}
-      {showReplies && populateSubComments()}
+      {showReplies && (
+        <PaginateComments
+          comments={subComments}
+          populateComments={populateSubComments}
+        />
+      )}
     </div>
   );
 };

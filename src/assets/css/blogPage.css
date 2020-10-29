@@ -134,12 +134,12 @@
   padding: 0 4px;
 }
 
-#BlogPage .post-section .paginate{
+.paginate, .paginate-comment{
   display: flex;
   align-items: baseline;
   padding: 2px 12px;
 }
-#BlogPage .post-section .paginate button{
+.paginate button{
   padding: 4px 14px;
   color: #fff;
   background-color: #4b463e;
@@ -148,7 +148,17 @@
   margin-top: 8px;
   cursor: pointer;
 }
-#BlogPage .post-section .paginate span{
+.paginate-comment button{
+  font-size: 0.5em;
+  padding: 4px 14px;
+  color: #fff;
+  background-color: #332c20;
+  border-color: transparent;
+  border-radius: 6px;
+  margin-top: 8px;
+  cursor: pointer;
+}
+.paginate span, .paginate-comment span{
   font-size: 0.8em;
   padding: 4px 12px;
 }

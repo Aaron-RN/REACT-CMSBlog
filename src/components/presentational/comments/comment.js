@@ -20,7 +20,7 @@ Comment.defaultProps = {
 
 Comment.propTypes = {
   comment: propTypes.instanceOf(Object).isRequired,
-  subcomment: propTypes.bool,
+  subcomment: propTypes.string,
 };
 
 export default Comment;

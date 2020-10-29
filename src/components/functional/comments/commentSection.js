@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import allCommentsData from '../../misc/presets/allCommentsData';
 import CommentDisplay from './commentDisplay';
+import PaginateComments from './paginateComments';
 
 const CommentSection = ({ user, post }) => {
   const [relatedComments, setComments] = useState([]);
   const [body, setBody] = useState('');
 
-  const populateComments = () => relatedComments.map(comment => (
+  const populateComments = commentsArray => commentsArray.map(comment => (
     <CommentDisplay key={comment.id} comment={comment} />
   ));
 
@@ -22,7 +23,10 @@ const CommentSection = ({ user, post }) => {
     <div id="CommentsSection">
       <div className="container-md">
         <h4>Comments</h4>
-        {populateComments()}
+        <PaginateComments
+          comments={relatedComments}
+          populateComments={populateComments}
+        />
       </div>
     </div>
   );

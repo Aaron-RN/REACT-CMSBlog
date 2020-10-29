@@ -28,6 +28,14 @@ const allComments = [
     post_id: 1,
     date: yesterday,
   },
+  {
+    id: 4,
+    body: 'Your definitely welcome bro',
+    author_id: 2,
+    comment_id: 1,
+    post_id: 1,
+    date: new Date(),
+  },
 ];
 
 export default allComments;
