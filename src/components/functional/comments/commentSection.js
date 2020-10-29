@@ -20,7 +20,10 @@ const CommentSection = ({ user, post }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const comment = { body, author_id: user.id, comment_id: selectedComment.id };
+    // When replying to a comment you can only reply to the main comment not individual sub-comments
+    const mainCommentID = selectedComment.comment_id || selectedComment.id;
+
+    const comment = { body, author_id: user.id, comment_id: mainCommentID };
     console.log(comment);
   };
 
