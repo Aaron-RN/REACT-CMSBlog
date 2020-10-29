@@ -249,8 +249,8 @@
 /* laptop devices (landscape tablets, 1024px - 1439px) */
 @media only screen and (min-width: 1024px) {
   #BlogPage .pinned-post {
-    min-height: 140px; max-height: 140px;
-    min-width: 420px; max-width: 420px;
+    min-height: 120px; max-height: 140px;
+    min-width: 320px; max-width: 320px;
   }
   #BlogPage .pinned-post:last-child {
     border-left: 2px solid khaki;

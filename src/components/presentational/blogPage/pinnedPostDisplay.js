@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import propTypes from 'prop-types';
+import { fetchAuthorName } from '../../misc/presets/allUsersData';
 
 const PinnedPostDisplay = ({ post }) => {
   const { title } = post;
@@ -11,7 +12,7 @@ const PinnedPostDisplay = ({ post }) => {
     if (body) {
       // temporary div is created to remove html tag formatting
       const tempBody = document.createElement('DIV');
-      tempBody.innerHTML = post.body.substring(0, 70);
+      tempBody.innerHTML = post.body.substring(0, 32);
       body.innerHTML = `${tempBody.textContent}...`;
     }
   });
@@ -21,7 +22,7 @@ const PinnedPostDisplay = ({ post }) => {
       <h5 className="pinned-post-title">{shortTitle}</h5>
       <div className="pinned-post-author">
         {'by '}
-        <span className="text-author">{post.author}</span>
+        <span className="text-author">{fetchAuthorName(post.author_id)}</span>
       </div>
       <div ref={bodyElem} className="pinned-post-body" />
       <div className="pinned-post-date">{post.date}</div>
