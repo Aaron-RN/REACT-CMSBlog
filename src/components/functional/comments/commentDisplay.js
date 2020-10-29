@@ -4,12 +4,12 @@ import Comment from '../../presentational/comments/comment';
 import PaginateComments from './paginateComments';
 import allCommentsData from '../../misc/presets/allCommentsData';
 
-const CommentDisplay = ({ comment }) => {
+const CommentDisplay = ({ comment, handleSelectComment }) => {
   const [subComments, setSubComments] = useState([]);
   const [showReplies, setShowReply] = useState(true);
 
   const populateSubComments = commentsArray => commentsArray.map(comment => (
-    <Comment key={comment.id} comment={comment} subcomment="sub-comment" />
+    <Comment key={comment.id} comment={comment} subcomment="sub-comment" handleSelectComment={handleSelectComment} />
   ));
 
   // Fetch all comments stemming from this comment
@@ -20,7 +20,7 @@ const CommentDisplay = ({ comment }) => {
   }, [comment]);
   return (
     <div>
-      <Comment comment={comment} />
+      <Comment comment={comment} handleSelectComment={handleSelectComment} />
       { subComments.length > 0 && (
         <button type="button" className="comment-reply" onClick={() => setShowReply(!showReplies)}>
           {showReplies ? 'hide replies' : 'show replies'}
@@ -38,6 +38,7 @@ const CommentDisplay = ({ comment }) => {
 
 CommentDisplay.propTypes = {
   comment: propTypes.instanceOf(Object).isRequired,
+  handleSelectComment: propTypes.func.isRequired,
 };
 
 export default CommentDisplay;

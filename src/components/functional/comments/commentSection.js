@@ -1,26 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import propTypes from 'prop-types';
 import allCommentsData from '../../misc/presets/allCommentsData';
 import CommentDisplay from './commentDisplay';
 import PaginateComments from './paginateComments';
+import { fetchAuthorName } from '../../misc/presets/allUsersData';
 
 const CommentSection = ({ user, post }) => {
   const [relatedComments, setComments] = useState([]);
   const [body, setBody] = useState('');
+  const [selectedComment, setSelectedComment] = useState(null);
+  const textElem = useRef(null);
 
-  const populateComments = commentsArray => commentsArray.map(comment => (
-    <CommentDisplay key={comment.id} comment={comment} />
-  ));
+  const handleSelectComment = comment => setSelectedComment(comment);
 
   const handleReset = () => {
     setBody('');
+    setSelectedComment(null);
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    const comment = { body, author: user.id };
+    const comment = { body, author_id: user.id, comment_id: selectedComment.id };
     console.log(comment);
   };
+
+  const populateComments = commentsArray => commentsArray.map(comment => (
+    <CommentDisplay key={comment.id} comment={comment} handleSelectComment={handleSelectComment} />
+  ));
 
   // Fetch all comments related to selected post
   useEffect(() => {
@@ -29,12 +35,21 @@ const CommentSection = ({ user, post }) => {
     setComments(postComments);
   }, [post]);
 
+  useEffect(() => {
+    if (selectedComment) {
+      const commentAuthor = fetchAuthorName(selectedComment.author_id);
+      setBody(`@${commentAuthor} `);
+      if (textElem.current) textElem.current.focus();
+    }
+  }, [selectedComment]);
+
   return (
     <div id="CommentsSection">
       <div className="container-md">
         <h4>Comments</h4>
         <form className="comment-form" onSubmit={handleSubmit}>
           <textarea
+            ref={textElem}
             value={body}
             onChange={e => setBody(e.target.value)}
             placeholder="Add a comment here..."

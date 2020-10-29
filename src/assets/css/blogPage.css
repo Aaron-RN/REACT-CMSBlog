@@ -187,7 +187,6 @@
   text-decoration: underline;
   margin-bottom: 12px;
 }
-
 #CommentsSection .comment {
   display: flex;
   align-items: center;
@@ -234,6 +233,17 @@
   border-color: wheat;
   border-radius: 6px;
   margin-left: 12px;
+  cursor: pointer;
+}
+#CommentsSection .comment-reply-btn {
+  align-self: flex-end;
+  font-size: 0.7em;
+  padding: 4px 8px;
+  color: #925858;
+  background-color: transparent;
+  border-color: #ccc292;
+  border-radius: 6px;
+  margin-left: auto;
   cursor: pointer;
 }
 
