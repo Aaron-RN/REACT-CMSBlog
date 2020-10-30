@@ -4,28 +4,36 @@
   --mainBG: #fffcf0;
   --navBG: #f1ebb3;
   --navText: #4b4723;
+  --headerText: #4b4723;
   --forumHeaderBG: #e9d8b4;
   --subforumheaderBG: #e9e4b4;
+  --postText: #4b4723;
   --postBG: #fff8e6;
+  --postHover: #fdf3db;
+  --pinHover: #f7edd5;
   --authorColor: #6b2f2f;
   --newPostText: #4c9ca1;
   --newPostBorder: #ccc292;
   --newPostBG: #fdf4dd;
   --footerBG: #f1ebb3;
   
-  /* Microverse Theme */
-  /* --links: #c678dd;
-  --mainBG: #f0e4f7;
-  --navBG: #612f8f;
-  --navText: #e3dff1;
-  --forumHeaderBG: #3f3d5c;
-  --subforumheaderBG: #534769;
-  --postBG: #d3d8f7;
-  --authorColor: #2f586b;
-  --newPostText: #4c6aa1;
-  --newPostBorder: #9f92cc;
-  --newPostBG: #f7ddfd;
-  --footerBG: #d8b3f1; */
+    /* Dark Theme */
+    /* --links: #d37426;
+    --mainBG: #222;
+    --navBG: #2b2b2b;
+    --navText: #e0cec4;
+    --headerText: #3a3938;
+    --forumHeaderBG: #e29555;
+    --subforumheaderBG: #80532c;
+    --postText: #ffcba1;
+    --postBG: #2b2b2b;
+    --postHover: #3b3b3b;
+    --pinHover: #4b4b4b;
+    --authorColor: #8b4220;
+    --newPostText: #4c9ca1;
+    --newPostBorder: #ccc292;
+    --newPostBG: #fdf4dd;
+    --footerBG: #2b2b2b; */
 }
 
 *,

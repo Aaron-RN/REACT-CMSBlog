@@ -17,11 +17,11 @@ import allPostsData from './components/misc/presets/allPostsData';
 import allForumsData from './components/misc/presets/allForumsData';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
+import Login from './components/functional/users/login';
 
 const App = () => {
   const [allUsers] = useState(allUsersData);
-  const [user] = useState({ id: 1, username: 'John Doe', admin_level: 1 });
-  // const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState({ id: 1, username: 'John Doe', admin_level: 1 });
   const [selectedPost, setSelectedPost] = useState(null);
   const [allForums, setAllForums] = useState(allForumsData);
   const [allPosts, setAllPosts] = useState(allPostsData);
@@ -30,6 +30,9 @@ const App = () => {
   const handlePostSelect = post => {
     setSelectedPost(post);
   };
+
+  // Check if user is logged in
+  useEffect(() => setUser({ logged_in: false }), []);
 
   useEffect(() => setAllForums(allForumsData), []);
   useEffect(() => {
@@ -61,7 +64,7 @@ const App = () => {
         <p className="container mt-0">
           Welcome to the
           {' '}
-          <a className="header" href="https://hackernoon.com/">React.js CMS-Forum Demo</a>
+          <a className="header" href="https://hackernoon.com/" target="_blank" rel="noopener noreferrer">React.js CMS-Forum Demo</a>
           {' '}
           {/* eslint-disable react/jsx-one-expression-per-line */}
           which uses <span className="header">React-Quill</span> as the rich-text editor
@@ -82,6 +85,11 @@ const App = () => {
                 handlePostSelect={handlePostSelect}
               />
             )}
+          />
+          <Route
+            exact
+            path="/login"
+            render={() => <Login />}
           />
           <Route
             exact

@@ -1,3 +1,28 @@
+#LoginPage .login-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+  margin: auto;
+}
+#LoginPage .login-form input {
+  font-family: 'Hind', sans-serif;
+  padding: 4px 8px;
+  border: 1px solid var(--newPostBorder);
+  border-radius: 4px;
+  outline-color: #3a425c;
+  margin-bottom: 12px;
+}
+#LoginPage .login-form button {
+  font-family: 'Hind', sans-serif;
+  color: #eeeeee;
+  padding: 6px 12px;
+  max-width: 120px;
+  background-color: #3a425c;
+  border-radius: 4px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
 #LatestUser {
   color: #555;
 }

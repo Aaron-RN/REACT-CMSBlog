@@ -28,7 +28,7 @@ const SubForumDisplay = ({
   return (
     <div className="forum-section ml-1">
       <div className="header-title">
-        <Link to={`/${forum}/${forumTitle}`} className="text-home">
+        <Link to={`/${forum}/${forumTitle}`}>
           <h4 className="text-camel">{forumTitle}</h4>
         </Link>
         <button type="button" onClick={() => handleShowForum(showForum)}>

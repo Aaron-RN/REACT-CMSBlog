@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { modules, formats } from '../../misc/presets/quillModules';
 import 'react-quill/dist/quill.snow.css';
@@ -83,7 +83,7 @@ const EditPost = ({ user, allPosts, match }) => {
     </div>
   );
 
-  return renderMain;
+  return user.logged_in ? renderMain : <Redirect to="/login" />;
 };
 
 EditPost.propTypes = {

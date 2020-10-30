@@ -4,6 +4,7 @@ import allCommentsData from '../../misc/presets/allCommentsData';
 import CommentDisplay from './commentDisplay';
 import PaginateComments from './paginateComments';
 import { fetchAuthorName } from '../../misc/presets/allUsersData';
+import { Link } from 'react-router-dom';
 
 const CommentSection = ({ user, post }) => {
   const [relatedComments, setComments] = useState([]);
@@ -54,7 +55,7 @@ const CommentSection = ({ user, post }) => {
           {'Comments '}
           {post.is_locked && <i className="fas fa-lock" />}
         </h4>
-        {!post.is_locked && (
+        {(!post.is_locked && user.logged_in) && (
           <form className="comment-form" onSubmit={handleSubmit}>
             <textarea
               ref={textElem}
@@ -70,6 +71,11 @@ const CommentSection = ({ user, post }) => {
               <button type="submit">Comment</button>
             </div>
           </form>
+        )}
+        {(!post.is_locked && !user.logged_in) && (
+          <div>
+            <Link to="/login">You must Login to comment...</Link>
+          </div>
         )}
         <PaginateComments
           comments={relatedComments}

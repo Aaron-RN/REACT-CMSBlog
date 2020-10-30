@@ -35,8 +35,12 @@
   align-items: center;
   flex-wrap: wrap;
   padding: 2px 6px;
+  color: var(--headerText);
   background-color: var(--subforumheaderBG);
   margin-bottom: 0.5em;
+}
+#BlogPage .header-title a {
+  color: var(--headerText);
 }
 #BlogPage .header-title button {
   background-color: transparent;
@@ -61,6 +65,7 @@
   padding: 8px 16px;
   min-height: 140px; max-height: 140px;
   min-width: auto; max-width: 420px;
+  color: var(--postText);
   background-color: var(--postBG);
   border-right: 2px solid khaki;
   border-bottom: 2px solid khaki;
@@ -69,7 +74,8 @@
   cursor: pointer;
 }
 #BlogPage .pinned-post:hover {
-  background-color: #f7edd5;
+  background-color: var(--pinHover);
+  background-color: var(--postHover);
   border-right: 2px solid #cec46e;
   border-bottom: 2px solid #cec46e;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.05);
@@ -100,6 +106,7 @@
   flex-direction: column;
   padding: 6px;
   min-height: 40px;
+  color: var(--postText);
   background-color: var(--postBG);
   border-right: 2px solid khaki;
   border-bottom: 2px solid khaki;
@@ -107,7 +114,7 @@
   cursor: pointer;
 }
 #BlogPage .post:hover {
-  background-color: #fdf3db;
+  background-color: var(--postHover);
   border-right: 2px solid #cec46e;
   border-bottom: 2px solid #cec46e;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
@@ -184,7 +191,8 @@
 }
 
 /* Comments Section */
-#CommentsSection { padding-bottom: 22px; }
+#CommentsSection {
+  padding-bottom: 22px; }
 #CommentsSection h4 {
   text-decoration: underline;
   margin-bottom: 12px;
