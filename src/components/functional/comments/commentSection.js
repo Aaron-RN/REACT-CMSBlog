@@ -50,7 +50,7 @@ const CommentSection = ({ user, post }) => {
   return (
     <div id="CommentsSection">
       <div className="container-md">
-        <h4>
+        <h4 className={`post-locked-${post.is_locked}`}>
           {'Comments '}
           {post.is_locked && <i className="fas fa-lock" />}
         </h4>

@@ -189,6 +189,10 @@
   text-decoration: underline;
   margin-bottom: 12px;
 }
+#CommentsSection .post-locked-true {
+  text-decoration: none;
+  color: #999;
+}
 #CommentsSection .comment {
   display: flex;
   align-items: center;
