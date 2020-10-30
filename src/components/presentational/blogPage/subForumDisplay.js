@@ -9,7 +9,7 @@ const SubForumDisplay = ({
 }) => {
   const [forumTitle, setForumTitle] = useState('');
   const [posts, setPosts] = useState([]);
-  const [showForum, setShowForum] = useState(true);
+  const [showForum, setShowForum] = useState(false);
 
   const handleShowForum = () => {
     setShowForum(!showForum);
@@ -19,6 +19,11 @@ const SubForumDisplay = ({
     setPosts(subforum.posts);
     setForumTitle(subforum.subforum);
   }, [subforum]);
+
+  // Expand all subforums that have posts/topics
+  useEffect(() => {
+    if (posts.length > 0) { setShowForum(true); }
+  }, [posts]);
 
   return (
     <div className="forum-section ml-1">
