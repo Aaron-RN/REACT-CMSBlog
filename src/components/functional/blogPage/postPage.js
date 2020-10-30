@@ -62,15 +62,19 @@ const PostPage = ({ match, allPosts, user }) => {
             <h3>{title}</h3>
             <span className="pl-1 size-16">by</span>
             <h3 className="pl-01 size-18 text-author user">{fetchAuthorName(author_id)}</h3>
-            <div className="ml-auto flex-row">
-              <button type="button" onClick={handlePinPost} className="bare-btn pin-btn" title="Pin/Unpin post">
-                {postPinned && <i className="fas fa-star text-red" />}
-                {!postPinned && <i className="far fa-star" />}
-              </button>
-              <button type="button" onClick={handleLockPost} className="bare-btn lock-btn" title="Lock/Unlock post's comments">
-                {postLocked && <i className="fas fa-lock" />}
-                {!postLocked && <i className="fas fa-unlock" />}
-              </button>
+            <div className="ml-auto">
+              {user.admin_level > 1 && (
+                <div className="flex-row">
+                  <button type="button" onClick={handlePinPost} className="bare-btn pin-btn" title="Pin/Unpin post">
+                    {postPinned && <i className="fas fa-star text-red" />}
+                    {!postPinned && <i className="far fa-star" />}
+                  </button>
+                  <button type="button" onClick={handleLockPost} className="bare-btn lock-btn" title="Lock/Unlock post's comments">
+                    {postLocked && <i className="fas fa-lock" />}
+                    {!postLocked && <i className="fas fa-unlock" />}
+                  </button>
+                </div>
+              )}
               {/* eslint-disable-next-line camelcase */}
               {(user.id === author_id) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
             </div>
