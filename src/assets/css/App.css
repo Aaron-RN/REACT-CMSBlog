@@ -170,10 +170,10 @@ button:hover { transform: scale(1.025); }
 }
 
 .login-btn {
-  font-size: 0.8em;
+  font-size: 0.75em;
   color: #706017;
-  padding: 1px 3px;
-  border: 2px solid #f3705f;
+  padding: 1px 4px;
+  border: 2px solid #db7c6f;
   border-radius: 14px;
   margin-left: 22px;
 }

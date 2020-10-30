@@ -20,10 +20,13 @@ import allForumsData from './components/misc/presets/allForumsData';
 
 import Login from './components/functional/users/login';
 import Modal from './components/functional/modal';
+import LoginBtn from './components/functional/users/loginBtn';
 
 const App = () => {
   const [allUsers] = useState(allUsersData);
-  const [user, setUser] = useState({ id: 1, username: 'John Doe', admin_level: 1 });
+  const [user, setUser] = useState({
+    id: 1, username: 'John Doe', admin_level: 1, logged_in: true,
+  });
   const [selectedPost, setSelectedPost] = useState(null);
   const [allForums, setAllForums] = useState(allForumsData);
   const [allPosts, setAllPosts] = useState(allPostsData);
@@ -77,10 +80,7 @@ const App = () => {
               <img src={logo} className="App-logo" alt="logo" />
               <h2>React.js CMS-Forum</h2>
             </Link>
-            <Link to="/login" className="login-btn">
-              <i className="fas fa-sign-in-alt" />
-              Login
-            </Link>
+            <LoginBtn user={user} />
           </div>
         </nav>
       </header>
