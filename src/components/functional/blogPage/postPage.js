@@ -18,6 +18,8 @@ const PostPage = ({ match, allPosts, user }) => {
   // Handle pinning a post
   const handlePinPost = () => {
     setPostPinned(postPinned);
+    // Axios POST Request
+    console.log(postPinned);
   };
 
   // Fetch Post by ID

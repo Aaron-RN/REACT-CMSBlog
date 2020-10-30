@@ -241,7 +241,7 @@
   padding: 4px 8px;
   color: #925858;
   background-color: transparent;
-  border-color: #ccc292;
+  border: 1px solid #ccc2926b;
   border-radius: 6px;
   margin-left: auto;
   cursor: pointer;
@@ -273,7 +273,7 @@ textarea::placeholder { font-family: 'Hind', sans-serif; }
   padding: 4px 8px;
   color: #925858;
   background-color: transparent;
-  border-color: #ccc292;
+  border-color: #ccc292a1;
   border-radius: 6px;
   margin: 2px 4px;
   cursor: pointer;

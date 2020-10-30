@@ -24,6 +24,7 @@ const CommentSection = ({ user, post }) => {
     const mainCommentID = selectedComment.comment_id || selectedComment.id;
 
     const comment = { body, author_id: user.id, comment_id: mainCommentID };
+    // Axios POST Request
     console.log(comment);
   };
 
