@@ -14,9 +14,11 @@ const Login = () => {
   return (
     <div id="LoginPage" className="bg-main pt-1">
       <div className="container-md">
+        <h2 className="text-center mb-1">Login</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           <h4>Email or Username</h4>
           <input
+            type="text"
             name="logincreds"
             value={credential}
             onChange={e => setCredential(e.target.vallue)}
@@ -25,6 +27,7 @@ const Login = () => {
           />
           <h4>Password</h4>
           <input
+            type="password"
             name="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
