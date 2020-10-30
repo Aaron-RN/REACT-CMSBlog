@@ -7,13 +7,13 @@ import 'react-quill/dist/quill.snow.css';
 
 const EditPost = ({ user, allPosts, match }) => {
   const [selectedPost, setSelectedPost] = useState({
-    id: 0, title: '', body: '', author: '', forum: '',
+    id: 0, title: '', body: '', author: '', forum: '', subforum: '',
   });
   const [postTitle, setPostTitle] = useState('');
   const [postBody, setPostBody] = useState('');
 
   const {
-    id, title, body, forum,
+    id, title, body, forum, subforum,
   } = selectedPost;
 
   const handleChangeTitle = e => {
@@ -54,7 +54,7 @@ const EditPost = ({ user, allPosts, match }) => {
     <div id="BlogPage" className="bg-main">
       <div className="container-md">
         <form className="newPost" onSubmit={handleSubmitPost} encType="multipart/form-data">
-          <Link to={`/${forum}/posts/${id}`}>
+          <Link to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}`}>
             <i className="fas fa-chevron-circle-left pr-01" />
             Back
           </Link>

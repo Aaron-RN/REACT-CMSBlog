@@ -47,7 +47,7 @@ const NewBlogPost = ({
             Back
           </Link>
           <h4 className="text-grey">Forum</h4>
-          <h3 className="text-camel">{`New ${forum} Topic`}</h3>
+          <h3 className="text-camel">{`New ${forum}/${subforum} Topic`}</h3>
           <input
             name="postTitle"
             type="text"
