@@ -142,12 +142,12 @@ button:hover { transform: scale(1.025); }
 .blend-nav-main {
   width: 100%;
   height: 40px;
-  /* background-image: linear-gradient(var(--navBG), var(--mainBG)); */
+  background-image: linear-gradient(var(--navBG), var(--mainBG));
 }
 .blend-main-footer {
   width: 100%;
   height: 40px;
-  /* background-image: linear-gradient(var(--mainBG), var(--navBG)); */
+  background-image: linear-gradient(var(--mainBG), var(--navBG));
 }
 .footer {
   font-size: 0.8em;
