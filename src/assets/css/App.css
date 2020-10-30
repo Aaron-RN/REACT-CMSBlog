@@ -169,6 +169,19 @@ button:hover { transform: scale(1.025); }
   pointer-events: none;
 }
 
+.login-btn {
+  font-size: 0.8em;
+  color: #706017;
+  padding: 1px 3px;
+  border: 2px solid #f3705f;
+  border-radius: 14px;
+  margin-left: 22px;
+}
+.login-btn i {
+  color: #f3705f;
+  margin-right: 4px;
+}
+
 .modal {
   display: block;
   position: fixed;

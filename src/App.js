@@ -72,10 +72,16 @@ const App = () => {
     <div className="App">
       <header className="bg-navbar">
         <nav className="container">
-          <Link to="/" className="inline-flex text-home">
-            <img src={logo} className="App-logo" alt="logo" />
-            <h2>React.js CMS-Forum</h2>
-          </Link>
+          <div className="flex-row">
+            <Link to="/" className="inline-flex text-home">
+              <img src={logo} className="App-logo" alt="logo" />
+              <h2>React.js CMS-Forum</h2>
+            </Link>
+            <Link to="/login" className="login-btn">
+              <i className="fas fa-sign-in-alt" />
+              Login
+            </Link>
+          </div>
         </nav>
       </header>
       <main className="bg-navbar pt-1">
