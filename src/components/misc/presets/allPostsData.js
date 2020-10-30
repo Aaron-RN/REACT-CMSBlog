@@ -14,6 +14,7 @@ const allPosts = [
     forum: 'announcements',
     subforum: 'rules',
     is_pinned: true,
+    is_locked: false,
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ const allPosts = [
     forum: 'announcements',
     subforum: 'rules',
     is_pinned: true,
+    is_locked: true,
   },
   {
     id: 3,
@@ -40,6 +42,7 @@ const allPosts = [
     date: newDate,
     forum: 'misc',
     is_pinned: false,
+    is_locked: false,
   },
   {
     id: 4,
@@ -51,6 +54,7 @@ const allPosts = [
     date: newDate,
     forum: 'misc',
     is_pinned: false,
+    is_locked: false,
   },
   {
     id: 5,
@@ -63,6 +67,7 @@ const allPosts = [
     date: newDate,
     forum: 'misc',
     is_pinned: false,
+    is_locked: false,
   },
   {
     id: 6,
@@ -75,6 +80,7 @@ const allPosts = [
     date: newDate,
     forum: 'misc',
     is_pinned: false,
+    is_locked: false,
   },
 ];
 

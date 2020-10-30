@@ -6,9 +6,10 @@ import { fetchAuthorName } from '../../misc/presets/allUsersData';
 
 const PostPage = ({ match, allPosts, user }) => {
   const [selectedPost, setSelectedPost] = useState({
-    id: 0, title: '', body: '', author_id: '', forum: '', is_pinned: false,
+    id: 0, title: '', body: '', author_id: '', forum: '', is_pinned: false, is_locked: false,
   });
   const [postPinned, setPostPinned] = useState(selectedPost.is_pinned);
+  const [postLocked, setPostLocked] = useState(selectedPost.is_locked);
   const {
     // eslint-disable-next-line camelcase
     id, forum, subforum, title, body, author_id,
@@ -20,6 +21,13 @@ const PostPage = ({ match, allPosts, user }) => {
     setPostPinned(!postPinned);
     // Axios POST Request
     console.log(postPinned);
+  };
+
+  // Handle locking a post's comments
+  const handleLockPost = () => {
+    setPostLocked(!postLocked);
+    // Axios POST Request
+    console.log(postLocked);
   };
 
   // Fetch Post by ID
@@ -58,6 +66,10 @@ const PostPage = ({ match, allPosts, user }) => {
               <button type="button" onClick={handlePinPost} className="bare-btn pin-btn" title="Pin/Unpin post">
                 {postPinned && <i className="fas fa-star text-red" />}
                 {!postPinned && <i className="far fa-star" />}
+              </button>
+              <button type="button" onClick={handleLockPost} className="bare-btn lock-btn" title="Lock/Unlock post's comments">
+                {postLocked && <i className="fas fa-lock" />}
+                {!postLocked && <i className="fas fa-unlock" />}
               </button>
               {/* eslint-disable-next-line camelcase */}
               {(user.id === author_id) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}

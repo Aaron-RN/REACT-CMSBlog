@@ -92,7 +92,9 @@
   font-size: 14px;
   text-align: right;
 }
-
+#BlogPage .lock-btn {
+  margin-left: 12px;
+}
 #BlogPage .post {
   display: flex;
   flex-direction: column;
@@ -273,13 +275,14 @@ textarea::placeholder { font-family: 'Hind', sans-serif; }
   padding: 4px 8px;
   color: #925858;
   background-color: transparent;
-  border-color: #ccc292a1;
+  border-color: #ccc29257;
   border-radius: 6px;
   margin: 2px 4px;
   cursor: pointer;
 }
 #CommentsSection .comment-form button:first-of-type {
   font-weight: 600;
+  color: #666;
   border: none;
 }
 #CommentsSection .comment-form button:last-of-type {

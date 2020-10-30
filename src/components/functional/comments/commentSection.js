@@ -50,22 +50,27 @@ const CommentSection = ({ user, post }) => {
   return (
     <div id="CommentsSection">
       <div className="container-md">
-        <h4>Comments</h4>
-        <form className="comment-form" onSubmit={handleSubmit}>
-          <textarea
-            ref={textElem}
-            value={body}
-            onChange={e => setBody(e.target.value)}
-            placeholder="Add a comment here..."
-            wrap="hard"
-            maxLength="420"
-            required
-          />
-          <div className="btn-container">
-            <button type="button" onClick={handleReset}>Cancel</button>
-            <button type="submit">Comment</button>
-          </div>
-        </form>
+        <h4>
+          {'Comments '}
+          {post.is_locked && <i className="fas fa-lock" />}
+        </h4>
+        {!post.is_locked && (
+          <form className="comment-form" onSubmit={handleSubmit}>
+            <textarea
+              ref={textElem}
+              value={body}
+              onChange={e => setBody(e.target.value)}
+              placeholder="Add a comment here..."
+              wrap="hard"
+              maxLength="420"
+              required
+            />
+            <div className="btn-container">
+              <button type="button" onClick={handleReset}>Cancel</button>
+              <button type="submit">Comment</button>
+            </div>
+          </form>
+        )}
         <PaginateComments
           comments={relatedComments}
           populateComments={populateComments}
