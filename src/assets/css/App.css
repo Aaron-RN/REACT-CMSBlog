@@ -1,29 +1,31 @@
 :root {
   /* Default Theme */
-  /* --mainBG: #fffcf0;
+  --links: #43b6da;
+  --mainBG: #fffcf0;
   --navBG: #f1ebb3;
   --navText: #4b4723;
   --forumHeaderBG: #e9d8b4;
-  --headerBG: #e9e4b4;
+  --subforumheaderBG: #e9e4b4;
   --postBG: #fff8e6;
   --authorColor: #6b2f2f;
   --newPostText: #4c9ca1;
   --newPostBorder: #ccc292;
   --newPostBG: #fdf4dd;
   --footerBG: #f1ebb3;
-   */
+  
   /* Microverse Theme */
-  --mainBG: #faf0ff;
+  /* --links: #c678dd;
+  --mainBG: #f0e4f7;
   --navBG: #612f8f;
-  --navText: #ffffff;
-  --forumHeaderBG: #d4b4e9;
-  --headerBG: #e5b4e9;
-  --postBG: #fee6ff;
+  --navText: #e3dff1;
+  --forumHeaderBG: #3f3d5c;
+  --subforumheaderBG: #534769;
+  --postBG: #d3d8f7;
   --authorColor: #2f586b;
   --newPostText: #4c6aa1;
   --newPostBorder: #9f92cc;
   --newPostBG: #f7ddfd;
-  --footerBG: #d8b3f1;
+  --footerBG: #d8b3f1; */
 }
 
 *,
@@ -44,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 .header { font-family: 'Oswald', sans-serif; font-weight: 400; }
-a { color: #43b6da; text-decoration: none;}
+a { color: var(--links); text-decoration: none;}
 a:hover { text-decoration: underline; }
 
 button:hover { transform: scale(1.025); }
@@ -116,7 +118,7 @@ button:hover { transform: scale(1.025); }
 }
 .text-right{ text-align: right; }
 
-.text-home { color: #4b4723; text-decoration-color: #43b6da !important; }
+.text-home { color: var(--navText); text-decoration-color: #43b6da !important; }
 .text-black { color: #4b4723; text-decoration: none !important; }
 .text-red { color: #f3705f; }
 .text-grey { color: grey; }
@@ -140,12 +142,12 @@ button:hover { transform: scale(1.025); }
 .blend-nav-main {
   width: 100%;
   height: 40px;
-  background-image: linear-gradient(var(--navBG), var(--mainBG));
+  /* background-image: linear-gradient(var(--navBG), var(--mainBG)); */
 }
 .blend-main-footer {
   width: 100%;
   height: 40px;
-  background-image: linear-gradient(var(--mainBG), var(--navBG));
+  /* background-image: linear-gradient(var(--mainBG), var(--navBG)); */
 }
 .footer {
   font-size: 0.8em;

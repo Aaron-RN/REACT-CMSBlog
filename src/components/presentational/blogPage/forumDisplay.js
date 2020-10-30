@@ -53,7 +53,7 @@ const ForumDisplay = ({
   return (
     <div className="forum-section z-2">
       <div className="header-title bg-announcement">
-        <Link to={`/${forumTitle}`} className="text-black"><h3 className="text-camel">{forumTitle}</h3></Link>
+        <Link to={`/${forumTitle}`} className="text-home"><h3 className="text-camel">{forumTitle}</h3></Link>
         <button type="button" onClick={() => handleShowForum(showForum)}>
           {handleIcon(showForum)}
         </button>
