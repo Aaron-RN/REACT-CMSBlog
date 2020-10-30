@@ -8,7 +8,7 @@ import SubForumDisplay from './subForumDisplay';
 const ForumDisplay = ({
   forum, postsPages, handlePostSelect,
 }) => {
-  const [showForum, setShowForum] = useState(true);
+  const [showForum, setShowForum] = useState(false);
   const [forumTitle, setForumTitle] = useState('');
   const [subForums, setSubForums] = useState([]);
 
@@ -43,6 +43,12 @@ const ForumDisplay = ({
     setForumTitle(forum.forum);
     setSubForums(forum.subforums);
   }, [forum]);
+
+  // Expand all forums whose subforums have posts/topics
+  useEffect(() => {
+    if (subForums.some(subforumData => subforumData.posts.length > 0)) { setShowForum(true); }
+    if (forum.posts.length > 0) { setShowForum(true); }
+  }, [subForums, forum]);
 
   return (
     <div className="forum-section z-2">
