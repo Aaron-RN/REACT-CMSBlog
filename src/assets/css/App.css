@@ -171,6 +171,50 @@ button:hover { transform: scale(1.025); }
   pointer-events: none;
 }
 
+.modal {
+  display: block;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+}
+.modal-content {
+  position: relative;
+  top: 50%;
+  background-color: #fff;
+  padding: 12px;
+  min-height: 220px;
+  max-width: 420px; max-height: 620px;
+  border-radius: 8px;
+  margin: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1000;
+  transform: translateY(-50%);
+}
+.modal-btn {
+  display: block;
+  padding: 6px 18px;
+  background-color: #fff;
+  border: 1px solid #4c9ca1;
+  border-radius: 4px;
+  margin: auto;
+  cursor: pointer;
+}
+
+.errors-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgb(131, 29, 29);
+  min-height: 120px;
+}
+.errors-container div::before {
+  content: "• ";
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

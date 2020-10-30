@@ -6,6 +6,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import logo from './assets/images/logo.svg';
+import './assets/css/App.css';
 import BlogPage from './components/functional/blogPage';
 import PostPage from './components/functional/blogPage/postPage';
 import TopicForum from './components/functional/blogPage/topicForum';
@@ -15,9 +17,9 @@ import NewUsers from './components/functional/users/newUsers';
 import { allUsersData } from './components/misc/presets/allUsersData';
 import allPostsData from './components/misc/presets/allPostsData';
 import allForumsData from './components/misc/presets/allForumsData';
-import logo from './assets/images/logo.svg';
-import './assets/css/App.css';
+
 import Login from './components/functional/users/login';
+import Modal from './components/functional/modal';
 
 const App = () => {
   const [allUsers] = useState(allUsersData);
@@ -25,10 +27,19 @@ const App = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [allForums, setAllForums] = useState(allForumsData);
   const [allPosts, setAllPosts] = useState(allPostsData);
+  const [status, setStatus] = useState({ errors: [] });
+  const [showModal, setShowModal] = useState(false);
   const [redirect, setRedirect] = useState(null);
 
+  // Handles selection of post when post is clicked
   const handlePostSelect = post => {
     setSelectedPost(post);
+  };
+
+  // Toggle modal and clear status
+  const handleModal = () => {
+    setShowModal(!showModal);
+    setStatus({ errors: [] });
   };
 
   // Check if user is logged in
@@ -49,6 +60,13 @@ const App = () => {
   }, [selectedPost]);
 
   useEffect(() => { setRedirect(null); setSelectedPost(null); }, [redirect]);
+
+  const { errors } = status;
+
+  // open Modal to show errors
+  useEffect(() => {
+    if (errors.length > 0) setShowModal(true);
+  }, [status]);
 
   return redirect || (
     <div className="App">
@@ -180,6 +198,7 @@ const App = () => {
           © Aaron Rory Newbold 2020
         </div>
       </footer>
+      {showModal && <Modal status={status} handleModal={handleModal} />}
     </div>
   );
 };
