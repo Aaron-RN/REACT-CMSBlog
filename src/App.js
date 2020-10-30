@@ -37,12 +37,11 @@ const App = () => {
     setAllPosts(allPostsSorted);
   }, [allPosts]);
 
+  // Follow up redirect after a post is selected
   useEffect(() => {
     if (selectedPost) {
       const { forum, subforum, id } = selectedPost;
-      if (!subforum) {
-        setRedirect(<Redirect to={`/${forum}/posts/${id}`} />);
-      } else { setRedirect(<Redirect to={`/${forum}/${subforum}/posts/${id}`} />); }
+      setRedirect(<Redirect to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}`} />);
     }
   }, [selectedPost]);
 

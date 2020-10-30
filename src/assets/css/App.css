@@ -1,9 +1,29 @@
 :root {
-  --mainBG: #fffcf0;
+  /* Default Theme */
+  /* --mainBG: #fffcf0;
   --navBG: #f1ebb3;
+  --navText: #4b4723;
+  --forumHeaderBG: #e9d8b4;
   --headerBG: #e9e4b4;
   --postBG: #fff8e6;
   --authorColor: #6b2f2f;
+  --newPostText: #4c9ca1;
+  --newPostBorder: #ccc292;
+  --newPostBG: #fdf4dd;
+  --footerBG: #f1ebb3;
+   */
+  /* Microverse Theme */
+  --mainBG: #faf0ff;
+  --navBG: #612f8f;
+  --navText: #ffffff;
+  --forumHeaderBG: #d4b4e9;
+  --headerBG: #e5b4e9;
+  --postBG: #fee6ff;
+  --authorColor: #2f586b;
+  --newPostText: #4c6aa1;
+  --newPostBorder: #9f92cc;
+  --newPostBG: #f7ddfd;
+  --footerBG: #d8b3f1;
 }
 
 *,
@@ -115,7 +135,7 @@ button:hover { transform: scale(1.025); }
   opacity: 0;
   z-index: 1;
 }
-.bg-navbar { position: relative; background-color: var(--navBG); color: #4b4723; }
+.bg-navbar { position: relative; background-color: var(--navBG); color: var(--navText); }
 .bg-main { background-color: var(--mainBG); min-height: 56.1vh; } /* #fdfaee */
 .blend-nav-main {
   width: 100%;
@@ -131,7 +151,7 @@ button:hover { transform: scale(1.025); }
   font-size: 0.8em;
   padding: 4px 12px;
   color: #969183;
-  background-color: #f1ebb3;
+  background-color: var(--footerBG);
 }
 .App-logo {
   display: inline-block;

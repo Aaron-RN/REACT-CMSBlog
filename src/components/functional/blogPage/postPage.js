@@ -76,7 +76,7 @@ const PostPage = ({ match, allPosts, user }) => {
                 </div>
               )}
               {/* eslint-disable-next-line camelcase */}
-              {(user.id === author_id) && <Link to={`/misc/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
+              {(user.id === author_id) && <Link to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
             </div>
           </div>
           <div ref={bodyElem} />

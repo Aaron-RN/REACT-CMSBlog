@@ -7,9 +7,9 @@
   font-size: 15px;
   font-weight: bold;
   padding: 4px 8px;
-  color: #4c9ca1;
-  background-color: #fdf4dd;
-  border: 1px solid #ccc292;
+  color: var(--newPostText);
+  background-color: var(--newPostBG);
+  border: 1px solid var(--newPostBorder);
   border-radius: 6px;
   margin-bottom: 12px;
   cursor: pointer;
@@ -29,7 +29,7 @@
 }
 #BlogPage .edit-post-btn:hover { transform: scale(1.035); }
 
-#BlogPage .bg-announcement { background-color: #e9d8b4 !important; }
+#BlogPage .bg-announcement { background-color: var(--forumHeaderBG) !important; }
 #BlogPage .header-title {
   display: flex;
   align-items: center;

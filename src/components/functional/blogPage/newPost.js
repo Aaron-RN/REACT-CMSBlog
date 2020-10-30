@@ -42,7 +42,7 @@ const NewBlogPost = ({
     <div id="BlogPage" className="bg-main">
       <div className="container-md">
         <form className="newPost" onSubmit={handleSubmitPost} encType="multipart/form-data">
-          <Link to={`/${forum}`}>
+          <Link to={`/${forum}${subforum ? `/${subforum}` : ''}`}>
             <i className="fas fa-chevron-circle-left pr-01" />
             Back
           </Link>
