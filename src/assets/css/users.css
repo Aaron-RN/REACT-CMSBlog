@@ -45,7 +45,7 @@
 }
 
 #UserProfile .profile-pic {
-  font-size: 8em;
+  font-size: 6em;
   padding: 12px;
   border: 2px solid #555;
   border-radius: 22px;
@@ -70,4 +70,36 @@
 .login-btn i {
   color: #f3705f;
   margin-right: 4px;
+}
+
+.all-forums {
+  display: flex;
+  flex-wrap: wrap;
+}
+.forum {
+  padding: 12px;
+  border-right: 2px solid #706017;
+  border-bottom: 1px solid #706017;
+  border-radius: 8px;
+  margin: 4px;
+}
+.forum-menu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.forum-menu button {
+  padding: 2px 4px;
+  background-color: #f3e3c9;
+  border: 1px solid #111;
+  border-radius: 6px;
+  margin: 2px 2px;
+  cursor: pointer;
+}
+.subforum { font-weight: 500; text-transform: capitalize; }
+.subforum::after {
+  content: ", ";
+}
+.subforum:last-of-type::after {
+  content: "";
 }

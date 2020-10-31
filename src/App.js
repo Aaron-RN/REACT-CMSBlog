@@ -35,15 +35,19 @@ const App = () => {
   const [showModal, setShowModal] = useState(false);
   const [redirect, setRedirect] = useState(null);
 
+  // Toggle modal and clear status
+  const handleModal = () => {
+    setShowModal(!showModal);
+    setStatus({ errors: [] });
+  };
+
   // Handles selection of post when post is clicked
   const handlePostSelect = post => {
     setSelectedPost(post);
   };
 
-  // Toggle modal and clear status
-  const handleModal = () => {
-    setShowModal(!showModal);
-    setStatus({ errors: [] });
+  const handleLogout = () => {
+    setUser({ logged_in: false });
   };
 
   // Check if user is logged in
@@ -119,7 +123,7 @@ const App = () => {
           <Route
             exact
             path="/users/:id"
-            render={props => <ProfilePage match={props.match} user={user} />}
+            render={props => <ProfilePage match={props.match} user={user} handleLogout={handleLogout} />}
           />
           <Route
             exact
