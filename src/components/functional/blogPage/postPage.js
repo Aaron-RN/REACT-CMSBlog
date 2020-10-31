@@ -61,7 +61,9 @@ const PostPage = ({ match, allPosts, user }) => {
           <div className="header-title">
             <h3>{title}</h3>
             <span className="pl-1 size-16">by</span>
-            <h3 className="pl-01 size-18 text-author user">{fetchAuthorName(author_id)}</h3>
+            <h3 className="pl-01 size-18 user">
+              <Link to={`/users/${author_id}`} className="text-author">{fetchAuthorName(author_id)}</Link>
+            </h3>
             <div className="ml-auto">
               {user.admin_level > 1 && (
                 <div className="flex-row">

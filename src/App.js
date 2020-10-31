@@ -21,6 +21,7 @@ import allForumsData from './components/misc/presets/allForumsData';
 import Login from './components/functional/users/login';
 import Modal from './components/functional/modal';
 import LoginBtn from './components/functional/users/loginBtn';
+import ProfilePage from './components/functional/users/profilePage';
 
 const App = () => {
   const [allUsers] = useState(allUsersData);
@@ -46,7 +47,7 @@ const App = () => {
   };
 
   // Check if user is logged in
-  useEffect(() => setUser({ logged_in: false }), []);
+  // useEffect(() => setUser({ logged_in: false }), []);
 
   useEffect(() => setAllForums(allForumsData), []);
   useEffect(() => {
@@ -69,7 +70,7 @@ const App = () => {
   // open Modal to show errors
   useEffect(() => {
     if (errors.length > 0) setShowModal(true);
-  }, [status]);
+  }, [status, errors]);
 
   return redirect || (
     <div className="App">
@@ -114,6 +115,11 @@ const App = () => {
             exact
             path="/login"
             render={() => <Login />}
+          />
+          <Route
+            exact
+            path="/users/:id"
+            render={props => <ProfilePage match={props.match} user={user} />}
           />
           <Route
             exact

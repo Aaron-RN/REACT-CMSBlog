@@ -8,12 +8,12 @@ const LoginBtn = ({ user }) => {
 
   const renderBtn = logged_in
     ? (
-      <Link to={`/users/${user.id}`} className="login-btn">
+      <Link to={`/users/${user.id}`} className="login-btn ml-1">
         {username}
       </Link>
     )
     : (
-      <Link to="/login" className="login-btn">
+      <Link to="/login" className="login-btn ml-1">
         <i className="fas fa-sign-in-alt" />
         Login
       </Link>

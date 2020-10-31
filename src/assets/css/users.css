@@ -43,3 +43,31 @@
 #LatestUser .user:last-of-type::after {
   content: "";
 }
+
+#UserProfile .profile-pic {
+  font-size: 8em;
+  padding: 12px;
+  border: 2px solid #555;
+  border-radius: 22px;
+  margin: auto;
+}
+
+.login-btn {
+  font-size: 0.75em;
+  font-weight: 500;
+  color: #706017;
+  background-color: transparent;
+  padding: 1px 4px;
+  border: 2px solid #db7c6f;
+  border-radius: 14px;
+  /* margin-left: 22px; */
+  text-decoration: none !important;
+  cursor: pointer;
+}
+.login-btn:hover {
+  transform: scale(1.02);
+}
+.login-btn i {
+  color: #f3705f;
+  margin-right: 4px;
+}

@@ -1,4 +1,4 @@
-.text-author { color: var(--authorColor); font-weight: 700;}
+.text-author { color: var(--authorColor) !important; font-weight: 700;}
 
 #BlogPage .announcement-btn { color: #af4040 !important; }
 #BlogPage .new-post-btn {
