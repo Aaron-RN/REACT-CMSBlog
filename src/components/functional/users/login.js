@@ -19,7 +19,6 @@ const Login = () => {
           <h4>Email or Username</h4>
           <input
             type="text"
-            name="logincreds"
             value={credential}
             onChange={e => setCredential(e.target.vallue)}
             minLength="3"
@@ -28,7 +27,6 @@ const Login = () => {
           <h4>Password</h4>
           <input
             type="password"
-            name="password"
             value={password}
             onChange={e => setPassword(e.target.value)}
             required

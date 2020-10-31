@@ -72,6 +72,32 @@
   margin-right: 4px;
 }
 
+.modal-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+  margin: auto;
+}
+.modal-form input {
+  font-family: 'Hind', sans-serif;
+  padding: 4px 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  outline-color: #3a425c;
+  margin-bottom: 12px;
+}
+.modal-form button {
+  font-family: 'Hind', sans-serif;
+  color: #eeeeee;
+  padding: 6px 12px;
+  max-width: 120px;
+  background-color: #414655;
+  border-radius: 4px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
 .all-forums {
   display: flex;
   flex-wrap: wrap;

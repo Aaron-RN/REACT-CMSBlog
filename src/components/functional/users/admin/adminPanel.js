@@ -1,10 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import allForumsData from '../../misc/presets/allForumsData';
+import RenameModal from './modals/renameModal';
+import allForumsData from '../../../misc/presets/allForumsData';
 
 const AdminPanel = ({ user }) => {
   const [allForums, setForums] = useState([]);
+  const [selectedForum, setSelectedForum] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState('renameForum');
+
+  const handleFormReset = () => {
+    setSelectedForum({});
+    setShowModal(false);
+  };
+
+  const handleModal = (forum, formType = 'renameForum') => {
+    setSelectedForum(forum);
+    setModalType(formType);
+    setShowModal(true);
+  };
+
+  // Handle adding a new Subforum
+  const handleNewSubforum = e => {
+    e.preventDefault();
+    console.log('New Sub Forum');
+    handleFormReset();
+  };
 
   const populateSubForums = forumArray => forumArray
     .map(subforum => <span key={subforum} className="subforum">{`${subforum}`}</span>);
@@ -17,8 +39,8 @@ const AdminPanel = ({ user }) => {
       {populateSubForums(forum.subforum)}
       {' ]'}
       <div className="forum-menu">
-        <button type="button">Rename</button>
-        <button type="button">+ Subforum</button>
+        <button type="button" onClick={() => handleModal(forum)}>Rename</button>
+        <button type="button" onClick={() => handleModal(forum, 'newSubforum')}>+ Subforum</button>
       </div>
     </div>
   ));
@@ -40,6 +62,17 @@ const AdminPanel = ({ user }) => {
             <div className="all-forums">{populateForums()}</div>
           </div>
         </div>
+        {showModal && (
+          <div className="modal">
+            <div className="modal-content">
+              <div className="container-md">
+                {modalType === 'renameForum' && (
+                  <RenameModal forum={selectedForum} handleFormReset={handleFormReset} />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     )
     : null;

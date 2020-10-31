@@ -85,12 +85,14 @@ button:hover { transform: scale(1.025); }
   font-size: calc(8.5px + 2vmin);
 }
 .container {
+  position: relative;
   padding: 8px 12px;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
 }
 .container-md {
+  position: relative;
   padding: 8px 12px;
   max-width: 1080px;
   margin-left: auto;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { allUsersData } from '../../misc/presets/allUsersData';
-import AdminPanel from './adminPanel';
+import AdminPanel from './admin/adminPanel';
 
 const ProfilePage = ({ match, user, handleLogout }) => {
   const [selectedUser, setSelectedUser] = useState({});

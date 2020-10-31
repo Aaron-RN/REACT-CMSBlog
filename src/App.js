@@ -123,7 +123,9 @@ const App = () => {
           <Route
             exact
             path="/users/:id"
-            render={props => <ProfilePage match={props.match} user={user} handleLogout={handleLogout} />}
+            render={props => (
+              <ProfilePage match={props.match} user={user} handleLogout={handleLogout} />
+            )}
           />
           <Route
             exact
