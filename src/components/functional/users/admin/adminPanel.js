@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import RenameModal from './modals/renameModal';
 import allForumsData from '../../../misc/presets/allForumsData';
+import RenameModal from './modals/renameModal';
+import NewSubforumModal from './modals/newSubforumModal';
 
 const AdminPanel = ({ user }) => {
   const [allForums, setForums] = useState([]);
@@ -19,13 +20,6 @@ const AdminPanel = ({ user }) => {
     setSelectedForum(forum);
     setModalType(formType);
     setShowModal(true);
-  };
-
-  // Handle adding a new Subforum
-  const handleNewSubforum = e => {
-    e.preventDefault();
-    console.log('New Sub Forum');
-    handleFormReset();
   };
 
   const populateSubForums = forumArray => forumArray
@@ -68,6 +62,9 @@ const AdminPanel = ({ user }) => {
               <div className="container-md">
                 {modalType === 'renameForum' && (
                   <RenameModal forum={selectedForum} handleFormReset={handleFormReset} />
+                )}
+                {modalType === 'newSubforum' && (
+                  <NewSubforumModal forum={selectedForum} handleFormReset={handleFormReset} />
                 )}
               </div>
             </div>
