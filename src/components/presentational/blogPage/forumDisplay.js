@@ -32,7 +32,7 @@ const ForumDisplay = ({
   const populateSubForums = () => subForums.map(subforumData => (
     <SubForumDisplay
       key={subforumData.subforum}
-      forum={forum.forum}
+      forum={forum.name}
       subforum={subforumData}
       handleIcon={handleIcon}
       handlePostSelect={handlePostSelect}
@@ -40,7 +40,7 @@ const ForumDisplay = ({
   ));
 
   useEffect(() => {
-    setForumTitle(forum.forum);
+    setForumTitle(forum.name);
     setSubForums(forum.subforums);
   }, [forum]);
 

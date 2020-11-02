@@ -17,7 +17,7 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
   // Populate all subforums and related posts paginated by 5 posts per page
   const populateAllForums = () => forumTopics.map(forumData => (
     <ForumDisplay
-      key={forumData.forum}
+      key={forumData.name}
       forum={forumData}
       handlePostSelect={handlePostSelect}
       postsPages={5}
@@ -28,13 +28,13 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
   useEffect(() => {
     const postPins = allPosts.filter(post => post.is_pinned);
     const categorizedPosts = allForums.map(forumData => ({
-      forum: forumData.forum,
-      posts: allPosts.filter(post => post.forum === forumData.forum && !post.subforum),
+      forum: forumData.name,
+      posts: allPosts.filter(post => post.forum === forumData.name && !post.subforum),
       subforums: forumData.subforum.map(subforum => (
         {
           subforum,
           posts: allPosts
-            .filter(post => post.forum === forumData.forum && post.subforum === subforum),
+            .filter(post => post.forum === forumData.name && post.subforum === subforum),
         }
       )),
     }));

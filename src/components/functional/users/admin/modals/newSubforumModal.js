@@ -5,16 +5,17 @@ const NewSubforumModal = ({ forum, handleFormReset }) => {
   const [subforumName, setSubforumName] = useState('');
 
   // Handle adding a new Subforum
-  const handleNewSubforum = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log('New Sub Forum');
+    const newForum = { name: forum.name, subforums: [...forum.subforums, subforumName] };
+    console.log(newForum);
     handleFormReset();
   };
 
   return (
-    <form className="modal-form" onSubmit={handleNewSubforum}>
+    <form className="modal-form" onSubmit={handleSubmit}>
       <h3 className="text-center">New Subforum</h3>
-      <h3 className="text-camel text-grey">{`Forum - ${forum.forum}`}</h3>
+      <h3 className="text-camel text-grey">{`Forum - ${forum.name}`}</h3>
       <h4>Subforum Name</h4>
       <input
         type="text"

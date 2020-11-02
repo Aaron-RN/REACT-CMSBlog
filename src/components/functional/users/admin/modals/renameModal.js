@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 
 const RenameModal = ({ forum, handleFormReset }) => {
-  const [forumName, setForumName] = useState(forum.forum);
+  const [forumName, setForumName] = useState(forum.name);
 
   // Handle renaming of a forum
-  const handleRename = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log(forum, forumName);
+    const newForum = { name: forum.name };
+    console.log(newForum);
     handleFormReset();
   };
 
   return (
-    <form className="modal-form" onSubmit={handleRename}>
+    <form className="modal-form" onSubmit={handleSubmit}>
       <h3 className="text-center">Rename Forum</h3>
       <h3>Forum Name</h3>
       <input

@@ -13,7 +13,7 @@ const TopicForum = ({
   // Populate all subforums and related posts paginated by 5 posts per page
   const populateForums = () => forumTopics.map(forumData => (
     <ForumDisplay
-      key={forumData.forum}
+      key={forumData.name}
       forum={forumData}
       handlePostSelect={handlePostSelect}
       postsPages={5}
@@ -22,20 +22,20 @@ const TopicForum = ({
 
   // Grab all topics by forum on Component Load
   useEffect(() => {
-    const selectedForum = allForums.filter(forumData => forumData.forum === forum);
+    const selectedForum = allForums.filter(forumData => forumData.name === forum);
     const categorizedPosts = selectedForum.map(forumData => {
       // checks if there is a subforum provided by match prop in address URL
       const selectedSubForum = subforum
         ? forumData.subforum.filter(subforumData => subforumData === subforum)
         : forumData.subforum;
       return ({
-        forum: forumData.forum,
-        posts: allPosts.filter(post => post.forum === forumData.forum && !post.subforum),
+        forum: forumData.name,
+        posts: allPosts.filter(post => post.forum === forumData.name && !post.subforum),
         subforums: selectedSubForum.map(subforum => (
           {
             subforum,
             posts: allPosts
-              .filter(post => post.forum === forumData.forum && post.subforum === subforum),
+              .filter(post => post.forum === forumData.name && post.subforum === subforum),
           }
         )),
       });

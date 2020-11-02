@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import allForumsData from '../../../misc/presets/allForumsData';
 import RenameModal from './modals/renameModal';
 import NewSubforumModal from './modals/newSubforumModal';
+import NewforumModal from './modals/newForum';
 
 const AdminPanel = ({ user }) => {
   const [allForums, setForums] = useState([]);
@@ -27,7 +27,7 @@ const AdminPanel = ({ user }) => {
 
   const populateForums = () => allForums.map(forum => (
     <div key={forum.id} className="forum">
-      <h4 className="text-camel">{forum.forum}</h4>
+      <h4 className="text-camel">{forum.name}</h4>
       <div className="inline-block text-grey">Subforums:</div>
       {' [ '}
       {populateSubForums(forum.subforum)}
@@ -51,7 +51,7 @@ const AdminPanel = ({ user }) => {
           <h2>Admin Panel</h2>
           <div className="ml-1">
             <h3>Forum Handling</h3>
-            <Link to="/forums/new" className="ml-1"><button type="button">Create a new Forum</button></Link>
+            <button type="button" className="ml-1 mb-1" onClick={() => handleModal({}, 'newForum')}>Create a new Forum</button>
             <h3 className="text-grey">All Forums &amp; Subforums</h3>
             <div className="all-forums">{populateForums()}</div>
           </div>
@@ -65,6 +65,9 @@ const AdminPanel = ({ user }) => {
                 )}
                 {modalType === 'newSubforum' && (
                   <NewSubforumModal forum={selectedForum} handleFormReset={handleFormReset} />
+                )}
+                {modalType === 'newForum' && (
+                  <NewforumModal handleFormReset={handleFormReset} />
                 )}
               </div>
             </div>
