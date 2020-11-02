@@ -4,7 +4,9 @@ import PinnedPostDisplay from '../presentational/blogPage/pinnedPostDisplay';
 import ForumDisplay from '../presentational/blogPage/forumDisplay';
 import '../../assets/css/blogPage.css';
 
-const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
+const BlogPage = ({
+  user, allPosts, allForums, handlePostSelect,
+}) => {
   const [pinnedPosts, setPinnedPosts] = useState([]);
   const [forumTopics, setForumTopics] = useState([]);
 
@@ -18,6 +20,7 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
   const populateAllForums = () => forumTopics.map(forumData => (
     <ForumDisplay
       key={forumData.name}
+      user={user}
       forum={forumData}
       handlePostSelect={handlePostSelect}
       postsPages={5}
@@ -28,7 +31,7 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
   useEffect(() => {
     const postPins = allPosts.filter(post => post.is_pinned);
     const categorizedPosts = allForums.map(forumData => ({
-      forum: forumData.name,
+      name: forumData.name,
       posts: allPosts.filter(post => post.forum === forumData.name && !post.subforum),
       subforums: forumData.subforum.map(subforum => (
         {
@@ -37,6 +40,8 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
             .filter(post => post.forum === forumData.name && post.subforum === subforum),
         }
       )),
+      admin_only: forumData.admin_only,
+      admin_view_only: forumData.admin_view_only,
     }));
     setPinnedPosts(postPins);
     setForumTopics(categorizedPosts);
@@ -64,6 +69,7 @@ const BlogPage = ({ allPosts, allForums, handlePostSelect }) => {
 };
 
 BlogPage.propTypes = {
+  user: propTypes.instanceOf(Object).isRequired,
   allPosts: propTypes.instanceOf(Array).isRequired,
   allForums: propTypes.instanceOf(Array).isRequired,
   handlePostSelect: propTypes.func.isRequired,

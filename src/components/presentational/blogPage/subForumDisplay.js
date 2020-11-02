@@ -5,7 +5,7 @@ import Paginate from '../../functional/blogPage/paginatePosts';
 import populatePosts from './populatePosts';
 
 const SubForumDisplay = ({
-  forum, subforum, handleIcon, handlePostSelect, postsPerPage,
+  forum, subforum, handleIcon, handlePostSelect, checkForumContraints, postsPerPage,
 }) => {
   const [forumTitle, setForumTitle] = useState('');
   const [posts, setPosts] = useState([]);
@@ -37,7 +37,9 @@ const SubForumDisplay = ({
       </div>
       {showForum && (
         <div>
-          <Link to={`/${forum}/${forumTitle}/posts/new`} className="new-post-btn">New Topic</Link>
+          {checkForumContraints() && (
+            <Link to={`/${forum}/${forumTitle}/posts/new`} className="new-post-btn">New Topic</Link>
+          )}
           <div className="post-section">
             <Paginate
               posts={posts}
@@ -61,6 +63,7 @@ SubForumDisplay.propTypes = {
   subforum: propTypes.instanceOf(Object).isRequired,
   handleIcon: propTypes.func.isRequired,
   handlePostSelect: propTypes.func.isRequired,
+  checkForumContraints: propTypes.func.isRequired,
   postsPerPage: propTypes.number,
 };
 

@@ -6,11 +6,24 @@ import populatePosts from './populatePosts';
 import SubForumDisplay from './subForumDisplay';
 
 const ForumDisplay = ({
-  forum, postsPages, handlePostSelect,
+  user, forum, postsPages, handlePostSelect,
 }) => {
   const [showForum, setShowForum] = useState(false);
   const [forumTitle, setForumTitle] = useState('');
   const [subForums, setSubForums] = useState([]);
+
+  const isAdmin = user.admin_level > 0;
+
+  const canSeeForum = () => {
+    if (!forum.admin_view_only) return true;
+    if (forum.admin_view_only && isAdmin) return true;
+    return false;
+  };
+  const checkForumContraints = () => {
+    if (!forum.admin_only) return true;
+    if (forum.admin_only && isAdmin) return true;
+    return false;
+  };
 
   const handleShowForum = () => {
     setShowForum(!showForum);
@@ -36,6 +49,7 @@ const ForumDisplay = ({
       subforum={subforumData}
       handleIcon={handleIcon}
       handlePostSelect={handlePostSelect}
+      checkForumContraints={checkForumContraints}
     />
   ));
 
@@ -50,18 +64,19 @@ const ForumDisplay = ({
     if (forum.posts.length > 0) { setShowForum(true); }
   }, [subForums, forum]);
 
-  return (
-    <div className="forum-section z-2">
-      <div className="header-title bg-announcement">
-        <Link to={`/${forumTitle}`}><h3 className="text-camel">{forumTitle}</h3></Link>
-        <button type="button" onClick={() => handleShowForum(showForum)}>
-          {handleIcon(showForum)}
-        </button>
-      </div>
-      {(subForums.length > 0 && showForum) && populateSubForums()}
-      {(!subForums.length && showForum) && (
+  return canSeeForum()
+    ? (
+      <div className="forum-section z-2">
+        <div className="header-title bg-announcement">
+          <Link to={`/${forumTitle}`}><h3 className="text-camel">{forumTitle}</h3></Link>
+          <button type="button" onClick={() => handleShowForum(showForum)}>
+            {handleIcon(showForum)}
+          </button>
+        </div>
+        {(subForums.length > 0 && showForum) && populateSubForums()}
+        {(!subForums.length && showForum) && (
         <div>
-          <Link to={`/${forumTitle}/posts/new`} className="new-post-btn">New Topic</Link>
+          {checkForumContraints() && (<Link to={`/${forumTitle}/posts/new`} className="new-post-btn">New Topic</Link>)}
           <div className="post-section">
             <Paginate
               posts={forum.posts}
@@ -71,9 +86,10 @@ const ForumDisplay = ({
             />
           </div>
         </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    )
+    : null;
 };
 
 ForumDisplay.defaultProps = {
@@ -81,6 +97,7 @@ ForumDisplay.defaultProps = {
 };
 
 ForumDisplay.propTypes = {
+  user: propTypes.instanceOf(Object).isRequired,
   forum: propTypes.instanceOf(Object).isRequired,
   postsPages: propTypes.number,
   handlePostSelect: propTypes.func.isRequired,

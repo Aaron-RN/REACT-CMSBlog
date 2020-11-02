@@ -109,6 +109,7 @@ const App = () => {
             path="/"
             render={() => (
               <BlogPage
+                user={user}
                 allForums={allForums}
                 allPosts={allPosts}
                 handlePostSelect={handlePostSelect}
@@ -133,6 +134,7 @@ const App = () => {
             render={props => (
               <TopicForum
                 match={props.match}
+                user={user}
                 allForums={allForums}
                 allPosts={allPosts}
                 handlePostSelect={handlePostSelect}
@@ -145,6 +147,7 @@ const App = () => {
             render={props => (
               <TopicForum
                 match={props.match}
+                user={user}
                 allForums={allForums}
                 allPosts={allPosts}
                 handlePostSelect={handlePostSelect}

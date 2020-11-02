@@ -5,7 +5,7 @@ import ForumDisplay from '../../presentational/blogPage/forumDisplay';
 import '../../../assets/css/blogPage.css';
 
 const TopicForum = ({
-  match, allPosts, allForums, handlePostSelect,
+  match, user, allPosts, allForums, handlePostSelect,
 }) => {
   const [forumTopics, setForumTopics] = useState([]);
   const { forum, subforum } = match.params;
@@ -14,6 +14,7 @@ const TopicForum = ({
   const populateForums = () => forumTopics.map(forumData => (
     <ForumDisplay
       key={forumData.name}
+      user={user}
       forum={forumData}
       handlePostSelect={handlePostSelect}
       postsPages={5}
@@ -29,7 +30,7 @@ const TopicForum = ({
         ? forumData.subforum.filter(subforumData => subforumData === subforum)
         : forumData.subforum;
       return ({
-        forum: forumData.name,
+        name: forumData.name,
         posts: allPosts.filter(post => post.forum === forumData.name && !post.subforum),
         subforums: selectedSubForum.map(subforum => (
           {
@@ -38,6 +39,8 @@ const TopicForum = ({
               .filter(post => post.forum === forumData.name && post.subforum === subforum),
           }
         )),
+        admin_only: forumData.admin_only,
+        admin_view_only: forumData.admin_view_only,
       });
     });
     setForumTopics(categorizedPosts);
@@ -64,6 +67,7 @@ const TopicForum = ({
 
 TopicForum.propTypes = {
   match: propTypes.instanceOf(Object).isRequired,
+  user: propTypes.instanceOf(Object).isRequired,
   allForums: propTypes.instanceOf(Array).isRequired,
   allPosts: propTypes.instanceOf(Array).isRequired,
   handlePostSelect: propTypes.func.isRequired,
