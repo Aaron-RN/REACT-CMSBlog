@@ -7,7 +7,6 @@ const NewforumModal = ({ handleFormReset }) => {
   const [subforums, setSubforums] = useState([]);
   const [adminForum, setAdminForum] = useState(false);
   const [adminView, setAdminView] = useState(false);
-  const [lockedForum, setLockForum] = useState(false);
 
   // Reset Forum Variables
   const handleReset = () => {
@@ -19,7 +18,15 @@ const NewforumModal = ({ handleFormReset }) => {
   // Handle adding a new forum creation
   const handleSubmit = e => {
     e.preventDefault();
-    const forum = { name: forumName.trim(), subforums, admin_forum: adminForum };
+    const forumNameTrimmed = forumName.trim();
+    setforumName(forumNameTrimmed);
+    if (!forumNameTrimmed) return;
+    const forum = {
+      name: forumName.trim(),
+      subforums,
+      admin_only: adminForum,
+      admin_view_only: adminView,
+    };
     console.log(forum);
     handleReset();
     handleFormReset();
@@ -61,12 +68,22 @@ const NewforumModal = ({ handleFormReset }) => {
         required
       />
       <div>
-        <span className="container">Admin Only Forum</span>
-        <input type="checkbox" onChange={() => setAdminForum(!adminForum)} />
-        <span className="container">Only Admin can View Forum</span>
-        <input type="checkbox" onChange={() => setAdminView(!adminView)} />
-        <span className="container">Lock Forum</span>
-        <input type="checkbox" onChange={() => setLockForum(!lockedForum)} />
+        <div>
+          <span className="size-14">Admin Only</span>
+          <input
+            type="checkbox"
+            title="Only administrators can post in this forum"
+            onChange={() => setAdminForum(!adminForum)}
+          />
+        </div>
+        <div>
+          <span className="size-14">Admin View only</span>
+          <input
+            type="checkbox"
+            title="Only administrators can view this forum"
+            onChange={() => setAdminView(!adminView)}
+          />
+        </div>
       </div>
       <h4>Subforum Name</h4>
       <input
@@ -77,8 +94,8 @@ const NewforumModal = ({ handleFormReset }) => {
       />
       <h4>All Subforums</h4>
       <div className="mb-1">{populateSubforums()}</div>
-      <div>
-        <button type="button" onClick={() => handleNewSubforum(subforumName)}>+ Add new Subforum</button>
+      <div className="ml-auto">
+        <button type="button" onClick={() => handleNewSubforum(subforumName)}>+ Subforum</button>
         <button type="submit">Add new forum</button>
       </div>
     </form>

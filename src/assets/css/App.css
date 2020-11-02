@@ -132,6 +132,7 @@ button:hover { transform: scale(1.025); }
 .text-red { color: #f3705f; }
 .text-grey { color: grey; }
 
+.size-14 { font-size: 0.76em; }
 .size-16 { font-size: 0.86em; }
 .size-18 { font-size: 0.96em; }
 
