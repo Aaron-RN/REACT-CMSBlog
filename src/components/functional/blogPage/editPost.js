@@ -24,7 +24,7 @@ const EditPost = ({ user, allPosts, match }) => {
   const handleSubmitPost = e => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('post[title]', postTitle);
+    formData.append('post[title]', postTitle.trim());
     formData.append('post[body]', postBody);
     formData.append('post[user_id]', user.id);
   };

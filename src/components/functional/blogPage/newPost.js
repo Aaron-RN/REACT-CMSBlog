@@ -30,7 +30,7 @@ const NewBlogPost = ({
   const handleSubmitPost = e => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append('post[title]', newPostTitle);
+    formData.append('post[title]', newPostTitle.trim());
     formData.append('post[body]', newPostBody);
     // formData.append('post[bg_image]', newPostImage);
     formData.append('post[forum]', forum);

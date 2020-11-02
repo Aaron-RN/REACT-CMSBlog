@@ -5,6 +5,9 @@ const NewforumModal = ({ handleFormReset }) => {
   const [forumName, setforumName] = useState('');
   const [subforumName, setSubforumName] = useState('');
   const [subforums, setSubforums] = useState([]);
+  const [adminForum, setAdminForum] = useState(false);
+  const [adminView, setAdminView] = useState(false);
+  const [lockedForum, setLockForum] = useState(false);
 
   // Reset Forum Variables
   const handleReset = () => {
@@ -16,7 +19,7 @@ const NewforumModal = ({ handleFormReset }) => {
   // Handle adding a new forum creation
   const handleSubmit = e => {
     e.preventDefault();
-    const forum = { name: forumName.trim(), subforums };
+    const forum = { name: forumName.trim(), subforums, admin_forum: adminForum };
     console.log(forum);
     handleReset();
     handleFormReset();
@@ -57,6 +60,14 @@ const NewforumModal = ({ handleFormReset }) => {
         minLength="3"
         required
       />
+      <div>
+        <span className="container">Admin Only Forum</span>
+        <input type="checkbox" onChange={() => setAdminForum(!adminForum)} />
+        <span className="container">Only Admin can View Forum</span>
+        <input type="checkbox" onChange={() => setAdminView(!adminView)} />
+        <span className="container">Lock Forum</span>
+        <input type="checkbox" onChange={() => setLockForum(!lockedForum)} />
+      </div>
       <h4>Subforum Name</h4>
       <input
         type="text"
