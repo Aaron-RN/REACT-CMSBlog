@@ -7,7 +7,7 @@ const RenameModal = ({ forum, handleFormReset }) => {
   // Handle renaming of a forum
   const handleSubmit = e => {
     e.preventDefault();
-    const newForum = { name: forum.name };
+    const newForum = { name: forumName.trim() };
     console.log(newForum);
     handleFormReset();
   };

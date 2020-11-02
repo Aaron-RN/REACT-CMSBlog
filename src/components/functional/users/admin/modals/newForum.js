@@ -16,7 +16,7 @@ const NewforumModal = ({ handleFormReset }) => {
   // Handle adding a new forum creation
   const handleSubmit = e => {
     e.preventDefault();
-    const forum = { name: forumName, subforums };
+    const forum = { name: forumName.trim(), subforums };
     console.log(forum);
     handleReset();
     handleFormReset();
@@ -24,12 +24,27 @@ const NewforumModal = ({ handleFormReset }) => {
 
   // Add new subforum
   const handleNewSubforum = subforum => {
-    setSubforums([...subforums, subforum]);
+    if (!subforum.trim()) return;
+    setSubforums([...subforums, subforum.trim()]);
     setSubforumName('');
   };
 
+  const handleRemoveSubforum = subforum => {
+    const filteredSubforum = subforums.filter(subforumData => subforumData !== subforum);
+    setSubforums(filteredSubforum);
+  };
+
   const populateSubforums = () => subforums
-    .map(subforumData => <span key={subforumData} className="subforum">{`${subforumData}`}</span>);
+    .map(subforumData => (
+      <button
+        type="button"
+        key={subforumData}
+        className="subforum btn-bare"
+        onClick={() => handleRemoveSubforum(subforumData)}
+      >
+        {`${subforumData}`}
+      </button>
+    ));
 
   return (
     <form className="modal-form" onSubmit={handleSubmit}>
@@ -50,7 +65,7 @@ const NewforumModal = ({ handleFormReset }) => {
         minLength="3"
       />
       <h4>All Subforums</h4>
-      <div>{populateSubforums()}</div>
+      <div className="mb-1">{populateSubforums()}</div>
       <div>
         <button type="button" onClick={() => handleNewSubforum(subforumName)}>+ Add new Subforum</button>
         <button type="submit">Add new forum</button>

@@ -7,7 +7,7 @@ const NewSubforumModal = ({ forum, handleFormReset }) => {
   // Handle adding a new Subforum
   const handleSubmit = e => {
     e.preventDefault();
-    const newForum = { name: forum.name, subforums: [...forum.subforums, subforumName] };
+    const newForum = { name: forum.name, subforums: [...forum.subforums, subforumName.trim()] };
     console.log(newForum);
     handleFormReset();
   };
