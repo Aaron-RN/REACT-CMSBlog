@@ -15,6 +15,16 @@ const NewforumModal = ({ handleFormReset }) => {
     setSubforums([]);
   };
 
+  const handleAdminForum = () => {
+    setAdminForum(!adminForum);
+    setAdminView(false);
+  };
+
+  const handleAdminView = () => {
+    setAdminView(!adminView);
+    setAdminForum(!adminView);
+  };
+
   // Handle adding a new forum creation
   const handleSubmit = e => {
     e.preventDefault();
@@ -73,7 +83,8 @@ const NewforumModal = ({ handleFormReset }) => {
           <input
             type="checkbox"
             title="Only administrators can post in this forum"
-            onChange={() => setAdminForum(!adminForum)}
+            checked={adminForum}
+            onChange={handleAdminForum}
           />
         </div>
         <div>
@@ -81,7 +92,8 @@ const NewforumModal = ({ handleFormReset }) => {
           <input
             type="checkbox"
             title="Only administrators can view this forum"
-            onChange={() => setAdminView(!adminView)}
+            checked={adminView}
+            onChange={handleAdminView}
           />
         </div>
       </div>
