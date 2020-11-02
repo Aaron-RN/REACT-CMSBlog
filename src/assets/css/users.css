@@ -57,7 +57,7 @@
   font-weight: 500;
   color: #706017;
   background-color: transparent;
-  padding: 1px 4px;
+  padding: 1px 6px;
   border: 2px solid #db7c6f;
   border-radius: 14px;
   /* margin-left: 22px; */
@@ -104,8 +104,8 @@
 }
 .forum {
   padding: 12px;
-  border-right: 2px solid #706017;
-  border-bottom: 1px solid #706017;
+  border-right: 2px solid #70601752;
+  border-bottom: 1px solid #70601742;
   border-radius: 8px;
   margin: 4px;
 }
@@ -117,7 +117,7 @@
 .forum-menu button {
   padding: 2px 4px;
   background-color: #f3e3c9;
-  border: 1px solid #111;
+  border: 1px solid #927d64;
   border-radius: 6px;
   margin: 2px 2px;
   cursor: pointer;

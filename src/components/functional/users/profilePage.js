@@ -1,13 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { allUsersData } from '../../misc/presets/allUsersData';
+import populatePosts from '../../presentational/blogPage/populatePosts';
+import { allUsersData, fetchAuthorName } from '../../misc/presets/allUsersData';
+import allPostsData from '../../misc/presets/allPostsData';
+import allCommentsData from '../../misc/presets/allCommentsData';
 import AdminPanel from './admin/adminPanel';
+import Paginate from '../blogPage/paginatePosts';
 
-const ProfilePage = ({ match, user, handleLogout }) => {
+const ProfilePage = ({
+  match, user, handleLogout, handlePostSelect,
+}) => {
   const [selectedUser, setSelectedUser] = useState({});
+  const [userPosts, setUserPosts] = useState([]);
+  const [userComments, setUserComments] = useState([]);
   const isMyProfile = user.id === selectedUser.id;
 
-  // Fetch the user based on the URL id parameter
+  const populateLast3Comments = () => userComments.map((comment, index) => {
+    const post = allPostsData.find(post => post.id === comment.post_id);
+    const postTitle = post.title;
+    const postAuthor = fetchAuthorName(post.author_id);
+    if (index > 3) return null;
+    return (
+      <div key={comment.id}>
+        <h4>{`${postTitle} by ${postAuthor}`}</h4>
+        <span className="size-16">{`"${comment.body}"`}</span>
+      </div>
+    );
+  });
+
+  // Fetch the user, his related posts, and comments based on the URL id parameter
   useEffect(() => {
     if (match.params.id) {
       const userID = parseInt(match.params.id, 10);
@@ -15,6 +36,16 @@ const ProfilePage = ({ match, user, handleLogout }) => {
       setSelectedUser(userSelected);
     }
   }, [match]);
+
+  // Remove when adding Database
+  useEffect(() => {
+    const allUserPosts = allPostsData.filter(post => post.author_id === selectedUser.id);
+    const allUserComments = allCommentsData
+      .filter(comment => comment.author_id === selectedUser.id);
+    const latestComments = allUserComments.sort((a, b) => b.id - a.id);
+    setUserPosts(allUserPosts);
+    setUserComments(latestComments);
+  }, [selectedUser]);
 
   return (
     <div id="UserProfile" className="bg-main">
@@ -38,11 +69,20 @@ const ProfilePage = ({ match, user, handleLogout }) => {
           <h2>Recent Activity</h2>
           <div className="ml-1">
             <h3>Latest Posts</h3>
-            <div className="latest-posts">Posts</div>
+            <div id="BlogPage" className="latest-posts">
+              <Paginate
+                posts={userPosts}
+                handlePostSelect={handlePostSelect}
+                populatePosts={populatePosts}
+                postsPages={5}
+              />
+            </div>
           </div>
           <div className="ml-1">
             <h3>Latest Comments</h3>
-            <div className="latest-comments">Comments</div>
+            <div className="latest-comments">
+              {populateLast3Comments()}
+            </div>
           </div>
         </div>
         {isMyProfile && (<AdminPanel user={user} />)}
@@ -55,6 +95,7 @@ ProfilePage.propTypes = {
   match: propTypes.instanceOf(Object).isRequired,
   user: propTypes.instanceOf(Object).isRequired,
   handleLogout: propTypes.func.isRequired,
+  handlePostSelect: propTypes.func.isRequired,
 };
 
 export default ProfilePage;
