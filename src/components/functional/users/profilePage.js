@@ -40,10 +40,11 @@ const ProfilePage = ({
   // Remove when adding Database
   useEffect(() => {
     const allUserPosts = allPostsData.filter(post => post.author_id === selectedUser.id);
+    const latestPosts = allUserPosts.sort((a, b) => b.id - a.id);
     const allUserComments = allCommentsData
       .filter(comment => comment.author_id === selectedUser.id);
     const latestComments = allUserComments.sort((a, b) => b.id - a.id);
-    setUserPosts(allUserPosts);
+    setUserPosts(latestPosts);
     setUserComments(latestComments);
   }, [selectedUser]);
 
