@@ -21,10 +21,10 @@ const ProfilePage = ({
     const postAuthor = fetchAuthorName(post.author_id);
     if (index > 3) return null;
     return (
-      <div key={comment.id}>
+      <button type="button" key={comment.id} onClick={() => handlePostSelect(post)}>
         <h4>{`${postTitle} by ${postAuthor}`}</h4>
         <span className="size-16">{`"${comment.body}"`}</span>
-      </div>
+      </button>
     );
   });
 
@@ -70,7 +70,7 @@ const ProfilePage = ({
           <h2>Recent Activity</h2>
           <div className="ml-1">
             <h3>Latest Posts</h3>
-            <div id="BlogPage" className="latest-posts">
+            <div id="BlogPage" className="latest-posts mb-1">
               <Paginate
                 posts={userPosts}
                 handlePostSelect={handlePostSelect}
