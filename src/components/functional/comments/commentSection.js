@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import allCommentsData from '../../misc/presets/allCommentsData';
 import CommentDisplay from './commentDisplay';
 import PaginateComments from './paginateComments';
 import { fetchAuthorName } from '../../misc/presets/allUsersData';
-import { Link } from 'react-router-dom';
 
 const CommentSection = ({ user, post }) => {
   const [relatedComments, setComments] = useState([]);
@@ -24,7 +24,7 @@ const CommentSection = ({ user, post }) => {
     // When replying to a comment you can only reply to the main comment not individual sub-comments
     const mainCommentID = selectedComment.comment_id || selectedComment.id;
 
-    const comment = { body, author_id: user.id, comment_id: mainCommentID };
+    const comment = { body: body.trim(), author_id: user.id, comment_id: mainCommentID };
     // Axios POST Request
     console.log(comment);
   };
