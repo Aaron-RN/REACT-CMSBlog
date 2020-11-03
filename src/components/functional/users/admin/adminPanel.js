@@ -28,7 +28,13 @@ const AdminPanel = ({ user }) => {
 
   const populateSubForums = (forum, subforumArray) => subforumArray
     .map(subforum => (
-      <button type="button" key={subforum} className="subforum" onClick={() => handleModal(forum, 'renameSubforum', subforum)}>
+      <button
+        type="button"
+        title="Rename subforum"
+        key={subforum}
+        className="subforum"
+        onClick={() => handleModal(forum, 'renameSubforum', subforum)}
+      >
         {`${subforum}`}
       </button>
     ));

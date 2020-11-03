@@ -75,7 +75,7 @@ h1, h2, h3, h4, h5, h6 {
 a { color: var(--links); text-decoration: none;}
 a:hover { text-decoration: underline; }
 
-button:hover { transform: scale(1.025); }
+button:hover { transform: scale(1.025); cursor: pointer; }
 .bare-btn {
   display: inherit;
   appearance: none;
