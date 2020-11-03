@@ -4,33 +4,41 @@ import allForumsData from '../../../misc/presets/allForumsData';
 import RenameModal from './modals/renameModal';
 import NewSubforumModal from './modals/newSubforumModal';
 import NewforumModal from './modals/newForum';
+import RenameSubforumModal from './modals/renameSubforum';
 
 const AdminPanel = ({ user }) => {
   const [allForums, setForums] = useState([]);
   const [selectedForum, setSelectedForum] = useState({});
+  const [selectedSubforum, setSelectedSubforum] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('renameForum');
 
   const handleFormReset = () => {
     setSelectedForum({});
+    setSelectedSubforum('');
     setShowModal(false);
   };
 
-  const handleModal = (forum, formType = 'renameForum') => {
+  const handleModal = (forum, formType = 'renameForum', subforum = '') => {
+    setSelectedSubforum(subforum);
     setSelectedForum(forum);
     setModalType(formType);
     setShowModal(true);
   };
 
-  const populateSubForums = forumArray => forumArray
-    .map(subforum => <span key={subforum} className="subforum">{`${subforum}`}</span>);
+  const populateSubForums = (forum, subforumArray) => subforumArray
+    .map(subforum => (
+      <button type="button" key={subforum} className="subforum" onClick={() => handleModal(forum, 'renameSubforum', subforum)}>
+        {`${subforum}`}
+      </button>
+    ));
 
   const populateForums = () => allForums.map(forum => (
     <div key={forum.id} className="forum">
       <h4 className="text-camel">{forum.name}</h4>
       <div className="inline-block text-grey">Subforums:</div>
       {' [ '}
-      {populateSubForums(forum.subforum)}
+      {populateSubForums(forum, forum.subforum)}
       {' ]'}
       <div className="forum-menu">
         <button type="button" onClick={() => handleModal(forum)}>Rename</button>
@@ -58,10 +66,18 @@ const AdminPanel = ({ user }) => {
         </div>
         {showModal && (
           <div className="modal">
+            <button type="button" className="modal" onClick={handleFormReset}>x</button>
             <div className="modal-content">
               <div className="container-md">
                 {modalType === 'renameForum' && (
-                  <RenameModal forum={selectedForum} handleFormReset={handleFormReset} />
+                <RenameModal forum={selectedForum} handleFormReset={handleFormReset} />
+                )}
+                {modalType === 'renameSubforum' && (
+                  <RenameSubforumModal
+                    forum={selectedForum}
+                    subforum={selectedSubforum}
+                    handleFormReset={handleFormReset}
+                  />
                 )}
                 {modalType === 'newSubforum' && (
                   <NewSubforumModal forum={selectedForum} handleFormReset={handleFormReset} />
