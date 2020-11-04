@@ -29,6 +29,7 @@ const NewBlogPost = ({
 
   const handleSubmitPost = e => {
     e.preventDefault();
+    if (!user.can_post) return;
     const formData = new FormData();
     formData.append('post[title]', newPostTitle.trim());
     formData.append('post[body]', newPostBody);
