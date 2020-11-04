@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import allCommentsData from '../../misc/presets/allCommentsData';
 import CommentDisplay from './commentDisplay';
 import PaginateComments from './paginateComments';
-import { fetchAuthorName } from '../../misc/presets/allUsersData';
+import { fetchAuthorName, isCommentSuspended } from '../../misc/presets/allUsersData';
 
 const CommentSection = ({ user, post }) => {
   const [relatedComments, setComments] = useState([]);
@@ -55,7 +55,7 @@ const CommentSection = ({ user, post }) => {
           {'Comments '}
           {post.is_locked && <i className="fas fa-lock" />}
         </h4>
-        {(!post.is_locked && user.can_comment && user.logged_in) && (
+        {(!post.is_locked && !isCommentSuspended(user.id) && user.logged_in) && (
           <form className="comment-form" onSubmit={handleSubmit}>
             <textarea
               ref={textElem}
@@ -77,7 +77,7 @@ const CommentSection = ({ user, post }) => {
             <Link to="/login">You must Login to comment...</Link>
           </div>
         )}
-        {(!user.can_comment && user.logged_in) && (
+        {(isCommentSuspended(user.id) && user.logged_in) && (
           <div className="text-suspended">Your commenting capabilities has been suspended by a forum moderator!</div>
         )}
         <PaginateComments

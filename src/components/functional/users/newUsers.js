@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import '../../../assets/css/users.css';
 
 const NewUsers = ({ allUsers }) => {
@@ -8,9 +9,9 @@ const NewUsers = ({ allUsers }) => {
   const displayUser = () => latestUsers.map((user, index) => {
     if (index < 8) {
       return (
-        <div key={user.id} className="user">
+        <Link to={`/users/${user.id}`} key={user.id} className="user">
           {user.username}
-        </div>
+        </Link>
       );
     }
     return null;

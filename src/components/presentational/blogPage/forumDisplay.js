@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { isPostSuspended } from '../../misc/presets/allUsersData';
 import Paginate from '../../functional/blogPage/paginatePosts';
 import populatePosts from './populatePosts';
 import SubForumDisplay from './subForumDisplay';
@@ -20,7 +21,7 @@ const ForumDisplay = ({
     return false;
   };
   const checkForumContraints = () => {
-    if (!user.can_post) return false; // Takes precedence over all conditions
+    if (isPostSuspended(user.id)) return false; // Takes precedence over all conditions
     if (!forum.admin_only) return true;
     if (forum.admin_only && isAdmin) return true;
     return false;

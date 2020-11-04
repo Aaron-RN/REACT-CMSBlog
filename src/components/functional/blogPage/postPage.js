@@ -66,7 +66,7 @@ const PostPage = ({ match, allPosts, user }) => {
             </h3>
             <div className="ml-auto">
               {user.admin_level > 1 && (
-                <div className="flex-row">
+                <div className="inline-flex">
                   <button type="button" onClick={handlePinPost} className="bare-btn pin-btn" title="Pin/Unpin post">
                     {postPinned && <i className="fas fa-star text-red" />}
                     {!postPinned && <i className="far fa-star" />}

@@ -15,6 +15,20 @@ const ProfilePage = ({
   const [userComments, setUserComments] = useState([]);
   const isMyProfile = user.id === selectedUser.id;
 
+  // Returns Whether a user is an administrator or not
+  const profileStatus = () => {
+    if (selectedUser.admin_level === 1) {
+      return <div className="text-bold text-status">Forums Moderator</div>;
+    }
+    if (selectedUser.admin_level === 2) {
+      return <div className="text-bold text-status">Moderator</div>;
+    }
+    if (selectedUser.admin_level === 3) {
+      return <div className="text-bold text-status">Site Owner</div>;
+    }
+    return null;
+  };
+
   const populateLast3Comments = () => userComments.map((comment, index) => {
     const post = allPostsData.find(post => post.id === comment.post_id);
     const postTitle = post.title;
@@ -65,6 +79,7 @@ const ProfilePage = ({
           )}
           {!isMyProfile && <h2>{`${selectedUser.username}'s Profile Page`}</h2>}
           <i className="fas fa-user profile-pic" />
+          {profileStatus()}
           {!selectedUser.can_comment && (
             <div className="text-suspended">User&apos;s ability to comment on posts has been suspended</div>
           )}
@@ -93,6 +108,7 @@ const ProfilePage = ({
           </div>
         </div>
         {isMyProfile && (<AdminPanel user={user} />)}
+        {!isMyProfile && (<AdminPanel user={user} selectedUser={selectedUser} />)}
       </div>
     </div>
   );

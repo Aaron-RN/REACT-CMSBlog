@@ -5,8 +5,9 @@ import RenameModal from './modals/renameModal';
 import NewSubforumModal from './modals/newSubforumModal';
 import NewforumModal from './modals/newForum';
 import RenameSubforumModal from './modals/renameSubforum';
+import SuspendUser from './modals/suspendUser';
 
-const AdminPanel = ({ user }) => {
+const AdminPanel = ({ user, selectedUser }) => {
   const [allForums, setForums] = useState([]);
   const [selectedForum, setSelectedForum] = useState({});
   const [selectedSubforum, setSelectedSubforum] = useState('');
@@ -58,9 +59,32 @@ const AdminPanel = ({ user }) => {
     setForums(allForumsData);
   }, []);
 
-  return user.admin_level > 0
+  const renderMain = selectedUser
     ? (
-      <div id="Adminpanel">
+      <div id="AdminPanel">
+        <div className="section">
+          <h2>Admin Panel</h2>
+          <div className="ml-1">
+            <h3>User Handling</h3>
+            <button type="button" className="ml-1 mb-1" onClick={() => handleModal({}, 'suspendUser')}>Suspend User Capabilities</button>
+          </div>
+        </div>
+        {showModal && (
+          <div className="modal">
+            <button type="button" className="modal-bg" onClick={handleFormReset}>x</button>
+            <div className="modal-content">
+              <div className="container-md">
+                {modalType === 'suspendUser' && (
+                  <SuspendUser user={user} selectedUser={selectedUser} handleFormReset={handleFormReset} />
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    )
+    : (
+      <div id="AdminPanel">
         <div className="section">
           <h2>Admin Panel</h2>
           <div className="ml-1">
@@ -71,36 +95,44 @@ const AdminPanel = ({ user }) => {
           </div>
         </div>
         {showModal && (
-          <div className="modal">
-            <button type="button" className="modal" onClick={handleFormReset}>x</button>
-            <div className="modal-content">
-              <div className="container-md">
-                {modalType === 'renameForum' && (
-                <RenameModal forum={selectedForum} handleFormReset={handleFormReset} />
-                )}
-                {modalType === 'renameSubforum' && (
-                  <RenameSubforumModal
-                    forum={selectedForum}
-                    subforum={selectedSubforum}
-                    handleFormReset={handleFormReset}
-                  />
-                )}
-                {modalType === 'newSubforum' && (
-                  <NewSubforumModal forum={selectedForum} handleFormReset={handleFormReset} />
-                )}
-                {modalType === 'newForum' && (
-                  <NewforumModal handleFormReset={handleFormReset} />
-                )}
-              </div>
+        <div className="modal">
+          <button type="button" className="modal-bg" onClick={handleFormReset}>x</button>
+          <div className="modal-content">
+            <div className="container-md">
+              {modalType === 'renameForum' && (
+              <RenameModal forum={selectedForum} handleFormReset={handleFormReset} />
+              )}
+              {modalType === 'renameSubforum' && (
+              <RenameSubforumModal
+                forum={selectedForum}
+                subforum={selectedSubforum}
+                handleFormReset={handleFormReset}
+              />
+              )}
+              {modalType === 'newSubforum' && (
+              <NewSubforumModal forum={selectedForum} handleFormReset={handleFormReset} />
+              )}
+              {modalType === 'newForum' && (
+              <NewforumModal handleFormReset={handleFormReset} />
+              )}
             </div>
           </div>
+        </div>
         )}
       </div>
-    )
+    );
+
+  return user.admin_level > 0
+    ? renderMain
     : null;
 };
 
+AdminPanel.defaultProps = {
+  selectedUser: null,
+};
+
 AdminPanel.propTypes = {
+  selectedUser: propTypes.instanceOf(Object),
   user: propTypes.instanceOf(Object).isRequired,
 };
 

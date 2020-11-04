@@ -139,6 +139,7 @@ button:hover { transform: scale(1.025); cursor: pointer; }
 .flex-wrap { flex-wrap: wrap; }
 .align-items-base { align-items: baseline !important; }
 
+.text-bold { font-weight: bold; }
 .text-camel { text-transform: capitalize; }
 .text-caps { text-transform: uppercase; }
 
@@ -146,9 +147,10 @@ button:hover { transform: scale(1.025); cursor: pointer; }
 .text-right{ text-align: right; }
 
 .text-home { color: var(--navText); text-decoration-color: #43b6da !important; }
+.text-status { color: #3c6963; background-color: #dcf1e5; border-radius: 2px; }
 .text-black { color: #4b4723; text-decoration: none !important; }
 .text-red { color: #c75243; }
-.text-grey { color: grey; }
+.text-grey { color: #808080; }
 .text-suspended { 
   color: #8a2b2b;
   font-size: 0.9em;
@@ -206,13 +208,14 @@ button:hover { transform: scale(1.025); cursor: pointer; }
   font: inherit;
   text-align: inherit;
   width: 100%; height: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.4);
   z-index: 999;
 }
 .modal-bg {
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
+  color: transparent;
   background-color: transparent;
   border: none;
   outline: none;
@@ -221,6 +224,8 @@ button:hover { transform: scale(1.025); cursor: pointer; }
 .modal-content {
   position: relative;
   top: 50%;
+  color: var(--navText);
+  text-shadow: none;
   background-color: #fff;
   padding: 12px;
   min-height: 220px;

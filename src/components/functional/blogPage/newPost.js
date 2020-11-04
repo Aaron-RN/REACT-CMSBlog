@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { modules, formats } from '../../misc/presets/quillModules';
+import { isPostSuspended } from '../../misc/presets/allUsersData';
 import 'react-quill/dist/quill.snow.css';
 
 const NewBlogPost = ({
@@ -29,7 +30,7 @@ const NewBlogPost = ({
 
   const handleSubmitPost = e => {
     e.preventDefault();
-    if (!user.can_post) return;
+    if (isPostSuspended(user.id)) return;
     const formData = new FormData();
     formData.append('post[title]', newPostTitle.trim());
     formData.append('post[body]', newPostBody);
