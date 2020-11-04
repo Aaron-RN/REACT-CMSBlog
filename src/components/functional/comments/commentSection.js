@@ -55,7 +55,7 @@ const CommentSection = ({ user, post }) => {
           {'Comments '}
           {post.is_locked && <i className="fas fa-lock" />}
         </h4>
-        {(!post.is_locked && user.logged_in) && (
+        {(!post.is_locked && user.can_comment && user.logged_in) && (
           <form className="comment-form" onSubmit={handleSubmit}>
             <textarea
               ref={textElem}
@@ -76,6 +76,9 @@ const CommentSection = ({ user, post }) => {
           <div>
             <Link to="/login">You must Login to comment...</Link>
           </div>
+        )}
+        {(!user.can_comment && user.logged_in) && (
+          <div className="text-suspended">Your commenting capabilities has been suspended by a forum moderator!</div>
         )}
         <PaginateComments
           comments={relatedComments}

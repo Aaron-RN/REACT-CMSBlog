@@ -17,8 +17,8 @@ const allUsersData = [
   {
     id: 1,
     username: 'John Doe',
-    can_post: true,
-    can_comment: true,
+    can_post: false,
+    can_comment: false,
     admin_level: 3,
   },
   {

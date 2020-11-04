@@ -25,9 +25,7 @@ import ProfilePage from './components/functional/users/profilePage';
 
 const App = () => {
   const [allUsers] = useState(allUsersData);
-  const [user, setUser] = useState({
-    id: 1, username: 'John Doe', admin_level: 1, logged_in: true,
-  });
+  const [user, setUser] = useState({ ...allUsersData[0], logged_in: true });
   const [selectedPost, setSelectedPost] = useState(null);
   const [allForums, setAllForums] = useState(allForumsData);
   const [allPosts, setAllPosts] = useState(allPostsData);

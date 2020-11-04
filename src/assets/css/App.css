@@ -147,8 +147,15 @@ button:hover { transform: scale(1.025); cursor: pointer; }
 
 .text-home { color: var(--navText); text-decoration-color: #43b6da !important; }
 .text-black { color: #4b4723; text-decoration: none !important; }
-.text-red { color: #f3705f; }
+.text-red { color: #c75243; }
 .text-grey { color: grey; }
+.text-suspended { 
+  color: #8a2b2b;
+  font-weight: 500;
+  background-color: #fcdfdf;
+  border-bottom: 1px solid #eecccc;
+  border-radius: 4px;
+}
 
 .size-14 { font-size: 0.76em; }
 .size-16 { font-size: 0.86em; }

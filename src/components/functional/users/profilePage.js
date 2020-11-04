@@ -65,6 +65,12 @@ const ProfilePage = ({
           )}
           {!isMyProfile && <h2>{`${selectedUser.username}'s Profile Page`}</h2>}
           <i className="fas fa-user profile-pic" />
+          {!selectedUser.can_comment && (
+            <div className="text-suspended">User&apos;s ability to comment on posts has been suspended</div>
+          )}
+          {!selectedUser.can_post && (
+            <div className="text-suspended">User&apos;s ability to create new posts has been suspended</div>
+          )}
         </div>
         <div className="section">
           <h2>Recent Activity</h2>

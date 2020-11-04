@@ -56,7 +56,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   padding: 3px;
 }
 #BlogPage .pinned-post {
@@ -70,7 +70,7 @@
   border-right: 2px solid khaki;
   border-bottom: 2px solid khaki;
   border-radius: 12px;
-  margin-bottom: 6px;
+  margin: 0 4px 6px 4px;
   cursor: pointer;
 }
 #BlogPage .pinned-post:hover {
@@ -81,17 +81,17 @@
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.05);
 }
 #BlogPage .pinned-post-title {
-  font-size: 16px;
+  font-size: 1.1em;
   border-radius: 0 8px 0px 0;
   margin-bottom: 0px;
 }
 #BlogPage .pinned-post-author {
-  font-size: 15px;
+  font-size: 0.9em;
   border-radius: 0 0px 8px 0;
   margin-bottom: 4px;
 }
 #BlogPage .pinned-post-body {
-  font-size: 15px;
+  font-size: 0.9em;
 }
 #BlogPage .pinned-post-date {
   color: #888;
@@ -120,19 +120,19 @@
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.1);
 }
 #BlogPage .post-title {
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
   padding: 0 4px;
   margin-bottom: 0;
 }
 #BlogPage .post-author {
   color: var(--authorColor);
-  font-size: 1em;
+  font-size: 0.9em;
   padding: 0 4px;
   margin-bottom: 0;
 }
 #BlogPage .post-body {
-  font-size: 15px;
+  font-size: 0.9em;
   padding: 0 4px;
 }
 #BlogPage .post-date {
@@ -321,10 +321,11 @@ textarea::placeholder { font-family: 'Hind', sans-serif; }
     border-left: 2px solid khaki;
     border-right: none;
   }
-  #BlogPage .pinned-post-title { font-size: 20px; }
-  #BlogPage .pinned-post-body { font-size: 17px; }
+  #BlogPage .pinned-post-title { font-size: 0.9em; }
+  #BlogPage .pinned-post-author { font-size: 0.8em; }
+  #BlogPage .pinned-post-body { font-size: 16px; }
   #BlogPage .post { flex-direction: row; align-items: center; }
-  #BlogPage .post-title { font-size: 0.8em; }
+  #BlogPage .post-title { font-size: 0.85em; }
   #BlogPage .post-author { font-size: 0.7em; }
   #BlogPage .post-body { font-size: 16px; }
   #BlogPage .post-date { font-size: 14px; text-align: left; }
