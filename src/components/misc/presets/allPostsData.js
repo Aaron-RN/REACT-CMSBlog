@@ -10,7 +10,7 @@ const allPosts = [
     Ullamco ea consectetur mollit duis incididunt Lorem minim nostrud. Incididunt exercitation est ullamco
     enim minim deserunt. Est pariatur do elit proident irure laboris cillum in ad. Ea nostrud exercitation
     esse eu duis adipisicing in cupidatat aute. Commodo culpa quis cupidatat ex anim sit esse nulla labore irure.`,
-    date: newDate,
+    created_at: newDate,
     forum: 'announcements',
     subforum: 'rules',
     is_pinned: true,
@@ -25,7 +25,7 @@ const allPosts = [
     Lorem id Lorem duis. Consequat ad anim dolor non ut nostrud elit incididunt magna. Enim mollit qui consectetur
     consectetur aliqua tempor anim ipsum ullamco culpa enim exercitation. Sit consectetur anim magna mollit 
     consequat aliquip consectetur do ullamco duis tempor eiusmod consequat.`,
-    date: newDate,
+    created_at: newDate,
     forum: 'announcements',
     subforum: 'rules',
     is_pinned: true,
@@ -39,7 +39,7 @@ const allPosts = [
     nisi proident ad amet quis reprehenderit non. Quis irure reprehenderit enim sint eu et. Dolore ullamco
     quis elit eu ipsum. Voluptate elit elit elit aliqua enim excepteur incididunt laboris laboris consequat
     aliquip. Deserunt eu nulla ad ut eiusmod sit elit cillum elit pariatur nulla cupidatat aute.`,
-    date: newDate,
+    created_at: newDate,
     forum: 'misc',
     is_pinned: false,
     is_locked: false,
@@ -51,7 +51,7 @@ const allPosts = [
     body: `The day had begun on a bright note. The sun finally peeked through the rain for the first time in a week,
     and the birds were sinf=ging in its warmth. There was no way to anticipate what was about to happen. It was a
     worst-case scenario and there was no way out of it.`,
-    date: newDate,
+    created_at: newDate,
     forum: 'misc',
     is_pinned: false,
     is_locked: false,
@@ -64,7 +64,7 @@ const allPosts = [
     He explained again and again, and they dismissed his explanation as a figment of his imagination. There was no way that
     grandpa, who had been dead for five years, could have told him where the treasure had been hidden. Of course, it didn't
     help that grandpa was roaring with laughter in the chair next to him as he tried to explain once again how he'd found it.`,
-    date: newDate,
+    created_at: newDate,
     forum: 'misc',
     is_pinned: false,
     is_locked: false,
@@ -77,7 +77,7 @@ const allPosts = [
     While everyone around him was in tears and upset, he actually felt more at ease. The doctor said it would be
     less than a year. That gave him a year to live, something he'd failed to do with his daily drudgery of a routine
     that had passed as life until then.`,
-    date: newDate,
+    created_at: newDate,
     forum: 'misc',
     is_pinned: false,
     is_locked: false,

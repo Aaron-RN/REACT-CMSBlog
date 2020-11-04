@@ -9,7 +9,7 @@ const Comment = ({ comment, subcomment, handleSelectComment }) => (
     <i className="fas fa-user comment-user-pic" />
     <div>
       <Link to={`/users/${comment.author_id}`} className="comment-author">{fetchAuthorName(comment.author_id)}</Link>
-      <span className="comment-date">{compareDate(comment.date)}</span>
+      <span className="comment-date">{compareDate(comment.created_at)}</span>
       <div className="comment-body">{comment.body}</div>
     </div>
     <button type="button" onClick={() => handleSelectComment(comment)} className="comment-reply-btn">

@@ -10,7 +10,7 @@ const allComments = [
     author_id: 2,
     comment_id: null,
     post_id: 1,
-    date: daysbefore29,
+    created_at: daysbefore29,
   },
   {
     id: 2,
@@ -18,7 +18,7 @@ const allComments = [
     author_id: 1,
     comment_id: 1,
     post_id: 1,
-    date: secondsago30,
+    created_at: secondsago30,
   },
   {
     id: 3,
@@ -26,7 +26,7 @@ const allComments = [
     author_id: 3,
     comment_id: null,
     post_id: 1,
-    date: yesterday,
+    created_at: yesterday,
   },
   {
     id: 4,
@@ -34,7 +34,7 @@ const allComments = [
     author_id: 2,
     comment_id: 1,
     post_id: 1,
-    date: new Date(),
+    created_at: new Date(),
   },
 ];
 

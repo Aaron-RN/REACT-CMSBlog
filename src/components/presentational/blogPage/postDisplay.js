@@ -28,7 +28,7 @@ const PostDisplay = ({ post, isPinned }) => {
         <span className="text-author">{fetchAuthorName(post.author_id)}</span>
       </div>
       <div ref={bodyElem} className="post-body" />
-      <div className="post-date">{post.date}</div>
+      <div className="post-date">{post.created_at}</div>
     </div>
   );
 };

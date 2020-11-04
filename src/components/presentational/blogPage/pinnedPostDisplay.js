@@ -25,7 +25,7 @@ const PinnedPostDisplay = ({ post }) => {
         <span className="text-author">{fetchAuthorName(post.author_id)}</span>
       </div>
       <div ref={bodyElem} className="pinned-post-body" />
-      <div className="pinned-post-date">{post.date}</div>
+      <div className="pinned-post-date">{post.created_at}</div>
     </div>
   );
 };
