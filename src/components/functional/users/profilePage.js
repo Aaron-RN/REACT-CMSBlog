@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import populatePosts from '../../presentational/blogPage/populatePosts';
-import { allUsersData, fetchAuthorName } from '../../misc/presets/allUsersData';
+import { allUsersData, fetchAuthorName, isPostSuspended, isCommentSuspended } from '../../misc/presets/allUsersData';
 import allPostsData from '../../misc/presets/allPostsData';
 import allCommentsData from '../../misc/presets/allCommentsData';
 import AdminPanel from './admin/adminPanel';
@@ -80,10 +80,10 @@ const ProfilePage = ({
           {!isMyProfile && <h2>{`${selectedUser.username}'s Profile Page`}</h2>}
           <i className="fas fa-user profile-pic" />
           {profileStatus()}
-          {!selectedUser.can_comment && (
+          {isPostSuspended(selectedUser.id) && (
             <div className="text-suspended">User&apos;s ability to comment on posts has been suspended</div>
           )}
-          {!selectedUser.can_post && (
+          {isCommentSuspended(selectedUser.id) && (
             <div className="text-suspended">User&apos;s ability to create new posts has been suspended</div>
           )}
         </div>

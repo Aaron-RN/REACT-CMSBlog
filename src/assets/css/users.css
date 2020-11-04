@@ -93,6 +93,7 @@
   border-radius: 6px;
 }
 #AdminPanel button {
+  padding: 4px 8px;
   box-shadow: 2px 4px #0000002f;
 }
 
