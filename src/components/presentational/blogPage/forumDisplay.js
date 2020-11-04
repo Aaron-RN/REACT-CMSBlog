@@ -20,6 +20,7 @@ const ForumDisplay = ({
     return false;
   };
   const checkForumContraints = () => {
+    if (!user.can_post) return false; // Takes precedence over all conditions
     if (!forum.admin_only) return true;
     if (forum.admin_only && isAdmin) return true;
     return false;
