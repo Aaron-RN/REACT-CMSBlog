@@ -87,13 +87,18 @@
 
 #AdminPanel {
   padding: 8px;
-  color: #2d523d;
-  text-shadow: 0 0 1px #283d50;
-  background-color: #dcf1e5;
+  color: #364b3f;
+  /* text-shadow: 0 0 1px #283d50; */
+  background-color: #dcf1e585;
   border-radius: 6px;
 }
 #AdminPanel button {
+  font-family: 'Hind', sans-serif;
   padding: 2px 8px;
+  color: #fff;
+  background-color: #9ab8ca;
+  border-color: #5a638d;
+  border-radius: 4px;
   box-shadow: 2px 4px rgba(0, 0, 0, 0.05);
 }
 
@@ -138,11 +143,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-top: 6px;
 }
 .forum-menu button {
   padding: 2px 4px;
-  background-color: #f3e3c9;
-  border: 1px solid #927d64;
+  color: #ffffff !important;
+  background-color: #636260 !important;
+  border: 1px solid #ddcfbe;
   border-radius: 6px;
   margin: 2px 2px;
   cursor: pointer;
