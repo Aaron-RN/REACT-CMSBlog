@@ -37,6 +37,7 @@
   padding: 2px 6px;
   color: var(--headerText);
   background-color: var(--subforumheaderBG);
+  border-radius: 3px;
   margin-bottom: 0.5em;
 }
 #BlogPage .header-title a {
