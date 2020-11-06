@@ -94,7 +94,7 @@
 }
 #AdminPanel button {
   padding: 2px 8px;
-  box-shadow: 2px 4px #0000002f;
+  box-shadow: 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .modal-form {
@@ -104,7 +104,7 @@
   max-width: 420px;
   margin: auto;
 }
-.modal-form input {
+.modal-form input, .modal-form select {
   font-family: 'Hind', sans-serif;
   padding: 4px 8px;
   border: 1px solid #aaa;

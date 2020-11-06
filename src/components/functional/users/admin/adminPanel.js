@@ -6,6 +6,7 @@ import NewSubforumModal from './modals/newSubforumModal';
 import NewforumModal from './modals/newForum';
 import RenameSubforumModal from './modals/renameSubforum';
 import SuspendUser from './modals/suspendUser';
+import PromoteUser from './modals/promoteUser';
 
 const AdminPanel = ({ user, selectedUser }) => {
   const [allForums, setForums] = useState([]);
@@ -67,6 +68,7 @@ const AdminPanel = ({ user, selectedUser }) => {
           <div className="ml-1">
             <h3>User Handling</h3>
             <button type="button" className="ml-1 mb-1" onClick={() => handleModal({}, 'suspendUser')}>Suspend User Capabilities</button>
+            <button type="button" className="ml-1 mb-1" onClick={() => handleModal({}, 'promoteUser')}>Promote Admin</button>
           </div>
         </div>
         {showModal && (
@@ -76,6 +78,13 @@ const AdminPanel = ({ user, selectedUser }) => {
               <div className="container-md">
                 {modalType === 'suspendUser' && (
                   <SuspendUser
+                    user={user}
+                    selectedUser={selectedUser}
+                    handleFormReset={handleFormReset}
+                  />
+                )}
+                {modalType === 'promoteUser' && (
+                  <PromoteUser
                     user={user}
                     selectedUser={selectedUser}
                     handleFormReset={handleFormReset}

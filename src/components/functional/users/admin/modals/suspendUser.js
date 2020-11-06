@@ -29,7 +29,7 @@ const SuspendUser = ({ user, selectedUser, handleFormReset }) => {
       <h3 className="text-center">Suspend User Functions</h3>
       <h3>
         <span className="text-grey">{'User '}</span>
-        {selectedUser.username}
+        <span className="text-author">{selectedUser.username}</span>
       </h3>
       <h4>Suspend Posting abilities until</h4>
       <input

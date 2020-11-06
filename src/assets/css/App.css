@@ -151,6 +151,7 @@ button:hover { transform: scale(1.025); cursor: pointer; }
 .text-black { color: #4b4723; text-decoration: none !important; }
 .text-red { color: #c75243; }
 .text-grey { color: #808080; }
+.text-info { color: #555; margin-block-start: 0.1em; }
 .text-suspended { 
   color: #8a2b2b;
   font-size: 0.9em;
