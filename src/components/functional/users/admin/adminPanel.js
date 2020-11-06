@@ -75,7 +75,11 @@ const AdminPanel = ({ user, selectedUser }) => {
             <div className="modal-content">
               <div className="container-md">
                 {modalType === 'suspendUser' && (
-                  <SuspendUser user={user} selectedUser={selectedUser} handleFormReset={handleFormReset} />
+                  <SuspendUser
+                    user={user}
+                    selectedUser={selectedUser}
+                    handleFormReset={handleFormReset}
+                  />
                 )}
               </div>
             </div>

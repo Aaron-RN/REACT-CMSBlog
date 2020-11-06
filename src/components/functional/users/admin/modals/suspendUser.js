@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
+import convertDate from '../../../../misc/convertDate';
 
 const SuspendUser = ({ user, selectedUser, handleFormReset }) => {
-  const [suspendPostsExpiryDate, setSuspendPostExpiry] = useState(selectedUser.can_post_date);
-  const [suspendCommentsExpiryDate, setSuspendCommentsExpiry] = useState(selectedUser.can_comment_date);
+  // eslint-disable-next-line camelcase
+  const { can_post_date, can_comment_date } = selectedUser;
+  const [suspendPostsExpiryDate, setSuspendPostExpiry] = useState(convertDate(can_post_date));
+  const [
+    suspendCommentsExpiryDate,
+    setSuspendCommentsExpiry,
+  ] = useState(convertDate(can_comment_date));
 
-  // Handle renaming of a forum
+  // Handle modification of User's suspended activities
   const handleSubmit = e => {
     e.preventDefault();
     const suspendUser = {
       id: selectedUser.id,
+      can_post_date: new Date(suspendPostsExpiryDate),
+      can_comment_date: new Date(suspendCommentsExpiryDate),
       admin_id: user.id,
     };
     console.log(suspendUser);

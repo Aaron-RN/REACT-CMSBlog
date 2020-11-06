@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import populatePosts from '../../presentational/blogPage/populatePosts';
-import { allUsersData, fetchAuthorName, isPostSuspended, isCommentSuspended } from '../../misc/presets/allUsersData';
+import {
+  allUsersData, fetchAuthorName, isPostSuspended, isCommentSuspended,
+} from '../../misc/presets/allUsersData';
 import allPostsData from '../../misc/presets/allPostsData';
 import allCommentsData from '../../misc/presets/allCommentsData';
 import AdminPanel from './admin/adminPanel';

@@ -85,4 +85,6 @@ const isCommentSuspended = authorID => {
   return isSuspended;
 };
 
-export { allUsersData, fetchAuthorName, isPostSuspended, isCommentSuspended };
+export {
+  allUsersData, fetchAuthorName, isPostSuspended, isCommentSuspended,
+};
