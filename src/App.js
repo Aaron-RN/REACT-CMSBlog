@@ -18,6 +18,7 @@ import { allUsersData } from './components/misc/presets/allUsersData';
 import allPostsData from './components/misc/presets/allPostsData';
 import allForumsData from './components/misc/presets/allForumsData';
 
+import Register from './components/functional/users/register';
 import Login from './components/functional/users/login';
 import Modal from './components/functional/modal';
 import LoginBtn from './components/functional/users/loginBtn';
@@ -113,6 +114,11 @@ const App = () => {
                 handlePostSelect={handlePostSelect}
               />
             )}
+          />
+          <Route
+            exact
+            path="/sign_up"
+            render={() => <Register />}
           />
           <Route
             exact
