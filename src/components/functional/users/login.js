@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { userLogin } from '../../misc/apiRequests';
 
-const Login = () => {
+const Login = ({ handleModal, handleLogin }) => {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
 
@@ -9,7 +11,9 @@ const Login = () => {
     e.preventDefault();
     const user = { login: credential, password };
 
-    console.log(user);
+    const result = userLogin(user);
+    if (result.success) handleLogin(result.user);
+    else handleModal(result.errors);
   };
 
   return (
@@ -38,6 +42,11 @@ const Login = () => {
       </div>
     </div>
   );
+};
+
+Login.propTypes = {
+  handleModal: propTypes.func.isRequired,
+  handleLogin: propTypes.func.isRequired,
 };
 
 export default Login;

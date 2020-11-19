@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import propTypes from 'prop-types';
+import { userRegister } from '../../misc/apiRequests';
 
-const Login = () => {
+const Register = ({ handleModal, handleLoader }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -15,7 +18,16 @@ const Login = () => {
       password_confirmation: passwordConfirm,
     };
 
-    console.log(user);
+    handleLoader(true);
+    userRegister(user)
+      .then(response => {
+        console.log(response);
+        if (response.success) setMessage(response.message);
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
+    // if (result.success) setMessage(result.message);
+    // else handleModal(result.errors);
   };
 
   return (
@@ -27,7 +39,7 @@ const Login = () => {
           <input
             type="text"
             value={username}
-            onChange={e => setUsername(e.target.vallue)}
+            onChange={e => setUsername(e.target.value)}
             minLength="3"
             required
           />
@@ -35,7 +47,7 @@ const Login = () => {
           <input
             type="text"
             value={email}
-            onChange={e => setEmail(e.target.vallue)}
+            onChange={e => setEmail(e.target.value)}
             minLength="3"
             required
           />
@@ -53,11 +65,18 @@ const Login = () => {
             onChange={e => setPasswordConfirm(e.target.value)}
             required
           />
-          <button type="submit">Login</button>
+          <button type="submit">Register</button>
         </form>
+
+        <h4>{message}</h4>
       </div>
     </div>
   );
 };
 
-export default Login;
+Register.propTypes = {
+  handleModal: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
+};
+
+export default Register;

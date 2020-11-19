@@ -21,6 +21,7 @@ import allForumsData from './components/misc/presets/allForumsData';
 import Register from './components/functional/users/register';
 import Login from './components/functional/users/login';
 import Modal from './components/functional/modal';
+import Loader from './components/presentational/loader';
 import LoginBtn from './components/functional/users/loginBtn';
 import ProfilePage from './components/functional/users/profilePage';
 
@@ -31,18 +32,27 @@ const App = () => {
   const [allForums, setAllForums] = useState(allForumsData);
   const [allPosts, setAllPosts] = useState(allPostsData);
   const [status, setStatus] = useState({ errors: [] });
+  const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [redirect, setRedirect] = useState(null);
 
   // Toggle modal and clear status
-  const handleModal = () => {
+  const handleModal = (errors = []) => {
     setShowModal(!showModal);
-    setStatus({ errors: [] });
+    setStatus({ errors });
+  };
+
+  const handleLoader = (loading = true) => {
+    setIsLoading(loading);
   };
 
   // Handles selection of post when post is clicked
   const handlePostSelect = post => {
     setSelectedPost(post);
+  };
+
+  const handleLogin = user => {
+    setUser(user);
   };
 
   const handleLogout = () => {
@@ -118,12 +128,12 @@ const App = () => {
           <Route
             exact
             path="/sign_up"
-            render={() => <Register />}
+            render={() => <Register handleModal={handleModal} handleLoader={handleLoader} />}
           />
           <Route
             exact
             path="/login"
-            render={() => <Login />}
+            render={() => <Login handleModal={handleModal} handleLogin={handleLogin} />}
           />
           <Route
             exact
@@ -229,6 +239,7 @@ const App = () => {
         </div>
       </footer>
       {showModal && <Modal status={status} handleModal={handleModal} />}
+      {isLoading && <Loader />}
     </div>
   );
 };
