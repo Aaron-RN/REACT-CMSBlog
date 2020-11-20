@@ -3,7 +3,6 @@ import propTypes from 'prop-types';
 
 const Modal = ({ status, handleModal }) => {
   const { errors } = status;
-  console.log(status);
 
   // Returns JSX relative to whether the errors are given in array or string format
   const showErrors = () => {

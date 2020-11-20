@@ -21,9 +21,8 @@ const Register = ({ handleModal, handleLoader }) => {
     handleLoader(true);
     userRegister(user)
       .then(response => {
-        console.log(response);
         if (response.success) setMessage(response.message);
-        if (!response.success) handleModal(response.errors);
+        if (!response.success) handleModal(e, response.errors);
         handleLoader(false);
       });
     // if (result.success) setMessage(result.message);
@@ -33,7 +32,7 @@ const Register = ({ handleModal, handleLoader }) => {
   return (
     <div id="LoginPage" className="bg-main pt-1">
       <div className="container-md">
-        <h2 className="text-center mb-1">Register</h2>
+        <h2 className="text-center mb-1">Register New User</h2>
         <form className="login-form" onSubmit={handleSubmit}>
           <h4>Username</h4>
           <input

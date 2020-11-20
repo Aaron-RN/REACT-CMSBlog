@@ -37,7 +37,8 @@ const App = () => {
   const [redirect, setRedirect] = useState(null);
 
   // Toggle modal and clear status
-  const handleModal = (errors = []) => {
+  const handleModal = (e, errors = []) => {
+    e.persist(); // Clears synthetic event errors propagated from asynchronous task
     setShowModal(!showModal);
     setStatus({ errors });
   };
