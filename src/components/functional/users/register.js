@@ -67,7 +67,7 @@ const Register = ({ handleModal, handleLoader }) => {
           <button type="submit">Register</button>
         </form>
 
-        <h4>{message}</h4>
+        <h4 className="text-center p-1">{message}</h4>
       </div>
     </div>
   );
