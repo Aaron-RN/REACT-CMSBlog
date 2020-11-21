@@ -1,9 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-const Modal = ({ status, handleModal }) => {
-  const { errors } = status;
-
+const Modal = ({ errors, handleModal }) => {
   // Returns JSX relative to whether the errors are given in array or string format
   const showErrors = () => {
     if (Array.isArray(errors)) {
@@ -24,14 +22,17 @@ const Modal = ({ status, handleModal }) => {
             {showErrors()}
           </div>
         </div>
-        <button type="button" className="modal-btn" onClick={handleModal}>Ok</button>
+        <button type="button" className="modal-btn" onClick={() => handleModal()}>Ok</button>
       </div>
     </div>
   );
 };
 
 Modal.propTypes = {
-  status: propTypes.instanceOf(Object).isRequired,
+  errors: propTypes.oneOfType([
+    propTypes.instanceOf(Array),
+    propTypes.string,
+  ]).isRequired,
   handleModal: propTypes.func.isRequired,
 };
 

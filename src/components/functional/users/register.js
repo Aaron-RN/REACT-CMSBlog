@@ -22,7 +22,7 @@ const Register = ({ handleModal, handleLoader }) => {
     userRegister(user)
       .then(response => {
         if (response.success) setMessage(response.message);
-        if (!response.success) handleModal(e, response.errors);
+        if (!response.success) handleModal(response.errors);
         handleLoader(false);
       });
     // if (result.success) setMessage(result.message);

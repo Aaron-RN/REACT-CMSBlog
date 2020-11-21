@@ -31,16 +31,15 @@ const App = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [allForums, setAllForums] = useState(allForumsData);
   const [allPosts, setAllPosts] = useState(allPostsData);
-  const [status, setStatus] = useState({ errors: [] });
+  const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [redirect, setRedirect] = useState(null);
 
   // Toggle modal and clear status
-  const handleModal = (e, errors = []) => {
-    e.persist(); // Clears synthetic event errors propagated from asynchronous task
+  const handleModal = (errors = []) => {
     setShowModal(!showModal);
-    setStatus({ errors });
+    setErrors(errors);
   };
 
   const handleLoader = (loading = true) => {
@@ -79,12 +78,10 @@ const App = () => {
 
   useEffect(() => { setRedirect(null); setSelectedPost(null); }, [redirect]);
 
-  const { errors } = status;
-
   // open Modal to show errors
   useEffect(() => {
     if (errors.length > 0) setShowModal(true);
-  }, [status, errors]);
+  }, [errors]);
 
   return redirect || (
     <div className="App">
@@ -239,7 +236,7 @@ const App = () => {
           © Aaron Rory Newbold 2020
         </div>
       </footer>
-      {showModal && <Modal status={status} handleModal={handleModal} />}
+      {showModal && <Modal errors={errors} handleModal={handleModal} />}
       {isLoading && <Loader />}
     </div>
   );

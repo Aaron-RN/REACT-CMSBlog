@@ -5,7 +5,7 @@ const URL = 'https://arn-forum-api.herokuapp.com/';
 // User Login
 const userLogin = user => {
   sessionStorage.clear();
-  axios.post(`${URL}sessions`, { user }, { withCredentials: true })
+  return axios.post(`${URL}sessions`, { user }, { withCredentials: true })
     .then(response => {
       const retrievedUser = response.data.user;
 
@@ -26,7 +26,7 @@ const userLogin = user => {
 const userLoggedIn = () => {
   if (sessionStorage.getItem('user')) {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    axios.get(`${URL}logged_in`, { params: { token: user.token } })
+    return axios.get(`${URL}logged_in`, { params: { token: user.token } })
       .then(response => {
         const retrievedUser = response.data.user;
         const userLoggedIn = response.data.user.logged_in;
@@ -40,8 +40,6 @@ const userLoggedIn = () => {
         sessionStorage.clear();
         return false;
       });
-  } else {
-    return false;
   }
   return false;
 };
