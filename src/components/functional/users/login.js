@@ -9,7 +9,7 @@ const Login = ({ handleModal, handleLoader, handleLogin }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    const user = { login: credential, password };
+    const user = { username: credential, email: credential, password };
 
     handleLoader(true);
     userLogin(user)
@@ -29,7 +29,7 @@ const Login = ({ handleModal, handleLoader, handleLogin }) => {
           <input
             type="text"
             value={credential}
-            onChange={e => setCredential(e.target.vallue)}
+            onChange={e => setCredential(e.target.value)}
             minLength="3"
             required
           />

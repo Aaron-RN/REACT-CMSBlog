@@ -5,8 +5,8 @@ const URL = 'https://arn-forum-api.herokuapp.com/';
 // Since all errors are returned from the backend in a string we split the string
 // into an array to break them down into individual errors
 const organizeErrors = errors => {
-  const errorMsg = errors.split(':');
-  let errorList = errors.split(',');
+  const errorMsg = !Array.isArray(errors) ? errors.split(':') : errors[0];
+  let errorList = errors;
   if (Array.isArray(errorMsg)) {
     errorMsg.shift();
     errorList = errorMsg.join().trim().split(',');
@@ -18,7 +18,7 @@ const organizeErrors = errors => {
 // User Login
 const userLogin = async user => {
   sessionStorage.clear();
-  return axios.post(`${URL}sessions`, { user }, { withCredentials: true })
+  return axios.post(`${URL}log_in`, { user })
     .then(response => {
       const retrievedUser = response.data.user;
 
