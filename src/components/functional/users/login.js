@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { userLogin } from '../../misc/apiRequests';
 
-const Login = ({ handleModal, handleLogin }) => {
+const Login = ({ handleModal, handleLoader, handleLogin }) => {
   const [credential, setCredential] = useState('');
   const [password, setPassword] = useState('');
 
@@ -11,9 +11,13 @@ const Login = ({ handleModal, handleLogin }) => {
     e.preventDefault();
     const user = { login: credential, password };
 
-    const result = userLogin(user);
-    if (result.success) handleLogin(result.user);
-    else handleModal(result.errors);
+    handleLoader(true);
+    userLogin(user)
+      .then(response => {
+        if (response.success) handleLogin(response.user);
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   return (
@@ -46,6 +50,7 @@ const Login = ({ handleModal, handleLogin }) => {
 
 Login.propTypes = {
   handleModal: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
   handleLogin: propTypes.func.isRequired,
 };
 

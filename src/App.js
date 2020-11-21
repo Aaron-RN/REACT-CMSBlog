@@ -53,6 +53,7 @@ const App = () => {
 
   const handleLogin = user => {
     setUser(user);
+    setRedirect(<Redirect to="/" />);
   };
 
   const handleLogout = () => {
@@ -131,7 +132,7 @@ const App = () => {
           <Route
             exact
             path="/login"
-            render={() => <Login handleModal={handleModal} handleLogin={handleLogin} />}
+            render={() => <Login handleModal={handleModal} handleLoader={handleLoader} handleLogin={handleLogin} />}
           />
           <Route
             exact

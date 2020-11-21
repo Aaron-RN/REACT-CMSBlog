@@ -2,8 +2,21 @@ import axios from 'axios';
 
 const URL = 'https://arn-forum-api.herokuapp.com/';
 
+// Since all errors are returned from the backend in a string we split the string
+// into an array to break them down into individual errors
+const organizeErrors = errors => {
+  const errorMsg = errors.split(':');
+  let errorList = errors.split(',');
+  if (Array.isArray(errorMsg)) {
+    errorMsg.shift();
+    errorList = errorMsg.join().trim().split(',');
+  }
+
+  return errorList;
+};
+
 // User Login
-const userLogin = user => {
+const userLogin = async user => {
   sessionStorage.clear();
   return axios.post(`${URL}sessions`, { user }, { withCredentials: true })
     .then(response => {
@@ -12,13 +25,13 @@ const userLogin = user => {
       sessionStorage.setItem('user', JSON.stringify({ ...retrievedUser }));
 
       console.log(retrievedUser);
-      return { retrievedUser, success: true };
+      return { user: retrievedUser, success: true };
     })
     .catch(error => {
       if (!error.response) { return { errors: `${error}`, success: false }; }
       const errorMsg = error.response.data.errors || [`${error.response.statusText}`];
 
-      return { errorMsg, success: false };
+      return { errors: organizeErrors(errorMsg), success: false };
     });
 };
 
@@ -57,7 +70,7 @@ const userRegister = async user => {
       if (!error.response) { return { errors: `${error}`, success: false }; }
       const errorMsg = error.response.data.errors || [`${error.response.statusText}`];
 
-      return { errors: errorMsg.split(','), success: false };
+      return { errors: organizeErrors(errorMsg), success: false };
     });
 };
 
