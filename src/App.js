@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
+import { userLoggedIn } from './components/misc/apiRequests';
 import BlogPage from './components/functional/blogPage';
 import PostPage from './components/functional/blogPage/postPage';
 import TopicForum from './components/functional/blogPage/topicForum';
@@ -61,7 +62,17 @@ const App = () => {
   };
 
   // Check if user is logged in
-  // useEffect(() => setUser({ logged_in: false }), []);
+  useEffect(() => {
+    handleLoader(true);
+    userLoggedIn()
+      .then(response => {
+        if (response.success) {
+          if (!response.loggedIn) setUser({ logged_in: false });
+        }
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
+  }, []);
 
   useEffect(() => setAllForums(allForumsData), []);
   useEffect(() => {

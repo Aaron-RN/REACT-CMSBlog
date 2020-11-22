@@ -21,10 +21,8 @@ const userLogin = async user => {
   return axios.post(`${URL}log_in`, { user })
     .then(response => {
       const retrievedUser = response.data.user;
-
       sessionStorage.setItem('user', JSON.stringify({ ...retrievedUser }));
 
-      console.log(retrievedUser);
       return { user: retrievedUser, success: true };
     })
     .catch(error => {
@@ -36,25 +34,25 @@ const userLogin = async user => {
 };
 
 // Is User Still Logged In?
-const userLoggedIn = () => {
+const userLoggedIn = async () => {
   if (sessionStorage.getItem('user')) {
     const user = JSON.parse(sessionStorage.getItem('user'));
     return axios.get(`${URL}logged_in`, { params: { token: user.token } })
       .then(response => {
         const retrievedUser = response.data.user;
         const userLoggedIn = response.data.user.logged_in;
-        if (retrievedUser && userLoggedIn) {
-          return true;
-        }
 
-        return false;
+        return { loggedIn: userLoggedIn, user: retrievedUser, success: true };
       })
-      .catch(() => {
+      .catch(error => {
         sessionStorage.clear();
-        return false;
+        if (!error.response) { return { errors: `${error}`, success: false }; }
+        const errorMsg = error.response.data.errors || [`${error.response.statusText}`];
+
+        return { errors: organizeErrors(errorMsg), success: false };
       });
   }
-  return false;
+  return { loggedIn: false, success: true };
 };
 
 // User Register
@@ -74,4 +72,21 @@ const userRegister = async user => {
     });
 };
 
-export { userLogin, userLoggedIn, userRegister };
+// Fetch user by ID
+const fetchUser = async id => axios.get(`${URL}users/${id}`)
+  .then(response => {
+    const retrievedUser = response.data.user;
+
+    return { user: retrievedUser, success: true };
+  })
+  .catch(error => {
+    sessionStorage.clear();
+    if (!error.response) { return { errors: `${error}`, success: false }; }
+    const errorMsg = error.response.data.errors || [`${error.response.statusText}`];
+
+    return { errors: organizeErrors(errorMsg), success: false };
+  });
+
+export {
+  userLogin, userLoggedIn, userRegister, fetchUser,
+};
