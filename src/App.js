@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import propTypes from 'prop-types';
 import {
   Link,
@@ -28,7 +28,7 @@ import ProfilePage from './components/functional/users/profilePage';
 
 const App = () => {
   const [allUsers] = useState(allUsersData);
-  const [user, setUser] = useState({ ...allUsersData[0], logged_in: true });
+  const [user, setUser] = useState({ logged_in: false });
   const [selectedPost, setSelectedPost] = useState(null);
   const [allForums, setAllForums] = useState(allForumsData);
   const [allPosts, setAllPosts] = useState(allPostsData);
@@ -38,14 +38,14 @@ const App = () => {
   const [redirect, setRedirect] = useState(null);
 
   // Toggle modal and clear status
-  const handleModal = (errors = []) => {
+  const handleModal = useCallback((errors = []) => {
     setShowModal(!showModal);
     setErrors(errors);
-  };
+  }, [showModal, setShowModal, setErrors]);
 
-  const handleLoader = (loading = true) => {
+  const handleLoader = useCallback((loading = true) => {
     setIsLoading(loading);
-  };
+  }, [setIsLoading]);
 
   // Handles selection of post when post is clicked
   const handlePostSelect = post => {
@@ -66,13 +66,11 @@ const App = () => {
     handleLoader(true);
     userLoggedIn()
       .then(response => {
-        if (response.success) {
-          if (!response.loggedIn) setUser({ logged_in: false });
-        }
+        if (response.success) setUser(response.user);
         if (!response.success) handleModal(response.errors);
         handleLoader(false);
       });
-  }, []);
+  }, [handleLoader, handleModal]);
 
   useEffect(() => setAllForums(allForumsData), []);
   useEffect(() => {
@@ -154,6 +152,8 @@ const App = () => {
                 user={user}
                 handleLogout={handleLogout}
                 handlePostSelect={handlePostSelect}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
               />
             )}
           />

@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import populatePosts from '../../presentational/blogPage/populatePosts';
-import {
-  allUsersData, fetchAuthorName, isPostSuspended, isCommentSuspended,
-} from '../../misc/presets/allUsersData';
-import allPostsData from '../../misc/presets/allPostsData';
-import allCommentsData from '../../misc/presets/allCommentsData';
+import { fetchUser } from '../../misc/apiRequests';
 import AdminPanel from './admin/adminPanel';
 import Paginate from '../blogPage/paginatePosts';
 
 const ProfilePage = ({
-  match, user, handleLogout, handlePostSelect,
+  match, user, handleLogout, handlePostSelect, handleLoader, handleModal,
 }) => {
   const [selectedUser, setSelectedUser] = useState({});
   const [userPosts, setUserPosts] = useState([]);
@@ -31,10 +27,16 @@ const ProfilePage = ({
     return null;
   };
 
+  const isCommsSuspended = date => {
+    const today = new Date();
+
+    return date > today;
+  };
+
   const populateLast3Comments = () => userComments.map((comment, index) => {
-    const post = allPostsData.find(post => post.id === comment.post_id);
+    const post = comment.post_id;
     const postTitle = post.title;
-    const postAuthor = fetchAuthorName(post.author_id);
+    const postAuthor = selectedUser.username;
     if (index > 3) return null;
     return (
       <button type="button" key={comment.id} onClick={() => handlePostSelect(post)}>
@@ -48,20 +50,28 @@ const ProfilePage = ({
   useEffect(() => {
     if (match.params.id) {
       const userID = parseInt(match.params.id, 10);
-      const userSelected = allUsersData.find(userData => userData.id === userID);
-      setSelectedUser(userSelected);
+      handleLoader(true);
+      fetchUser(userID)
+        .then(response => {
+          if (response.success) setSelectedUser(response.user);
+          if (!response.success) handleModal(response.errors);
+          handleLoader(false);
+        });
     }
-  }, [match]);
+  }, [match.params.id, handleModal, handleLoader]);
 
   // Remove when adding Database
   useEffect(() => {
-    const allUserPosts = allPostsData.filter(post => post.author_id === selectedUser.id);
-    const latestPosts = allUserPosts.sort((a, b) => b.id - a.id);
-    const allUserComments = allCommentsData
-      .filter(comment => comment.author_id === selectedUser.id);
-    const latestComments = allUserComments.sort((a, b) => b.id - a.id);
-    setUserPosts(latestPosts);
-    setUserComments(latestComments);
+    // Check to make sure the selectedUser variable is an object with properties
+    if (Object.keys(selectedUser).length > 0) {
+      const allUserPosts = selectedUser.posts;
+      const latestPosts = allUserPosts.length > 0 ? allUserPosts.sort((a, b) => b.id - a.id) : [];
+      const allUserComments = selectedUser.comments;
+      const latestComments = allUserComments.length > 0
+        ? allUserComments.sort((a, b) => b.id - a.id) : [];
+      setUserPosts(latestPosts);
+      setUserComments(latestComments);
+    }
   }, [selectedUser]);
 
   return (
@@ -82,10 +92,10 @@ const ProfilePage = ({
           {!isMyProfile && <h2>{`${selectedUser.username}'s Profile Page`}</h2>}
           <i className="fas fa-user profile-pic" />
           {profileStatus()}
-          {isPostSuspended(selectedUser.id) && (
+          {isCommsSuspended(selectedUser.can_post_date) && (
             <div className="text-suspended">User&apos;s ability to comment on posts has been suspended</div>
           )}
-          {isCommentSuspended(selectedUser.id) && (
+          {isCommsSuspended(selectedUser.can_comment_date) && (
             <div className="text-suspended">User&apos;s ability to create new posts has been suspended</div>
           )}
         </div>
@@ -121,6 +131,8 @@ ProfilePage.propTypes = {
   user: propTypes.instanceOf(Object).isRequired,
   handleLogout: propTypes.func.isRequired,
   handlePostSelect: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
 };
 
 export default ProfilePage;

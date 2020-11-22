@@ -40,9 +40,8 @@ const userLoggedIn = async () => {
     return axios.get(`${URL}logged_in`, { params: { token: user.token } })
       .then(response => {
         const retrievedUser = response.data.user;
-        const userLoggedIn = response.data.user.logged_in;
 
-        return { loggedIn: userLoggedIn, user: retrievedUser, success: true };
+        return { user: retrievedUser, success: true };
       })
       .catch(error => {
         sessionStorage.clear();
@@ -52,7 +51,7 @@ const userLoggedIn = async () => {
         return { errors: organizeErrors(errorMsg), success: false };
       });
   }
-  return { loggedIn: false, success: true };
+  return { user: { logged_in: false }, success: true };
 };
 
 // User Register
@@ -80,7 +79,6 @@ const fetchUser = async id => axios.get(`${URL}users/${id}`)
     return { user: retrievedUser, success: true };
   })
   .catch(error => {
-    sessionStorage.clear();
     if (!error.response) { return { errors: `${error}`, success: false }; }
     const errorMsg = error.response.data.errors || [`${error.response.statusText}`];
 
