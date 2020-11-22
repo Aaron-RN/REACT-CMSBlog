@@ -27,12 +27,6 @@ const ProfilePage = ({
     return null;
   };
 
-  const isCommsSuspended = date => {
-    const today = new Date();
-
-    return date > today;
-  };
-
   const populateLast3Comments = () => userComments.map((comment, index) => {
     const post = comment.post_id;
     const postTitle = post.title;
@@ -92,10 +86,10 @@ const ProfilePage = ({
           {!isMyProfile && <h2>{`${selectedUser.username}'s Profile Page`}</h2>}
           <i className="fas fa-user profile-pic" />
           {profileStatus()}
-          {isCommsSuspended(selectedUser.can_post_date) && (
+          {!selectedUser.can_comment && (
             <div className="text-suspended">User&apos;s ability to comment on posts has been suspended</div>
           )}
-          {isCommsSuspended(selectedUser.can_comment_date) && (
+          {!selectedUser.can_post && (
             <div className="text-suspended">User&apos;s ability to create new posts has been suspended</div>
           )}
         </div>
