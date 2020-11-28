@@ -3,9 +3,10 @@ import propTypes from 'prop-types';
 import PinnedPostDisplay from '../presentational/blogPage/pinnedPostDisplay';
 import ForumDisplay from '../presentational/blogPage/forumDisplay';
 import '../../assets/css/blogPage.css';
+import { fetchForumPosts } from '../misc/apiRequests';
 
 const BlogPage = ({
-  user, allPosts, allForums, handlePostSelect,
+  user, handlePostSelect, handleLoader, handleModal,
 }) => {
   const [pinnedPosts, setPinnedPosts] = useState([]);
   const [forumTopics, setForumTopics] = useState([]);
@@ -29,23 +30,32 @@ const BlogPage = ({
 
   // Grab all pinned Posts, and sort all other posts by forum on Component Load
   useEffect(() => {
-    const postPins = allPosts.filter(post => post.is_pinned);
-    const categorizedPosts = allForums.map(forumData => ({
-      name: forumData.name,
-      posts: allPosts.filter(post => post.forum === forumData.name && !post.subforum),
-      subforums: forumData.subforum.map(subforum => (
-        {
-          subforum,
-          posts: allPosts
-            .filter(post => post.forum === forumData.name && post.subforum === subforum),
+    // const postPins = allPosts.filter(post => post.is_pinned);
+    // const categorizedPosts = allForums.map(forumData => ({
+    //   name: forumData.name,
+    //   posts: allPosts.filter(post => post.forum === forumData.name && !post.subforum),
+    //   subforums: forumData.subforum.map(subforum => (
+    //     {
+    //       subforum,
+    //       posts: allPosts
+    //         .filter(post => post.forum === forumData.name && post.subforum === subforum),
+    //     }
+    //   )),
+    //   admin_only: forumData.admin_only,
+    //   admin_view_only: forumData.admin_view_only,
+    // }));
+    handleLoader(true);
+    const forum = { per_page: 5, page: 1 };
+    fetchForumPosts(forum.per_page, forum.page)
+      .then(response => {
+        if (response.success) {
+          setPinnedPosts(response.pinned_posts);
+          setForumTopics(response.forums);
         }
-      )),
-      admin_only: forumData.admin_only,
-      admin_view_only: forumData.admin_view_only,
-    }));
-    setPinnedPosts(postPins);
-    setForumTopics(categorizedPosts);
-  }, [allForums, allPosts]);
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
+  }, [handleLoader, handleModal]);
 
   return (
     <div id="BlogPage" className="bg-main pt-1">
@@ -70,9 +80,9 @@ const BlogPage = ({
 
 BlogPage.propTypes = {
   user: propTypes.instanceOf(Object).isRequired,
-  allPosts: propTypes.instanceOf(Array).isRequired,
-  allForums: propTypes.instanceOf(Array).isRequired,
   handlePostSelect: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
 };
 
 export default BlogPage;

@@ -16,8 +16,6 @@ import NewPost from './components/functional/blogPage/newPost';
 import EditPost from './components/functional/blogPage/editPost';
 import NewUsers from './components/functional/users/newUsers';
 import { allUsersData } from './components/misc/presets/allUsersData';
-import allPostsData from './components/misc/presets/allPostsData';
-import allForumsData from './components/misc/presets/allForumsData';
 
 import Register from './components/functional/users/register';
 import Login from './components/functional/users/login';
@@ -30,8 +28,6 @@ const App = () => {
   const [allUsers] = useState(allUsersData);
   const [user, setUser] = useState({ logged_in: false });
   const [selectedPost, setSelectedPost] = useState(null);
-  const [allForums, setAllForums] = useState(allForumsData);
-  const [allPosts, setAllPosts] = useState(allPostsData);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -71,12 +67,6 @@ const App = () => {
         handleLoader(false);
       });
   }, [handleLoader, handleModal]);
-
-  useEffect(() => setAllForums(allForumsData), []);
-  useEffect(() => {
-    const allPostsSorted = allPosts.sort((a, b) => b.id - a.id);
-    setAllPosts(allPostsSorted);
-  }, [allPosts]);
 
   // Follow up redirect after a post is selected
   useEffect(() => {
@@ -127,9 +117,9 @@ const App = () => {
             render={() => (
               <BlogPage
                 user={user}
-                allForums={allForums}
-                allPosts={allPosts}
                 handlePostSelect={handlePostSelect}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
               />
             )}
           />
@@ -141,7 +131,13 @@ const App = () => {
           <Route
             exact
             path="/login"
-            render={() => <Login handleModal={handleModal} handleLoader={handleLoader} handleLogin={handleLogin} />}
+            render={() => (
+              <Login
+                handleModal={handleModal}
+                handleLoader={handleLoader}
+                handleLogin={handleLogin}
+              />
+            )}
           />
           <Route
             exact
@@ -164,8 +160,8 @@ const App = () => {
               <TopicForum
                 match={props.match}
                 user={user}
-                allForums={allForums}
-                allPosts={allPosts}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
                 handlePostSelect={handlePostSelect}
               />
             )}
@@ -177,8 +173,8 @@ const App = () => {
               <TopicForum
                 match={props.match}
                 user={user}
-                allForums={allForums}
-                allPosts={allPosts}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
                 handlePostSelect={handlePostSelect}
               />
             )}
@@ -186,12 +182,28 @@ const App = () => {
           <Route
             exact
             path="/:forum/posts/new"
-            render={props => <NewPost match={props.match} user={user} />}
+            render={props => (
+              <NewPost
+                match={props.match}
+                user={user}
+                handlePostSelect={handlePostSelect}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
+              />
+            )}
           />
           <Route
             exact
             path="/:forum/:subforum/posts/new"
-            render={props => <NewPost match={props.match} user={user} />}
+            render={props => (
+              <NewPost
+                match={props.match}
+                user={user}
+                handlePostSelect={handlePostSelect}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
+              />
+            )}
           />
           <Route
             exact
@@ -200,7 +212,8 @@ const App = () => {
               <PostPage
                 match={props.match}
                 user={user}
-                allPosts={allPosts}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
                 handlePostSelect={handlePostSelect}
               />
             )}
@@ -212,7 +225,8 @@ const App = () => {
               <PostPage
                 match={props.match}
                 user={user}
-                allPosts={allPosts}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
                 handlePostSelect={handlePostSelect}
               />
             )}
@@ -224,7 +238,8 @@ const App = () => {
               <EditPost
                 match={props.match}
                 user={user}
-                allPosts={allPosts}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
               />
             )}
           />
@@ -235,7 +250,8 @@ const App = () => {
               <EditPost
                 match={props.match}
                 user={user}
-                allPosts={allPosts}
+                handleLoader={handleLoader}
+                handleModal={handleModal}
               />
             )}
           />

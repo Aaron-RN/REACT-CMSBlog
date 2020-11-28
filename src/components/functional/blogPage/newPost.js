@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { Link, Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
+import { postNew } from '../../misc/apiRequests';
 import { modules, formats } from '../../misc/presets/quillModules';
-import { isPostSuspended } from '../../misc/presets/allUsersData';
 import 'react-quill/dist/quill.snow.css';
 
 const NewBlogPost = ({
-  match, user,
+  match, user, handlePostSelect, handleLoader, handleModal,
 }) => {
   const [newPostTitle, setPostTitle] = useState('');
   const [newPostBody, setPostBody] = useState('');
@@ -30,7 +30,8 @@ const NewBlogPost = ({
 
   const handleSubmitPost = e => {
     e.preventDefault();
-    if (isPostSuspended(user.id)) return;
+    if (!user.can_post) return;
+
     const formData = new FormData();
     formData.append('post[title]', newPostTitle.trim());
     formData.append('post[body]', newPostBody);
@@ -38,6 +39,14 @@ const NewBlogPost = ({
     formData.append('post[forum]', forum);
     formData.append('post[subforum]', subforum);
     formData.append('post[user_id]', user.id);
+
+    handleLoader(true);
+    postNew(formData)
+      .then(response => {
+        if (response.success) handlePostSelect(response.post);
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   const renderMain = (
@@ -77,8 +86,11 @@ const NewBlogPost = ({
 };
 
 NewBlogPost.propTypes = {
-  match: PropTypes.instanceOf(Object).isRequired,
-  user: PropTypes.instanceOf(Object).isRequired,
+  match: propTypes.instanceOf(Object).isRequired,
+  user: propTypes.instanceOf(Object).isRequired,
+  handlePostSelect: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
 };
 
 export default NewBlogPost;
