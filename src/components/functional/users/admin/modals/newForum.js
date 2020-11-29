@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
+import { forumNew } from '../../../../misc/apiRequests';
 
-const NewforumModal = ({ handleFormReset }) => {
+const NewforumModal = ({
+  handleFormReset, handleForums, handleLoader, handleModal,
+}) => {
   const [forumName, setforumName] = useState('');
   const [subforumName, setSubforumName] = useState('');
   const [subforums, setSubforums] = useState([]);
@@ -35,11 +38,20 @@ const NewforumModal = ({ handleFormReset }) => {
       name: forumName.trim(),
       subforums,
       admin_only: adminForum,
-      admin_view_only: adminView,
+      admin_only_view: adminView,
     };
-    console.log(forum);
-    handleReset();
-    handleFormReset();
+
+    handleLoader(true);
+    forumNew(forum)
+      .then(response => {
+        if (response.success) {
+          handleForums(response.forums);
+          handleReset();
+          handleFormReset();
+        }
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   // Add new subforum
@@ -116,6 +128,9 @@ const NewforumModal = ({ handleFormReset }) => {
 
 NewforumModal.propTypes = {
   handleFormReset: propTypes.func.isRequired,
+  handleForums: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
 };
 
 export default NewforumModal;

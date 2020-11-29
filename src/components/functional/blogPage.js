@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import PinnedPostDisplay from '../presentational/blogPage/pinnedPostDisplay';
 import ForumDisplay from '../presentational/blogPage/forumDisplay';
 import '../../assets/css/blogPage.css';
-import { fetchForumPosts } from '../misc/apiRequests';
+import { fetchAllForumPosts } from '../misc/apiRequests';
 
 const BlogPage = ({
   user, handlePostSelect, handleLoader, handleModal,
@@ -46,7 +46,7 @@ const BlogPage = ({
     // }));
     handleLoader(true);
     const forum = { per_page: 5, page: 1 };
-    fetchForumPosts(forum.per_page, forum.page)
+    fetchAllForumPosts(forum.per_page, forum.page)
       .then(response => {
         if (response.success) {
           setPinnedPosts(response.pinned_posts);

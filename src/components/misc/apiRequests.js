@@ -84,9 +84,39 @@ const postNew = async post => axios(
   })
   .catch(error => errorCatch(error));
 
-// Fetch Forum Posts
+// Create New Forum
+const forumNew = async forum => axios.post(`${URL}forums`, { forum })
+  .then(response => {
+    const { forums } = response.data;
+    // forums = Array.isArray(forums) ? forums : [];
+
+    return { forums, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// Create New Forum
+const forumRemove = async forumID => axios.delete(`${URL}forums/${forumID}`)
+  .then(response => {
+    const { forums } = response.data;
+    // forums = Array.isArray(forums) ? forums : [];
+
+    return { forums, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// Fetch All Forums
+const fetchAllForums = async () => axios.get(`${URL}forums/all`)
+  .then(response => {
+    const { forums } = response.data;
+    // forums = Array.isArray(forums) ? forums : [];
+
+    return { forums, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// Fetch All Forums and Posts
 // eslint-disable-next-line camelcase
-const fetchForumPosts = async (per_page = 5, page = 1) => axios.get(`${URL}forums`, { params: { per_page, page } })
+const fetchAllForumPosts = async (per_page = 5, page = 1) => axios.get(`${URL}forums`, { params: { per_page, page } })
   .then(response => {
     const {
       // eslint-disable-next-line camelcase
@@ -99,7 +129,22 @@ const fetchForumPosts = async (per_page = 5, page = 1) => axios.get(`${URL}forum
   })
   .catch(error => errorCatch(error));
 
+// Fetch Specific Forum and Posts
+// eslint-disable-next-line camelcase
+const fetchForumPosts = async (forum, subforum, per_page = 5, page = 1) => axios.get(`${URL}forums/${forum}/${subforum}`, { params: { per_page, page } })
+  .then(response => {
+    const {
+      // eslint-disable-next-line camelcase
+      forum, per_page, page,
+    } = response.data.results;
+
+    return {
+      forum, per_page, page, success: true,
+    };
+  })
+  .catch(error => errorCatch(error));
+
 export {
   userLogin, userLoggedIn, userRegister, fetchUser,
-  postNew, fetchForumPosts,
+  postNew, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
 };

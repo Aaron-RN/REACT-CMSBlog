@@ -113,8 +113,21 @@ const ProfilePage = ({
             </div>
           </div>
         </div>
-        {isMyProfile && (<AdminPanel user={user} />)}
-        {!isMyProfile && (<AdminPanel user={user} selectedUser={selectedUser} />)}
+        {isMyProfile && (
+          <AdminPanel
+            user={user}
+            handleLoader={handleLoader}
+            handleMainModal={handleModal}
+          />
+        )}
+        {!isMyProfile && (
+          <AdminPanel
+            user={user}
+            selectedUser={selectedUser}
+            handleLoader={handleLoader}
+            handleMainModal={handleModal}
+          />
+        )}
       </div>
     </div>
   );

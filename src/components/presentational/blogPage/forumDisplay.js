@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { isPostSuspended } from '../../misc/presets/allUsersData';
 import Paginate from '../../functional/blogPage/paginatePosts';
 import populatePosts from './populatePosts';
 import SubForumDisplay from './subForumDisplay';
@@ -21,7 +20,7 @@ const ForumDisplay = ({
     return false;
   };
   const checkForumContraints = () => {
-    if (isPostSuspended(user.id)) return false; // Takes precedence over all conditions
+    if (!user.can_post) return false; // Takes precedence over all conditions
     if (!forum.admin_only) return true;
     if (forum.admin_only && isAdmin) return true;
     return false;
@@ -62,7 +61,9 @@ const ForumDisplay = ({
 
   // Expand all forums whose subforums have posts/topics
   useEffect(() => {
-    if (subForums.some(subforumData => subforumData.posts.length > 0)) { setShowForum(true); }
+    if (Array.isArray(subForums)) {
+      if (subForums.some(subforumData => subforumData.posts.length > 0)) { setShowForum(true); }
+    }
     if (forum.posts.length > 0) { setShowForum(true); }
   }, [subForums, forum]);
 
