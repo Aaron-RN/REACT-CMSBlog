@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { postNew } from '../../misc/apiRequests';
 import { modules, formats } from '../../misc/presets/quillModules';
 import 'react-quill/dist/quill.snow.css';
 
 const NewBlogPost = ({
-  match, user, handlePostSelect, handleLoader, handleModal,
+  match, location, user, handlePostSelect, handleLoader, handleModal,
 }) => {
   const [newPostTitle, setPostTitle] = useState('');
   const [newPostBody, setPostBody] = useState('');
   const { forum, subforum } = match.params;
   // const [newPostImage, setPostImage] = useState('');
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+  const query = useQuery();
 
   const handleChangeTitle = e => {
     const elem = e.target;
@@ -36,7 +41,7 @@ const NewBlogPost = ({
     formData.append('post[title]', newPostTitle.trim());
     formData.append('post[body]', newPostBody);
     // formData.append('post[bg_image]', newPostImage);
-    formData.append('post[forum]', forum);
+    formData.append('post[forum]', query.get('forum_id'));
     formData.append('post[subforum]', subforum);
     formData.append('post[user_id]', user.id);
 
@@ -87,6 +92,7 @@ const NewBlogPost = ({
 
 NewBlogPost.propTypes = {
   match: propTypes.instanceOf(Object).isRequired,
+  location: propTypes.instanceOf(Object).isRequired,
   user: propTypes.instanceOf(Object).isRequired,
   handlePostSelect: propTypes.func.isRequired,
   handleLoader: propTypes.func.isRequired,

@@ -6,7 +6,7 @@ import populatePosts from './populatePosts';
 import SubForumDisplay from './subForumDisplay';
 
 const ForumDisplay = ({
-  user, forum, postsPages, handlePostSelect,
+  user, forum, postsPages, handlePostSelect, isSubforum
 }) => {
   const [showForum, setShowForum] = useState(false);
   const [forumTitle, setForumTitle] = useState('');
@@ -46,7 +46,7 @@ const ForumDisplay = ({
   const populateSubForums = () => subForums.map(subforumData => (
     <SubForumDisplay
       key={subforumData.subforum}
-      forum={forum.name}
+      forum={{ id: forum.id, name: forum.name, isSubforum }}
       subforum={subforumData}
       handleIcon={handleIcon}
       handlePostSelect={handlePostSelect}
@@ -61,10 +61,12 @@ const ForumDisplay = ({
 
   // Expand all forums whose subforums have posts/topics
   useEffect(() => {
-    if (Array.isArray(subForums)) {
-      if (subForums.some(subforumData => subforumData.posts.length > 0)) { setShowForum(true); }
-    }
+    if (subForums.some(subforumData => subforumData.posts.length > 0)) { setShowForum(true); }
     if (forum.posts.length > 0) { setShowForum(true); }
+    if (forum.posts.length <= 0
+      && subForums.every(subforumData => subforumData.posts.length <= 0)) {
+      setShowForum(true);
+    }
   }, [subForums, forum]);
 
   return canSeeForum()
@@ -72,14 +74,21 @@ const ForumDisplay = ({
       <div className="forum-section z-2">
         <div className="header-title bg-announcement">
           <Link to={`/${forumTitle}`}><h3 className="text-camel">{forumTitle}</h3></Link>
-          <button type="button" onClick={() => handleShowForum(showForum)}>
+          <button type="button" onClick={() => handleShowForum()}>
             {handleIcon(showForum)}
           </button>
         </div>
         {(subForums.length > 0 && showForum) && populateSubForums()}
         {(!subForums.length && showForum) && (
         <div>
-          {checkForumContraints() && (<Link to={`/${forumTitle}/posts/new`} className="new-post-btn">New Topic</Link>)}
+          {checkForumContraints() && (
+            <Link
+              to={`/${forumTitle}/posts/new?forum_id=${forum.id}`}
+              className="new-post-btn"
+            >
+              New Topic
+            </Link>
+          )}
           <div className="post-section">
             <Paginate
               posts={forum.posts}
@@ -96,6 +105,7 @@ const ForumDisplay = ({
 };
 
 ForumDisplay.defaultProps = {
+  isSubforum: false,
   postsPages: 5,
 };
 
@@ -104,6 +114,7 @@ ForumDisplay.propTypes = {
   forum: propTypes.instanceOf(Object).isRequired,
   postsPages: propTypes.number,
   handlePostSelect: propTypes.func.isRequired,
+  isSubforum: propTypes.bool,
 };
 
 export default ForumDisplay;

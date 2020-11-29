@@ -23,12 +23,13 @@ const SubForumDisplay = ({
   // Expand all subforums that have posts/topics
   useEffect(() => {
     if (posts.length > 0) { setShowForum(true); }
-  }, [posts]);
+    if (forum.isSubforum) { setShowForum(true); }
+  }, [posts, forum.isSubforum]);
 
   return (
     <div className="forum-section ml-1">
       <div className="header-title">
-        <Link to={`/${forum}/${forumTitle}`}>
+        <Link to={`/${forum.name}/${forumTitle}`}>
           <h4 className="text-camel">{forumTitle}</h4>
         </Link>
         <button type="button" onClick={() => handleShowForum(showForum)}>
@@ -38,7 +39,12 @@ const SubForumDisplay = ({
       {showForum && (
         <div>
           {checkForumContraints() && (
-            <Link to={`/${forum}/${forumTitle}/posts/new`} className="new-post-btn">New Topic</Link>
+            <Link
+              to={`/${forum.name}/${forumTitle}/posts/new?forum_id=${forum.id}`}
+              className="new-post-btn"
+            >
+              New Topic
+            </Link>
           )}
           <div className="post-section">
             <Paginate
@@ -59,7 +65,7 @@ SubForumDisplay.defaultProps = {
 };
 
 SubForumDisplay.propTypes = {
-  forum: propTypes.string.isRequired,
+  forum: propTypes.instanceOf(Object).isRequired,
   subforum: propTypes.instanceOf(Object).isRequired,
   handleIcon: propTypes.func.isRequired,
   handlePostSelect: propTypes.func.isRequired,

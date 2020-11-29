@@ -72,7 +72,7 @@ const App = () => {
   useEffect(() => {
     if (selectedPost) {
       const { forum, subforum, id } = selectedPost;
-      setRedirect(<Redirect to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}`} />);
+      setRedirect(<Redirect to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}/show`} />);
     }
   }, [selectedPost]);
 
@@ -185,6 +185,7 @@ const App = () => {
             render={props => (
               <NewPost
                 match={props.match}
+                location={props.location}
                 user={user}
                 handlePostSelect={handlePostSelect}
                 handleLoader={handleLoader}
@@ -198,6 +199,7 @@ const App = () => {
             render={props => (
               <NewPost
                 match={props.match}
+                location={props.location}
                 user={user}
                 handlePostSelect={handlePostSelect}
                 handleLoader={handleLoader}
@@ -207,7 +209,7 @@ const App = () => {
           />
           <Route
             exact
-            path="/:forum/posts/:id"
+            path="/:forum/posts/:id/show"
             render={props => (
               <PostPage
                 match={props.match}
@@ -220,7 +222,7 @@ const App = () => {
           />
           <Route
             exact
-            path="/:forum/:subforum/posts/:id"
+            path="/:forum/:subforum/posts/:id/show"
             render={props => (
               <PostPage
                 match={props.match}
@@ -272,10 +274,12 @@ const App = () => {
 
 App.defaultProps = {
   match: {},
+  location: {},
 };
 
 App.propTypes = {
   match: propTypes.instanceOf(Object),
+  location: propTypes.instanceOf(Object),
 };
 
 export default App;

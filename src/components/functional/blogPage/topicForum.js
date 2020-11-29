@@ -11,39 +11,8 @@ const TopicForum = ({
   const [forumTopics, setForumTopics] = useState();
   const { forum, subforum } = match.params;
 
-  // Populate all subforums and related posts paginated by 5 posts per page
-  // const populateForums = () => forumTopics.map(forumData => (
-  //   <ForumDisplay
-  //     key={forumData.name}
-  //     user={user}
-  //     forum={forumData}
-  //     handlePostSelect={handlePostSelect}
-  //     postsPages={5}
-  //   />
-  // ));
-
   // Grab all topics by forum on Component Load
   useEffect(() => {
-    // const selectedForum = allForums.filter(forumData => forumData.name === forum);
-    // const categorizedPosts = selectedForum.map(forumData => {
-    //   // checks if there is a subforum provided by match prop in address URL
-    //   const selectedSubForum = subforum
-    //     ? forumData.subforum.filter(subforumData => subforumData === subforum)
-    //     : forumData.subforum;
-    //   return ({
-    //     name: forumData.name,
-    //     posts: allPosts.filter(post => post.forum === forumData.name && !post.subforum),
-    //     subforums: selectedSubForum.map(subforum => (
-    //       {
-    //         subforum,
-    //         posts: allPosts
-    //           .filter(post => post.forum === forumData.name && post.subforum === subforum),
-    //       }
-    //     )),
-    //     admin_only: forumData.admin_only,
-    //     admin_view_only: forumData.admin_view_only,
-    //   });
-    // });
     handleLoader(true);
     const subforumCheck = subforum === undefined ? '' : subforum;
     fetchForumPosts(forum, subforumCheck, 5, 1)
@@ -75,6 +44,7 @@ const TopicForum = ({
               forum={forumTopics}
               handlePostSelect={handlePostSelect}
               postsPages={5}
+              isSubforum={!!subforum}
             />
           )}
         </div>
