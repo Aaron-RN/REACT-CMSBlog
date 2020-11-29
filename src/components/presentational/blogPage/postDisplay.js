@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
-import { fetchAuthorName } from '../../misc/presets/allUsersData';
 
 const PostDisplay = ({ post, isPinned }) => {
   const { title } = post;
@@ -25,7 +24,7 @@ const PostDisplay = ({ post, isPinned }) => {
       </h4>
       <div className="post-author">
         {'by '}
-        <span className="text-author">{fetchAuthorName(post.author_id)}</span>
+        <span className="text-author">{post.author}</span>
       </div>
       <div ref={bodyElem} className="post-body" />
       <div className="post-date">{post.created_at}</div>

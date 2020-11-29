@@ -2,17 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CommentSection from '../comments/commentSection';
-import { fetchAuthorName } from '../../misc/presets/allUsersData';
+import { fetchPost } from '../../misc/apiRequests';
 
-const PostPage = ({ match, allPosts, user }) => {
+const PostPage = ({
+  match, user, handleLoader, handleModal,
+}) => {
   const [selectedPost, setSelectedPost] = useState({
-    id: 0, title: '', body: '', author_id: '', forum: '', is_pinned: false, is_locked: false,
+    id: 0, title: '', body: '', author: '', user_id: '', forum: '', is_pinned: false, is_locked: false,
   });
   const [postPinned, setPostPinned] = useState(selectedPost.is_pinned);
   const [postLocked, setPostLocked] = useState(selectedPost.is_locked);
   const {
     // eslint-disable-next-line camelcase
-    id, forum, subforum, title, body, author_id,
+    id, forum, subforum, title, body, user_id, author,
   } = selectedPost;
   const bodyElem = useRef(null);
 
@@ -32,12 +34,20 @@ const PostPage = ({ match, allPosts, user }) => {
 
   // Fetch Post by ID
   useEffect(() => {
-    if (allPosts.length && match) {
-      const post = allPosts.find(post => post.id === parseInt(match.params.id, 10));
-      setSelectedPost(post);
-      setPostPinned(post.is_pinned);
+    if (match.params.id) {
+      const postID = parseInt(match.params.id, 10);
+      handleLoader(true);
+      fetchPost(postID)
+        .then(response => {
+          if (response.success) {
+            setSelectedPost(response.post);
+            setPostPinned(response.post.is_pinned);
+          }
+          if (!response.success) handleModal(response.errors);
+          handleLoader(false);
+        });
     }
-  }, [match, allPosts]);
+  }, [match.params.id, handleLoader, handleModal]);
 
   // Fill body element of post with html rich text
   useEffect(() => {
@@ -62,7 +72,7 @@ const PostPage = ({ match, allPosts, user }) => {
             <h3>{title}</h3>
             <span className="pl-1 size-16">by</span>
             <h3 className="pl-01 size-18 user">
-              <Link to={`/users/${author_id}`} className="text-author">{fetchAuthorName(author_id)}</Link>
+              <Link to={`/users/${user_id}`} className="text-author">{author}</Link>
             </h3>
             <div className="ml-auto">
               {user.admin_level > 1 && (
@@ -78,7 +88,7 @@ const PostPage = ({ match, allPosts, user }) => {
                 </div>
               )}
               {/* eslint-disable-next-line camelcase */}
-              {(user.id === author_id) && <Link to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
+              {(user.id === user_id) && <Link to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
             </div>
           </div>
           <div ref={bodyElem} />
@@ -91,8 +101,9 @@ const PostPage = ({ match, allPosts, user }) => {
 
 PostPage.propTypes = {
   match: propTypes.instanceOf(Object).isRequired,
-  allPosts: propTypes.instanceOf(Array).isRequired,
   user: propTypes.instanceOf(Object).isRequired,
+  handleLoader: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
 };
 
 export default PostPage;

@@ -144,7 +144,17 @@ const fetchForumPosts = async (forum, subforum, per_page = 5, page = 1) => axios
   })
   .catch(error => errorCatch(error));
 
+// Fetch post by ID
+const fetchPost = async id => axios.get(`${URL}posts/${id}`)
+  .then(response => {
+    const { post, comments } = response.data;
+
+    return { post, comments, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 export {
   userLogin, userLoggedIn, userRegister, fetchUser,
-  postNew, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
+  forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
+  postNew, fetchPost,
 };

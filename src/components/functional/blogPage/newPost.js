@@ -7,7 +7,7 @@ import { modules, formats } from '../../misc/presets/quillModules';
 import 'react-quill/dist/quill.snow.css';
 
 const NewBlogPost = ({
-  match, location, user, handlePostSelect, handleLoader, handleModal,
+  match, user, handlePostSelect, handleLoader, handleModal,
 }) => {
   const [newPostTitle, setPostTitle] = useState('');
   const [newPostBody, setPostBody] = useState('');
@@ -41,7 +41,7 @@ const NewBlogPost = ({
     formData.append('post[title]', newPostTitle.trim());
     formData.append('post[body]', newPostBody);
     // formData.append('post[bg_image]', newPostImage);
-    formData.append('post[forum]', query.get('forum_id'));
+    formData.append('post[forum_id]', query.get('forum_id'));
     formData.append('post[subforum]', subforum);
     formData.append('post[user_id]', user.id);
 
@@ -92,7 +92,6 @@ const NewBlogPost = ({
 
 NewBlogPost.propTypes = {
   match: propTypes.instanceOf(Object).isRequired,
-  location: propTypes.instanceOf(Object).isRequired,
   user: propTypes.instanceOf(Object).isRequired,
   handlePostSelect: propTypes.func.isRequired,
   handleLoader: propTypes.func.isRequired,

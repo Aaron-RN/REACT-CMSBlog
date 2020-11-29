@@ -17,9 +17,7 @@ const TopicForum = ({
     const subforumCheck = subforum === undefined ? '' : subforum;
     fetchForumPosts(forum, subforumCheck, 5, 1)
       .then(response => {
-        if (response.success) {
-          setForumTopics(response.forum);
-        }
+        if (response.success) setForumTopics(response.forum);
         if (!response.success) handleModal(response.errors);
         handleLoader(false);
       });
@@ -39,7 +37,6 @@ const TopicForum = ({
           </div>
           {forumTopics && (
             <ForumDisplay
-              key={forumTopics.name}
               user={user}
               forum={forumTopics}
               handlePostSelect={handlePostSelect}

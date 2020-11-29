@@ -6,7 +6,7 @@ import populatePosts from './populatePosts';
 import SubForumDisplay from './subForumDisplay';
 
 const ForumDisplay = ({
-  user, forum, postsPages, handlePostSelect, isSubforum
+  user, forum, postsPages, handlePostSelect, isSubforum,
 }) => {
   const [showForum, setShowForum] = useState(false);
   const [forumTitle, setForumTitle] = useState('');

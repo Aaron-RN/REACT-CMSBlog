@@ -30,20 +30,6 @@ const BlogPage = ({
 
   // Grab all pinned Posts, and sort all other posts by forum on Component Load
   useEffect(() => {
-    // const postPins = allPosts.filter(post => post.is_pinned);
-    // const categorizedPosts = allForums.map(forumData => ({
-    //   name: forumData.name,
-    //   posts: allPosts.filter(post => post.forum === forumData.name && !post.subforum),
-    //   subforums: forumData.subforum.map(subforum => (
-    //     {
-    //       subforum,
-    //       posts: allPosts
-    //         .filter(post => post.forum === forumData.name && post.subforum === subforum),
-    //     }
-    //   )),
-    //   admin_only: forumData.admin_only,
-    //   admin_view_only: forumData.admin_view_only,
-    // }));
     handleLoader(true);
     const forum = { per_page: 5, page: 1 };
     fetchAllForumPosts(forum.per_page, forum.page)
