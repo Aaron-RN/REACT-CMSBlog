@@ -72,7 +72,6 @@ const App = () => {
   useEffect(() => {
     if (selectedPost) {
       const { forum, subforum, id } = selectedPost;
-      console.log(selectedPost);
       setRedirect(<Redirect to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}/show`} />);
     }
   }, [selectedPost]);
@@ -239,6 +238,7 @@ const App = () => {
               <EditPost
                 match={props.match}
                 user={user}
+                handlePostSelect={handlePostSelect}
                 handleLoader={handleLoader}
                 handleModal={handleModal}
               />
@@ -251,6 +251,7 @@ const App = () => {
               <EditPost
                 match={props.match}
                 user={user}
+                handlePostSelect={handlePostSelect}
                 handleLoader={handleLoader}
                 handleModal={handleModal}
               />

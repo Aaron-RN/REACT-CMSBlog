@@ -72,18 +72,6 @@ const fetchUser = async id => axios.get(`${URL}users/${id}`)
   })
   .catch(error => errorCatch(error));
 
-// Create New Post
-const postNew = async post => axios(
-  { method: 'post', url: `${URL}posts`, data: post },
-  { headers: { 'Content-Type': 'multipart/form-data' } },
-)
-  .then(response => {
-    const { post } = response.data;
-
-    return { post, success: true };
-  })
-  .catch(error => errorCatch(error));
-
 // Create New Forum
 const forumNew = async forum => axios.post(`${URL}forums`, { forum })
   .then(response => {
@@ -144,6 +132,30 @@ const fetchForumPosts = async (forum, subforum, per_page = 5, page = 1) => axios
   })
   .catch(error => errorCatch(error));
 
+// Create New Post
+const postNew = async post => axios(
+  { method: 'post', url: `${URL}posts`, data: post },
+  { headers: { 'Content-Type': 'multipart/form-data' } },
+)
+  .then(response => {
+    const { post } = response.data;
+
+    return { post, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// Create New Post
+const postUpdate = async (postID, post) => axios(
+  { method: 'patch', url: `${URL}posts/${postID}`, data: post },
+  { headers: { 'Content-Type': 'multipart/form-data' } },
+)
+  .then(response => {
+    const { post } = response.data;
+
+    return { post, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 // Fetch post by ID
 const fetchPost = async id => axios.get(`${URL}posts/${id}`)
   .then(response => {
@@ -156,5 +168,5 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
 export {
   userLogin, userLoggedIn, userRegister, fetchUser,
   forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
-  postNew, fetchPost,
+  postNew, postUpdate, fetchPost,
 };

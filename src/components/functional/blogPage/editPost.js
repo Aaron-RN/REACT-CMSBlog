@@ -4,8 +4,11 @@ import { Link, Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { modules, formats } from '../../misc/presets/quillModules';
 import 'react-quill/dist/quill.snow.css';
+import { fetchPost, postUpdate } from '../../misc/apiRequests';
 
-const EditPost = ({ user, allPosts, match }) => {
+const EditPost = ({
+  user, match, handlePostSelect, handleLoader, handleModal,
+}) => {
   const [selectedPost, setSelectedPost] = useState({
     id: 0, title: '', body: '', author: '', forum: '', subforum: '',
   });
@@ -26,29 +29,35 @@ const EditPost = ({ user, allPosts, match }) => {
     const formData = new FormData();
     formData.append('post[title]', postTitle.trim());
     formData.append('post[body]', postBody);
-    formData.append('post[user_id]', user.id);
+
+    handleLoader(true);
+    postUpdate(id, formData)
+      .then(response => {
+        if (response.success) handlePostSelect(response.post);
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   useEffect(() => {
-    if (allPosts.length && match) {
-      const post = allPosts.find(post => post.id === parseInt(match.params.id, 10));
-      setSelectedPost(post);
+    let isMounted = true;
+
+    if (match.params.id) {
+      const postID = parseInt(match.params.id, 10);
+      handleLoader(true);
+      fetchPost(postID)
+        .then(response => {
+          if (response.success) {
+            if (isMounted) setSelectedPost(response.post);
+          }
+          if (!response.success) handleModal(response.errors);
+          handleLoader(false);
+        });
     }
-  }, [allPosts, match]);
+    return () => { isMounted = false; };
+  }, [match.params.id, handleLoader, handleModal]);
 
   useEffect(() => { setPostTitle(title); setPostBody(body); }, [selectedPost, body, title]);
-
-  // Grab Post and populate Component State on Mount
-  // useEffect(() => {
-  //   if (match) {
-  //     fetchPost(parseInt(match.params.id, 10))
-  //       .then(result => {
-  //         setSelectedPost(result.post);
-  //         setPostTitle(result.post.title);
-  //         setPostBody(result.post.body);
-  //       });
-  //   }
-  // }, []);
 
   const renderMain = (
     <div id="BlogPage" className="bg-main">
@@ -88,8 +97,10 @@ const EditPost = ({ user, allPosts, match }) => {
 
 EditPost.propTypes = {
   user: propTypes.instanceOf(Object).isRequired,
-  allPosts: propTypes.instanceOf(Object).isRequired,
   match: propTypes.instanceOf(Object).isRequired,
+  handlePostSelect: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
 };
 
 export default EditPost;
