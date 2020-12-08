@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CommentSection from '../comments/commentSection';
-import { fetchPost } from '../../misc/apiRequests';
+import { fetchPost, postHandleLock, postHandlePin } from '../../misc/apiRequests';
 
 const PostPage = ({
   match, user, handleLoader, handleModal,
@@ -10,26 +10,38 @@ const PostPage = ({
   const [selectedPost, setSelectedPost] = useState({
     id: 0, title: '', body: '', author: '', user_id: '', forum: '', is_pinned: false, is_locked: false,
   });
-  const [postPinned, setPostPinned] = useState(selectedPost.is_pinned);
-  const [postLocked, setPostLocked] = useState(selectedPost.is_locked);
   const {
     // eslint-disable-next-line camelcase
-    id, forum, subforum, title, body, user_id, author,
+    id, forum, subforum, title, body, user_id, author, is_pinned, is_locked,
   } = selectedPost;
   const bodyElem = useRef(null);
 
   // Handle pinning a post
   const handlePinPost = () => {
-    setPostPinned(!postPinned);
-    // Axios POST Request
-    console.log(postPinned);
+    const postID = parseInt(match.params.id, 10);
+    handleLoader(true);
+    postHandlePin(postID)
+      .then(response => {
+        if (response.success) {
+          setSelectedPost(response.post);
+        }
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   // Handle locking a post's comments
   const handleLockPost = () => {
-    setPostLocked(!postLocked);
-    // Axios POST Request
-    console.log(postLocked);
+    const postID = parseInt(match.params.id, 10);
+    handleLoader(true);
+    postHandleLock(postID)
+      .then(response => {
+        if (response.success) {
+          setSelectedPost(response.post);
+        }
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   // Fetch Post by ID
@@ -41,7 +53,6 @@ const PostPage = ({
         .then(response => {
           if (response.success) {
             setSelectedPost(response.post);
-            setPostPinned(response.post.is_pinned);
           }
           if (!response.success) handleModal(response.errors);
           handleLoader(false);
@@ -55,6 +66,7 @@ const PostPage = ({
     if (bodyDiv) bodyDiv.innerHTML = body;
   });
 
+  /* eslint-disable camelcase */
   return (
     <div id="BlogPage" className="bg-main">
       <div className="container-md">
@@ -78,16 +90,15 @@ const PostPage = ({
               {user.admin_level > 1 && (
                 <div className="inline-flex">
                   <button type="button" onClick={handlePinPost} className="bare-btn pin-btn" title="Pin/Unpin post">
-                    {postPinned && <i className="fas fa-star text-red" />}
-                    {!postPinned && <i className="far fa-star" />}
+                    {is_pinned && <i className="fas fa-star text-red" />}
+                    {!is_pinned && <i className="far fa-star" />}
                   </button>
                   <button type="button" onClick={handleLockPost} className="bare-btn lock-btn" title="Lock/Unlock post's comments">
-                    {postLocked && <i className="fas fa-lock" />}
-                    {!postLocked && <i className="fas fa-unlock" />}
+                    {is_locked && <i className="fas fa-lock" />}
+                    {!is_locked && <i className="fas fa-unlock" />}
                   </button>
                 </div>
               )}
-              {/* eslint-disable-next-line camelcase */}
               {(user.id === user_id) && <Link to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}/edit`} className="edit-post-btn">Edit Topic</Link>}
             </div>
           </div>
@@ -97,6 +108,7 @@ const PostPage = ({
       <CommentSection user={user} post={selectedPost} />
     </div>
   );
+  /* eslint-enable camelcase */
 };
 
 PostPage.propTypes = {

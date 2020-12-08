@@ -8,7 +8,7 @@ const organizeErrors = errors => {
   const errorMsg = !Array.isArray(errors) ? errors.split(':') : errors[0];
   let errorList = errors;
   if (Array.isArray(errorMsg)) {
-    errorMsg.shift();
+    if (errorMsg.length > 1) errorMsg.shift();
     errorList = errorMsg.join().trim().split(',');
   }
 
@@ -156,6 +156,24 @@ const postUpdate = async (postID, post) => axios(
   })
   .catch(error => errorCatch(error));
 
+// Lock/Unlock a Post
+const postHandleLock = async postID => axios.patch(`${URL}posts/${postID}/lock_post`)
+  .then(response => {
+    const { post } = response.data;
+
+    return { post, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// Lock/Unlock a Post
+const postHandlePin = async postID => axios.patch(`${URL}posts/${postID}/pin_post`)
+  .then(response => {
+    const { post } = response.data;
+
+    return { post, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 // Fetch post by ID
 const fetchPost = async id => axios.get(`${URL}posts/${id}`)
   .then(response => {
@@ -168,5 +186,5 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
 export {
   userLogin, userLoggedIn, userRegister, fetchUser,
   forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
-  postNew, postUpdate, fetchPost,
+  postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
 };

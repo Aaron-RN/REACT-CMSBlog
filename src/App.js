@@ -35,9 +35,9 @@ const App = () => {
 
   // Toggle modal and clear status
   const handleModal = useCallback((errors = []) => {
-    setShowModal(!showModal);
+    // setShowModal(!showModal);
     setErrors(errors);
-  }, [showModal, setShowModal, setErrors]);
+  }, [setErrors]);
 
   const handleLoader = useCallback((loading = true) => {
     setIsLoading(loading);
@@ -80,7 +80,7 @@ const App = () => {
 
   // open Modal to show errors
   useEffect(() => {
-    if (errors.length > 0) setShowModal(true);
+    setShowModal(errors.length > 0);
   }, [errors]);
 
   return redirect || (
@@ -274,12 +274,10 @@ const App = () => {
 
 App.defaultProps = {
   match: {},
-  location: {},
 };
 
 App.propTypes = {
   match: propTypes.instanceOf(Object),
-  location: propTypes.instanceOf(Object),
 };
 
 export default App;
