@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
+import { userToAdmin } from '../../../../misc/apiRequests';
 
-const PromoteUser = ({ user, selectedUser, handleFormReset }) => {
+const PromoteUser = ({
+  user, selectedUser, handleSelectedUser, handleFormReset, handleLoader, handleMainModal,
+}) => {
   // eslint-disable-next-line camelcase
   const { admin_level } = selectedUser;
   const [adminLevel, setAdminLevel] = useState(admin_level);
@@ -31,7 +34,7 @@ const PromoteUser = ({ user, selectedUser, handleFormReset }) => {
     return null;
   };
 
-  // Handle modification of User's suspended activities
+  // Handle modification of User's administrative rights
   const handleSubmit = e => {
     e.preventDefault();
     const userStatus = {
@@ -39,8 +42,16 @@ const PromoteUser = ({ user, selectedUser, handleFormReset }) => {
       admin_level: adminLevel,
       admin_id: user.id,
     };
-    console.log(userStatus);
-    handleFormReset();
+    handleLoader(true);
+    userToAdmin(userStatus)
+      .then(response => {
+        if (response.success) {
+          handleSelectedUser(response.user);
+          handleFormReset();
+        }
+        if (!response.success) handleMainModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   return (
@@ -52,7 +63,7 @@ const PromoteUser = ({ user, selectedUser, handleFormReset }) => {
       </h3>
       <h4>Change User&apos;s account status</h4>
       <select value={adminLevel} onChange={e => setAdminLevel(parseInt(e.target.value, 10))}>
-        <option value={3} disabled>Site Owner</option>
+        {/* <option value={3} disabled>Site Owner</option> */}
         <option value={2}>Moderator</option>
         <option value={1}>Forums Moderator</option>
         <option value={0}>Basic User</option>
@@ -67,7 +78,10 @@ const PromoteUser = ({ user, selectedUser, handleFormReset }) => {
 PromoteUser.propTypes = {
   user: propTypes.instanceOf(Object).isRequired,
   selectedUser: propTypes.instanceOf(Object).isRequired,
+  handleSelectedUser: propTypes.func.isRequired,
   handleFormReset: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
+  handleMainModal: propTypes.func.isRequired,
 };
 
 export default PromoteUser;

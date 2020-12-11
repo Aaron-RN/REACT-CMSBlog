@@ -63,6 +63,15 @@ const userRegister = async user => {
     .catch(error => errorCatch(error));
 };
 
+// Set a user's administrative rights
+const userToAdmin = async user => axios.patch(`${URL}users/${user.id}/set_admin_level`, { user })
+  .then(response => {
+    const { user } = response.data;
+
+    return { user, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 // Fetch user by ID
 const fetchUser = async id => axios.get(`${URL}users/${id}`)
   .then(response => {
@@ -184,7 +193,7 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
   .catch(error => errorCatch(error));
 
 export {
-  userLogin, userLoggedIn, userRegister, fetchUser,
+  userLogin, userLoggedIn, userRegister, userToAdmin, fetchUser,
   forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
   postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
 };

@@ -9,7 +9,7 @@ import PromoteUser from './modals/promoteUser';
 import { fetchAllForums, forumRemove } from '../../../misc/apiRequests';
 
 const AdminPanel = ({
-  user, selectedUser, handleLoader, handleMainModal,
+  user, selectedUser, handleSelectedUser, handleLoader, handleMainModal,
 }) => {
   const [allForums, setForums] = useState([]);
   const [selectedForum, setSelectedForum] = useState({});
@@ -35,7 +35,8 @@ const AdminPanel = ({
   };
 
   const handleRemove = forum => {
-    if (window.confirm('Are you sure you want to Delete this forum?')) {
+    if (window.confirm('Are you sure you want to Delete this forum, all related posts, and all related comments?')) {
+      handleLoader(true);
       forumRemove(forum.id)
         .then(response => {
           if (response.success) {
@@ -109,6 +110,7 @@ const AdminPanel = ({
                   <SuspendUser
                     user={user}
                     selectedUser={selectedUser}
+                    handleSelectedUser={handleSelectedUser}
                     handleFormReset={handleFormReset}
                   />
                 )}
@@ -116,7 +118,10 @@ const AdminPanel = ({
                   <PromoteUser
                     user={user}
                     selectedUser={selectedUser}
+                    handleSelectedUser={handleSelectedUser}
                     handleFormReset={handleFormReset}
+                    handleLoader={handleLoader}
+                    handleMainModal={handleMainModal}
                   />
                 )}
               </div>
@@ -181,6 +186,7 @@ AdminPanel.defaultProps = {
 AdminPanel.propTypes = {
   selectedUser: propTypes.instanceOf(Object),
   user: propTypes.instanceOf(Object).isRequired,
+  handleSelectedUser: propTypes.func,
   handleLoader: propTypes.func.isRequired,
   handleMainModal: propTypes.func.isRequired,
 };

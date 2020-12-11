@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import convertDate from '../../../../misc/convertDate';
 
-const SuspendUser = ({ user, selectedUser, handleFormReset }) => {
+const SuspendUser = ({
+  user, selectedUser, handleSelectedUser, handleFormReset,
+}) => {
   // eslint-disable-next-line camelcase
   const { can_post_date, can_comment_date } = selectedUser;
   const [suspendPostsExpiryDate, setSuspendPostExpiry] = useState(convertDate(can_post_date));
@@ -53,6 +55,7 @@ const SuspendUser = ({ user, selectedUser, handleFormReset }) => {
 SuspendUser.propTypes = {
   user: propTypes.instanceOf(Object).isRequired,
   selectedUser: propTypes.instanceOf(Object).isRequired,
+  handleSelectedUser: propTypes.func.isRequired,
   handleFormReset: propTypes.func.isRequired,
 };
 

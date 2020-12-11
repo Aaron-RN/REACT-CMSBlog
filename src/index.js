@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './assets/css/index.css';
@@ -8,9 +8,9 @@ import ScrollToTop from './components/misc/pageScrollReset'; // Scrolls page to 
 ReactDOM.render(
   <Router>
     <ScrollToTop />
-    <React.StrictMode>
+    <StrictMode>
       <App />
-    </React.StrictMode>
+    </StrictMode>
   </Router>,
   document.getElementById('root'),
 );

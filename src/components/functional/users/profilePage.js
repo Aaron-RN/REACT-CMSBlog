@@ -13,6 +13,10 @@ const ProfilePage = ({
   const [userComments, setUserComments] = useState([]);
   const isMyProfile = user.id === selectedUser.id;
 
+  const handleSelectedUser = user => {
+    setSelectedUser(user);
+  };
+
   // Returns Whether a user is an administrator or not
   const profileStatus = () => {
     if (selectedUser.admin_level === 1) {
@@ -124,6 +128,7 @@ const ProfilePage = ({
           <AdminPanel
             user={user}
             selectedUser={selectedUser}
+            handleSelectedUser={handleSelectedUser}
             handleLoader={handleLoader}
             handleMainModal={handleModal}
           />
