@@ -2,8 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import propTypes from 'prop-types';
 
 const PostDisplay = ({ post, isPinned }) => {
-  const { title } = post;
+  // eslint-disable-next-line camelcase
+  const { title, created_at } = post;
   const shortTitle = title.length > 30 ? `${title.substring(0, 30)}...` : title;
+  const dateEnd = created_at.indexOf('T');
+  const shortDate = created_at.substring(0, dateEnd);
   const bodyElem = useRef(null);
 
   useEffect(() => {
@@ -27,7 +30,7 @@ const PostDisplay = ({ post, isPinned }) => {
         <span className="text-author">{post.author}</span>
       </div>
       <div ref={bodyElem} className="post-body" />
-      <div className="post-date">{post.created_at}</div>
+      <div className="post-date">{shortDate}</div>
     </div>
   );
 };

@@ -29,13 +29,12 @@ const App = () => {
   const [user, setUser] = useState({ logged_in: false });
   const [selectedPost, setSelectedPost] = useState(null);
   const [errors, setErrors] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [redirect, setRedirect] = useState(null);
 
   // Toggle modal and clear status
   const handleModal = useCallback((errors = []) => {
-    // setShowModal(!showModal);
     setErrors(errors);
   }, [setErrors]);
 

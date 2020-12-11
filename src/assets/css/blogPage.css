@@ -57,8 +57,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  padding: 3px;
+  padding: 3px 12px;
 }
 #BlogPage .pinned-post {
   display: flex;

@@ -35,14 +35,16 @@ const AdminPanel = ({
   };
 
   const handleRemove = forum => {
-    forumRemove(forum.id)
-      .then(response => {
-        if (response.success) {
-          setForums(response.forums);
-        }
-        if (!response.success) handleMainModal(response.errors);
-        handleLoader(false);
-      });
+    if (window.confirm('Are you sure you want to Delete this forum?')) {
+      forumRemove(forum.id)
+        .then(response => {
+          if (response.success) {
+            setForums(response.forums);
+          }
+          if (!response.success) handleMainModal(response.errors);
+          handleLoader(false);
+        });
+    }
   };
 
   const populateSubForums = (forum, subforumArray) => subforumArray
