@@ -72,6 +72,15 @@ const userToAdmin = async user => axios.patch(`${URL}users/${user.id}/set_admin_
   })
   .catch(error => errorCatch(error));
 
+// Suspend a user's communication capabilities
+const userSuspendComms = async user => axios.patch(`${URL}users/${user.id}/suspend_comms`, { user })
+  .then(response => {
+    const { user } = response.data;
+
+    return { user, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 // Fetch user by ID
 const fetchUser = async id => axios.get(`${URL}users/${id}`)
   .then(response => {
@@ -193,7 +202,7 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
   .catch(error => errorCatch(error));
 
 export {
-  userLogin, userLoggedIn, userRegister, userToAdmin, fetchUser,
+  userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin, fetchUser,
   forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
   postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
 };

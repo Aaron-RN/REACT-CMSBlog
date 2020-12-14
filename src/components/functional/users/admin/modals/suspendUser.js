@@ -1,29 +1,38 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import convertDate from '../../../../misc/convertDate';
+import { userSuspendComms } from '../../../../misc/apiRequests';
+import { convertRailsDate, convertToRubyDate } from '../../../../misc/convertDate';
 
 const SuspendUser = ({
-  user, selectedUser, handleSelectedUser, handleFormReset,
+  user, selectedUser, handleSelectedUser, handleFormReset, handleLoader, handleMainModal,
 }) => {
   // eslint-disable-next-line camelcase
   const { can_post_date, can_comment_date } = selectedUser;
-  const [suspendPostsExpiryDate, setSuspendPostExpiry] = useState(convertDate(can_post_date));
+  const [suspendPostsExpiryDate, setSuspendPostExpiry] = useState(convertRailsDate(can_post_date));
   const [
     suspendCommentsExpiryDate,
     setSuspendCommentsExpiry,
-  ] = useState(convertDate(can_comment_date));
+  ] = useState(convertRailsDate(can_comment_date));
 
   // Handle modification of User's suspended activities
   const handleSubmit = e => {
     e.preventDefault();
     const suspendUser = {
       id: selectedUser.id,
-      can_post_date: new Date(suspendPostsExpiryDate),
-      can_comment_date: new Date(suspendCommentsExpiryDate),
+      can_post_date: convertToRubyDate(suspendPostsExpiryDate),
+      can_comment_date: convertToRubyDate(suspendCommentsExpiryDate),
       admin_id: user.id,
     };
-    console.log(suspendUser);
-    handleFormReset();
+    handleLoader(true);
+    userSuspendComms(suspendUser)
+      .then(response => {
+        if (response.success) {
+          handleSelectedUser(response.user);
+          handleFormReset();
+        }
+        if (!response.success) handleMainModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   return (
@@ -57,6 +66,8 @@ SuspendUser.propTypes = {
   selectedUser: propTypes.instanceOf(Object).isRequired,
   handleSelectedUser: propTypes.func.isRequired,
   handleFormReset: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
+  handleMainModal: propTypes.func.isRequired,
 };
 
 export default SuspendUser;

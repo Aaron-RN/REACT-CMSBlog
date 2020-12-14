@@ -112,6 +112,8 @@ const AdminPanel = ({
                     selectedUser={selectedUser}
                     handleSelectedUser={handleSelectedUser}
                     handleFormReset={handleFormReset}
+                    handleLoader={handleLoader}
+                    handleMainModal={handleMainModal}
                   />
                 )}
                 {modalType === 'promoteUser' && (
