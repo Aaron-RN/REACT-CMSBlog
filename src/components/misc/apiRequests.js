@@ -90,6 +90,15 @@ const fetchUser = async id => axios.get(`${URL}users/${id}`)
   })
   .catch(error => errorCatch(error));
 
+// Fetch latest users
+const fetchLatestUsers = async () => axios.get(`${URL}users`)
+  .then(response => {
+    const retrievedUsers = response.data.users;
+
+    return { users: retrievedUsers, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 // Create New Forum
 const forumNew = async forum => axios.post(`${URL}forums`, { forum })
   .then(response => {
@@ -203,6 +212,6 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
 
 export {
   userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin, fetchUser,
-  forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
+  fetchLatestUsers, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
   postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
 };

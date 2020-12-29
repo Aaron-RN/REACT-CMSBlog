@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { fetchLatestUsers } from '../../misc/apiRequests';
 import '../../../assets/css/users.css';
 
-const NewUsers = ({ allUsers }) => {
-  const [latestUsers, setLatestUsers] = useState(allUsers);
+const NewUsers = ({ handleModal, handleLoader }) => {
+  const [latestUsers, setLatestUsers] = useState([]);
 
   const displayUser = () => latestUsers.map((user, index) => {
     if (index < 8) {
@@ -19,8 +20,16 @@ const NewUsers = ({ allUsers }) => {
 
   // Sort allUsers by the latest User that signed up
   useEffect(() => {
-    setLatestUsers(allUsers.sort((a, b) => b.id - a.id));
-  }, [allUsers]);
+    handleLoader(true);
+    fetchLatestUsers()
+      .then(response => {
+        if (response.success) {
+          setLatestUsers(response.users);
+        }
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
+  }, [handleLoader, handleModal]);
 
   return (
     <div id="LatestUser">
@@ -34,12 +43,9 @@ const NewUsers = ({ allUsers }) => {
   );
 };
 
-NewUsers.defaultProps = {
-  allUsers: [],
-};
-
 NewUsers.propTypes = {
-  allUsers: propTypes.instanceOf(Array),
+  handleLoader: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
 };
 
 export default NewUsers;

@@ -15,7 +15,6 @@ import TopicForum from './components/functional/blogPage/topicForum';
 import NewPost from './components/functional/blogPage/newPost';
 import EditPost from './components/functional/blogPage/editPost';
 import NewUsers from './components/functional/users/newUsers';
-import { allUsersData } from './components/misc/presets/allUsersData';
 
 import Register from './components/functional/users/register';
 import Login from './components/functional/users/login';
@@ -25,7 +24,6 @@ import LoginBtn from './components/functional/users/loginBtn';
 import ProfilePage from './components/functional/users/profilePage';
 
 const App = () => {
-  const [allUsers] = useState(allUsersData);
   const [user, setUser] = useState({ logged_in: false });
   const [selectedPost, setSelectedPost] = useState(null);
   const [errors, setErrors] = useState([]);
@@ -260,7 +258,7 @@ const App = () => {
       </main>
       <div className="blend-main-footer" />
       <footer className="footer">
-        <NewUsers allUsers={allUsers} />
+        <NewUsers handleLoader={handleLoader} handleModal={handleModal} />
         <div className="container text-right">
           © Aaron Rory Newbold 2020
         </div>
