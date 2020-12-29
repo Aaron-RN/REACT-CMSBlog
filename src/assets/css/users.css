@@ -32,7 +32,7 @@
   text-align: center;
   border: 1px solid #aaaaaa41;
   border-radius: 12px;
-  margin-bottom: 12px;
+  margin: 12px;
   cursor: pointer;
   color: var(--postText);
 }
