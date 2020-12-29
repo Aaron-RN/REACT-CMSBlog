@@ -202,6 +202,7 @@
   color: #999;
 }
 #CommentsSection .comment {
+  position: relative;
   display: flex;
   align-items: center;
   font-size: 0.8em;
@@ -258,6 +259,17 @@
   border: 1px solid #ccc2926b;
   border-radius: 6px;
   margin-left: auto;
+  cursor: pointer;
+}
+#CommentsSection .comment-remove-btn {
+  position: absolute;
+  right: 0; top: 0;
+  font-size: 0.7em;
+  padding: 4px 8px;
+  color: #9b3f3f;
+  background-color: transparent;
+  border: 1px solid #ccc2926b;
+  border-radius: 6px;
   cursor: pointer;
 }
 

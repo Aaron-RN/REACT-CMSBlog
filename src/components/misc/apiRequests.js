@@ -222,10 +222,21 @@ const commentNew = async comment => axios(
   })
   .catch(error => errorCatch(error));
 
+// Create New Comment
+const commentRemove = async comment => axios(
+  { method: 'delete', url: `${URL}comments/${comment.id}`, data: comment },
+)
+  .then(response => {
+    const { message, comments } = response.data;
+
+    return { message, comments, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 export {
   URL,
   userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin, fetchUser,
   fetchLatestUsers, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
   postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
-  commentNew,
+  commentNew, commentRemove,
 };

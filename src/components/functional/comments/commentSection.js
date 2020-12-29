@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CommentDisplay from './commentDisplay';
 import PaginateComments from './paginateComments';
-import { commentNew } from '../../misc/apiRequests';
+import { commentNew, commentRemove } from '../../misc/apiRequests';
 
 const CommentSection = ({
   user, post, comments, handleLoader, handleModal,
@@ -47,12 +47,30 @@ const CommentSection = ({
       });
   };
 
+  const handleRemoveComment = comment => {
+    handleLoader(true);
+    commentRemove(comment)
+      .then(response => {
+        if (response.success) {
+          setPostComments(response.comments);
+          setNoReplyComments(response.comments.filter(
+            commentData => commentData.comment_id == null,
+          ));
+          handleReset();
+        }
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
+  };
+
   const populateComments = commentsArray => commentsArray.map(comment => (
     <CommentDisplay
       key={comment.id}
+      user={user}
       allComments={postComments}
       comment={comment}
       handleSelectComment={handleSelectComment}
+      handleRemoveComment={handleRemoveComment}
     />
   ));
 

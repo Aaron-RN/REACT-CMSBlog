@@ -3,12 +3,21 @@ import propTypes from 'prop-types';
 import Comment from '../../presentational/comments/comment';
 import PaginateComments from './paginateComments';
 
-const CommentDisplay = ({ allComments, comment, handleSelectComment }) => {
+const CommentDisplay = ({
+  user, allComments, comment, handleSelectComment, handleRemoveComment,
+}) => {
   const [subComments, setSubComments] = useState([]);
   const [showReplies, setShowReply] = useState(false);
 
   const populateSubComments = commentsArray => commentsArray.map(comment => (
-    <Comment key={comment.id} comment={comment} subcomment="sub-comment" handleSelectComment={handleSelectComment} />
+    <Comment
+      key={comment.id}
+      user={user}
+      comment={comment}
+      subcomment="sub-comment"
+      handleSelectComment={handleSelectComment}
+      handleRemoveComment={handleRemoveComment}
+    />
   ));
 
   // Fetch all comments stemming from this comment
@@ -20,7 +29,12 @@ const CommentDisplay = ({ allComments, comment, handleSelectComment }) => {
 
   return (
     <div>
-      <Comment comment={comment} handleSelectComment={handleSelectComment} />
+      <Comment
+        user={user}
+        comment={comment}
+        handleSelectComment={handleSelectComment}
+        handleRemoveComment={handleRemoveComment}
+      />
       { subComments.length > 0 && (
         <button type="button" className="comment-reply" onClick={() => setShowReply(!showReplies)}>
           {showReplies ? 'hide replies' : 'show replies'}
@@ -37,9 +51,11 @@ const CommentDisplay = ({ allComments, comment, handleSelectComment }) => {
 };
 
 CommentDisplay.propTypes = {
+  user: propTypes.instanceOf(Object).isRequired,
   allComments: propTypes.instanceOf(Array).isRequired,
   comment: propTypes.instanceOf(Object).isRequired,
   handleSelectComment: propTypes.func.isRequired,
+  handleRemoveComment: propTypes.func.isRequired,
 };
 
 export default CommentDisplay;
