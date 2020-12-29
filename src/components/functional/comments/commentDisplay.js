@@ -5,7 +5,7 @@ import PaginateComments from './paginateComments';
 
 const CommentDisplay = ({ allComments, comment, handleSelectComment }) => {
   const [subComments, setSubComments] = useState([]);
-  const [showReplies, setShowReply] = useState(true);
+  const [showReplies, setShowReply] = useState(false);
 
   const populateSubComments = commentsArray => commentsArray.map(comment => (
     <Comment key={comment.id} comment={comment} subcomment="sub-comment" handleSelectComment={handleSelectComment} />

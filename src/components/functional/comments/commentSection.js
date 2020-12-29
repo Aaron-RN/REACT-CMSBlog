@@ -9,6 +9,7 @@ const CommentSection = ({
   user, post, comments, handleLoader, handleModal,
 }) => {
   const [postComments, setPostComments] = useState([]);
+  const [noReplyComments, setNoReplyComments] = useState([]);
   const [body, setBody] = useState('');
   const [selectedComment, setSelectedComment] = useState(null);
   const textElem = useRef(null);
@@ -36,6 +37,10 @@ const CommentSection = ({
       .then(response => {
         if (response.success) {
           setPostComments(response.comments);
+          setNoReplyComments(response.comments.filter(
+            commentData => commentData.comment_id == null,
+          ));
+          handleReset();
         }
         if (!response.success) handleModal(response.errors);
         handleLoader(false);
@@ -53,7 +58,10 @@ const CommentSection = ({
 
   // Grab comments from prop and place into state
   useEffect(() => {
-    setPostComments(comments || []);
+    if (comments.length > 0) {
+      setPostComments(comments);
+      setNoReplyComments(comments.filter(commentData => commentData.comment_id == null));
+    }
   }, [comments]);
 
   useEffect(() => {
@@ -97,7 +105,7 @@ const CommentSection = ({
           <div className="text-suspended">Your commenting capabilities has been suspended by a forum moderator!</div>
         )}
         <PaginateComments
-          comments={postComments}
+          comments={noReplyComments}
           populateComments={populateComments}
         />
       </div>
