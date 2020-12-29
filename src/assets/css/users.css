@@ -26,6 +26,25 @@
 #LatestUser {
   color: #555;
 }
+.allUsers {
+  padding: 8px;
+  max-width: 320px;
+  text-align: center;
+  border: 1px solid #aaaaaa41;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  color: var(--postText);
+}
+
+#AllUsers .profile-pic {
+  font-size: 4em;
+  padding: 12px;
+  border: 2px solid #555;
+  border-radius: 22px;
+  margin: auto;
+}
+
 .user {
   padding: 2px 6px;
   color: var(--authorColor);

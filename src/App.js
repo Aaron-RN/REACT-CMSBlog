@@ -15,6 +15,7 @@ import TopicForum from './components/functional/blogPage/topicForum';
 import NewPost from './components/functional/blogPage/newPost';
 import EditPost from './components/functional/blogPage/editPost';
 import NewUsers from './components/functional/users/newUsers';
+import AllUsers from './components/functional/users/allUsers';
 
 import Register from './components/functional/users/register';
 import Login from './components/functional/users/login';
@@ -148,6 +149,13 @@ const App = () => {
                 handleLoader={handleLoader}
                 handleModal={handleModal}
               />
+            )}
+          />
+          <Route
+            exact
+            path="/users"
+            render={() => (
+              <AllUsers handleLoader={handleLoader} handleModal={handleModal} />
             )}
           />
           <Route

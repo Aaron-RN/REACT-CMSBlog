@@ -18,7 +18,7 @@ const NewUsers = ({ handleModal, handleLoader }) => {
     return null;
   });
 
-  // Sort allUsers by the latest User that signed up
+  // Fetch all Users by the latest User that signed up
   useEffect(() => {
     handleLoader(true);
     fetchLatestUsers()
@@ -38,6 +38,9 @@ const NewUsers = ({ handleModal, handleLoader }) => {
         <div className="flex-row flex-wrap">
           {displayUser()}
         </div>
+        <Link to="/users">
+          {`${latestUsers.length} total members`}
+        </Link>
       </div>
     </div>
   );

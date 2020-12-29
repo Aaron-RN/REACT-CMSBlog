@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import populatePosts from '../../presentational/blogPage/populatePosts';
-import { fetchUser } from '../../misc/apiRequests';
+import { URL, fetchUser } from '../../misc/apiRequests';
 import AdminPanel from './admin/adminPanel';
 import Paginate from '../blogPage/paginatePosts';
 
@@ -88,7 +88,13 @@ const ProfilePage = ({
             </div>
           )}
           {!isMyProfile && <h2>{`${selectedUser.username}'s Profile Page`}</h2>}
-          <i className="fas fa-user profile-pic" />
+          {!selectedUser.profile_image && (
+            <i className="fas fa-user profile-pic" />
+          )}
+          {selectedUser.profile_image && (
+            <image className="profile-pic" src={`${URL}${selectedUser.profile_image}`} />
+          )}
+          {' '}
           {profileStatus()}
           {!selectedUser.can_comment && (
             <div className="text-suspended">User&apos;s ability to comment on posts has been suspended</div>

@@ -148,6 +148,7 @@ button:hover { transform: scale(1.025); cursor: pointer; }
 
 .text-home { color: var(--navText); text-decoration-color: #43b6da !important; }
 .text-status { color: #3c6963; background-color: #dcf1e585; border-radius: 2px; }
+.text-status-gray { color: #585147; background-color: #838b862c; border-radius: 2px; }
 .text-black { color: #4b4723; text-decoration: none !important; }
 .text-red { color: #c75243; }
 .text-grey { color: #808080; }

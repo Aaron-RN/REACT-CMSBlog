@@ -211,6 +211,7 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
   .catch(error => errorCatch(error));
 
 export {
+  URL,
   userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin, fetchUser,
   fetchLatestUsers, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
   postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
