@@ -63,7 +63,7 @@ const AllUsers = ({ handleLoader, handleModal }) => {
         <div className="flex-row flex-wrap">
           {displayUser()}
         </div>
-        <div>{`${allUsers.length} total members`}</div>
+        <div className="members">{`${allUsers.length} total members`}</div>
       </div>
     </div>
   );

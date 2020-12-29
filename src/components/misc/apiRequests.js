@@ -210,9 +210,22 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
   })
   .catch(error => errorCatch(error));
 
+// Create New Comment
+const commentNew = async comment => axios(
+  { method: 'post', url: `${URL}comments`, data: comment },
+  { headers: { 'Content-Type': 'multipart/form-data' } },
+)
+  .then(response => {
+    const { comment, comments } = response.data;
+
+    return { comment, comments, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 export {
   URL,
   userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin, fetchUser,
   fetchLatestUsers, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
   postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
+  commentNew,
 };

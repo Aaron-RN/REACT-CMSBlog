@@ -26,6 +26,12 @@
 #LatestUser {
   color: #555;
 }
+
+.members {
+  padding: 2px 6px;
+  color: #364b50;
+  text-transform: capitalize;
+}
 .allUsers {
   padding: 8px;
   max-width: 320px;

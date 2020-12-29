@@ -38,7 +38,7 @@ const NewUsers = ({ handleModal, handleLoader }) => {
         <div className="flex-row flex-wrap">
           {displayUser()}
         </div>
-        <Link to="/users">
+        <Link to="/users" className="members text-bold">
           {`${latestUsers.length} total members`}
         </Link>
       </div>

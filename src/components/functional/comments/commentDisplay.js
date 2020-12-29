@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import Comment from '../../presentational/comments/comment';
 import PaginateComments from './paginateComments';
-import allCommentsData from '../../misc/presets/allCommentsData';
 
-const CommentDisplay = ({ comment, handleSelectComment }) => {
+const CommentDisplay = ({ allComments, comment, handleSelectComment }) => {
   const [subComments, setSubComments] = useState([]);
   const [showReplies, setShowReply] = useState(true);
 
@@ -14,10 +13,11 @@ const CommentDisplay = ({ comment, handleSelectComment }) => {
 
   // Fetch all comments stemming from this comment
   useEffect(() => {
-    const directComments = allCommentsData
+    const directComments = allComments
       .filter(commentData => commentData.comment_id === comment.id);
     setSubComments(directComments);
-  }, [comment]);
+  }, [allComments, comment]);
+
   return (
     <div>
       <Comment comment={comment} handleSelectComment={handleSelectComment} />
@@ -37,6 +37,7 @@ const CommentDisplay = ({ comment, handleSelectComment }) => {
 };
 
 CommentDisplay.propTypes = {
+  allComments: propTypes.instanceOf(Array).isRequired,
   comment: propTypes.instanceOf(Object).isRequired,
   handleSelectComment: propTypes.func.isRequired,
 };

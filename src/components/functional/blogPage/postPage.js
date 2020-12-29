@@ -7,6 +7,7 @@ import { fetchPost, postHandleLock, postHandlePin } from '../../misc/apiRequests
 const PostPage = ({
   match, user, handleLoader, handleModal,
 }) => {
+  const [comments, setComments] = useState([]);
   const [selectedPost, setSelectedPost] = useState({
     id: 0, title: '', body: '', author: '', user_id: '', forum: '', is_pinned: false, is_locked: false,
   });
@@ -53,6 +54,7 @@ const PostPage = ({
         .then(response => {
           if (response.success) {
             setSelectedPost(response.post);
+            setComments(response.comments);
           }
           if (!response.success) handleModal(response.errors);
           handleLoader(false);
@@ -105,7 +107,13 @@ const PostPage = ({
           <div ref={bodyElem} />
         </div>
       </div>
-      <CommentSection user={user} post={selectedPost} />
+      <CommentSection
+        user={user}
+        post={selectedPost}
+        comments={comments}
+        handleModal={handleModal}
+        handleLoader={handleLoader}
+      />
     </div>
   );
   /* eslint-enable camelcase */
