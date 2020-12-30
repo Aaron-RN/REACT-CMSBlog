@@ -32,13 +32,11 @@ const ProfilePage = ({
   };
 
   const populateLast3Comments = () => userComments.map((comment, index) => {
-    const post = comment.post_id;
-    const postTitle = post.title;
-    const postAuthor = selectedUser.username;
+    const post = { id: comment.post_id, forum: comment.forum, subforum: comment.subforum };
     if (index > 3) return null;
     return (
       <button type="button" key={comment.id} onClick={() => handlePostSelect(post)}>
-        <h4>{`${postTitle} by ${postAuthor}`}</h4>
+        <h4>{`${comment.post_title} by ${comment.post_author}`}</h4>
         <span className="size-16">{`"${comment.body}"`}</span>
       </button>
     );

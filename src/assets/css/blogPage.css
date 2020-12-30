@@ -261,9 +261,20 @@
   margin-left: auto;
   cursor: pointer;
 }
+#CommentsSection .comment-edit-btn {
+  position: absolute;
+  right: 32px; top: 4px;
+  font-size: 0.7em;
+  padding: 4px 8px;
+  color: #9b3f3f;
+  background-color: transparent;
+  border: 1px solid #ccc2926b;
+  border-radius: 6px;
+  cursor: pointer;
+}
 #CommentsSection .comment-remove-btn {
   position: absolute;
-  right: 0; top: 0;
+  right: 0; top: 4px;
   font-size: 0.7em;
   padding: 4px 8px;
   color: #9b3f3f;

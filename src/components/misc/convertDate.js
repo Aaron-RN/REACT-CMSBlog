@@ -21,9 +21,7 @@ const convertDate = (date, toggleTime = true) => {
   return resultDate;
 };
 
-const convertRailsDate = date => {
-  return date.substring(0, date.length - 1);
-};
+const convertRailsDate = date => date.substring(0, date.length - 1);
 
 const convertToRubyDate = date => {
   const dateArray = date.split('-');

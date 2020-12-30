@@ -4,7 +4,7 @@ import Comment from '../../presentational/comments/comment';
 import PaginateComments from './paginateComments';
 
 const CommentDisplay = ({
-  user, allComments, comment, handleSelectComment, handleRemoveComment,
+  user, allComments, comment, handleSelectComment, handleEditComment, handleRemoveComment,
 }) => {
   const [subComments, setSubComments] = useState([]);
   const [showReplies, setShowReply] = useState(false);
@@ -16,6 +16,7 @@ const CommentDisplay = ({
       comment={comment}
       subcomment="sub-comment"
       handleSelectComment={handleSelectComment}
+      handleEditComment={handleEditComment}
       handleRemoveComment={handleRemoveComment}
     />
   ));
@@ -33,6 +34,7 @@ const CommentDisplay = ({
         user={user}
         comment={comment}
         handleSelectComment={handleSelectComment}
+        handleEditComment={handleEditComment}
         handleRemoveComment={handleRemoveComment}
       />
       { subComments.length > 0 && (
@@ -55,6 +57,7 @@ CommentDisplay.propTypes = {
   allComments: propTypes.instanceOf(Array).isRequired,
   comment: propTypes.instanceOf(Object).isRequired,
   handleSelectComment: propTypes.func.isRequired,
+  handleEditComment: propTypes.func.isRequired,
   handleRemoveComment: propTypes.func.isRequired,
 };
 

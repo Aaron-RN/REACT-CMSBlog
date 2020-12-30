@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CommentDisplay from './commentDisplay';
 import PaginateComments from './paginateComments';
-import { commentNew, commentRemove } from '../../misc/apiRequests';
+import { commentNew, commentEdit, commentRemove } from '../../misc/apiRequests';
 
 const CommentSection = ({
   user, post, comments, handleLoader, handleModal,
@@ -12,12 +12,16 @@ const CommentSection = ({
   const [noReplyComments, setNoReplyComments] = useState([]);
   const [body, setBody] = useState('');
   const [selectedComment, setSelectedComment] = useState(null);
+  const [editComment, setEditComment] = useState(false);
   const textElem = useRef(null);
 
   const handleSelectComment = comment => setSelectedComment(comment);
 
+  const handleEditComment = comment => { setSelectedComment(comment); setEditComment(true); };
+
   const handleReset = () => {
     setBody('');
+    setEditComment(false);
     setSelectedComment(null);
   };
 
@@ -28,39 +32,59 @@ const CommentSection = ({
       ? selectedComment.comment_id || selectedComment.id
       : null;
 
-    const comment = {
-      body: body.trim(), user_id: user.id, comment_id: mainCommentID, post_id: post.id,
-    };
-    // Axios POST Request
     handleLoader(true);
-    commentNew(comment)
-      .then(response => {
-        if (response.success) {
-          setPostComments(response.comments);
-          setNoReplyComments(response.comments.filter(
-            commentData => commentData.comment_id == null,
-          ));
-          handleReset();
-        }
-        if (!response.success) handleModal(response.errors);
-        handleLoader(false);
-      });
+    // Axios POST Request
+    if (!editComment) {
+      const comment = {
+        body: body.trim(), user_id: user.id, comment_id: mainCommentID, post_id: post.id,
+      };
+      commentNew(comment)
+        .then(response => {
+          if (response.success) {
+            setPostComments(response.comments);
+            setNoReplyComments(response.comments.filter(
+              commentData => commentData.comment_id == null,
+            ));
+            handleReset();
+          }
+          if (!response.success) handleModal(response.errors);
+          handleLoader(false);
+        });
+    } else {
+      const comment = {
+        body: body.trim(), id: selectedComment.id, user_id: user.id, post_id: post.id,
+      };
+      commentEdit(comment)
+        .then(response => {
+          if (response.success) {
+            setPostComments(response.comments);
+            setNoReplyComments(response.comments.filter(
+              commentData => commentData.comment_id == null,
+            ));
+            handleReset();
+          }
+          if (!response.success) handleModal(response.errors);
+          handleLoader(false);
+        });
+    }
   };
 
   const handleRemoveComment = comment => {
-    handleLoader(true);
-    commentRemove(comment)
-      .then(response => {
-        if (response.success) {
-          setPostComments(response.comments);
-          setNoReplyComments(response.comments.filter(
-            commentData => commentData.comment_id == null,
-          ));
-          handleReset();
-        }
-        if (!response.success) handleModal(response.errors);
-        handleLoader(false);
-      });
+    if (window.confirm('Are you sure you want to Delete this comment?')) {
+      handleLoader(true);
+      commentRemove(comment)
+        .then(response => {
+          if (response.success) {
+            setPostComments(response.comments);
+            setNoReplyComments(response.comments.filter(
+              commentData => commentData.comment_id == null,
+            ));
+            handleReset();
+          }
+          if (!response.success) handleModal(response.errors);
+          handleLoader(false);
+        });
+    }
   };
 
   const populateComments = commentsArray => commentsArray.map(comment => (
@@ -70,6 +94,7 @@ const CommentSection = ({
       allComments={postComments}
       comment={comment}
       handleSelectComment={handleSelectComment}
+      handleEditComment={handleEditComment}
       handleRemoveComment={handleRemoveComment}
     />
   ));
@@ -85,10 +110,12 @@ const CommentSection = ({
   useEffect(() => {
     if (selectedComment) {
       const commentAuthor = selectedComment.author;
-      setBody(`@${commentAuthor} `);
+      const commentBody = selectedComment.body;
+      if (!editComment) setBody(`@${commentAuthor} `);
+      if (editComment) setBody(commentBody);
       if (textElem.current) textElem.current.focus();
     }
-  }, [selectedComment]);
+  }, [selectedComment, editComment]);
 
   return (
     <div id="CommentsSection">
@@ -110,7 +137,10 @@ const CommentSection = ({
             />
             <div className="btn-container">
               <button type="button" onClick={handleReset}>Cancel</button>
-              <button type="submit">Comment</button>
+              <button type="submit">
+                {!editComment && 'Comment'}
+                {editComment && 'Edit'}
+              </button>
             </div>
           </form>
         )}
