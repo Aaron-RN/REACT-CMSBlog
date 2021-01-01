@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
+import { forumEdit } from '../../../../misc/apiRequests';
 
-const NewSubforumModal = ({ forum, handleFormReset }) => {
+const NewSubforumModal = ({
+  forum, handleForums, handleFormReset, handleModal, handleLoader,
+}) => {
   const [subforumName, setSubforumName] = useState('');
 
   // Handle adding a new Subforum
@@ -10,9 +13,18 @@ const NewSubforumModal = ({ forum, handleFormReset }) => {
     const subforumNameTrimmed = subforumName.trim();
     setSubforumName(subforumNameTrimmed);
     if (!subforumName) return;
-    const newForum = { name: forum.name, subforums: [...forum.subforums, subforumNameTrimmed] };
-    console.log(newForum);
-    handleFormReset();
+    const newSubforum = { id: forum.id, subforums: [...forum.subforums, subforumNameTrimmed] };
+
+    handleLoader(true);
+    forumEdit(newSubforum)
+      .then(response => {
+        if (response.success) {
+          handleForums(response.forums);
+          handleFormReset();
+        }
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   return (
@@ -34,7 +46,10 @@ const NewSubforumModal = ({ forum, handleFormReset }) => {
 
 NewSubforumModal.propTypes = {
   forum: propTypes.instanceOf(Object).isRequired,
+  handleForums: propTypes.func.isRequired,
   handleFormReset: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
 };
 
 export default NewSubforumModal;
