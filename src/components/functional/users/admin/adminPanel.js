@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import RenameModal from './modals/renameModal';
+import RenameForumModal from './modals/renameForumModal';
 import NewSubforumModal from './modals/newSubforumModal';
 import NewforumModal from './modals/newForum';
 import RenameSubforumModal from './modals/renameSubforum';
@@ -149,17 +149,32 @@ const AdminPanel = ({
           <div className="modal-content">
             <div className="container-md">
               {modalType === 'renameForum' && (
-                <RenameModal forum={selectedForum} handleFormReset={handleFormReset} />
+                <RenameForumModal
+                  forum={selectedForum}
+                  handleForums={handleForums}
+                  handleFormReset={handleFormReset}
+                  handleLoader={handleLoader}
+                  handleModal={handleMainModal}
+                />
               )}
               {modalType === 'renameSubforum' && (
                 <RenameSubforumModal
                   forum={selectedForum}
                   subforum={selectedSubforum}
+                  handleForums={handleForums}
                   handleFormReset={handleFormReset}
+                  handleLoader={handleLoader}
+                  handleModal={handleMainModal}
                 />
               )}
               {modalType === 'newSubforum' && (
-                <NewSubforumModal forum={selectedForum} handleFormReset={handleFormReset} />
+                <NewSubforumModal
+                  forum={selectedForum}
+                  handleForums={handleForums}
+                  handleFormReset={handleFormReset}
+                  handleLoader={handleLoader}
+                  handleModal={handleMainModal}
+                />
               )}
               {modalType === 'newForum' && (
                 <NewforumModal

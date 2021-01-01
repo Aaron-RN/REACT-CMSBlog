@@ -57,12 +57,12 @@ const App = () => {
 
   // Check if user is logged in
   useEffect(() => {
-    handleLoader(true);
+    if (sessionStorage.getItem('user')) handleLoader(true);
     userLoggedIn()
       .then(response => {
         if (response.success) setUser(response.user);
         if (!response.success) handleModal(response.errors);
-        handleLoader(false);
+        if (sessionStorage.getItem('user')) handleLoader(false);
       });
   }, [handleLoader, handleModal]);
 

@@ -109,11 +109,19 @@ const forumNew = async forum => axios.post(`${URL}forums`, { forum })
   })
   .catch(error => errorCatch(error));
 
+// Edit a Forum
+const forumEdit = async forum => axios.patch(`${URL}forums/${forum.id}`, { forum })
+  .then(response => {
+    const { forums } = response.data;
+
+    return { forums, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 // Create New Forum
 const forumRemove = async forumID => axios.delete(`${URL}forums/${forumID}`)
   .then(response => {
     const { forums } = response.data;
-    // forums = Array.isArray(forums) ? forums : [];
 
     return { forums, success: true };
   })
@@ -123,7 +131,6 @@ const forumRemove = async forumID => axios.delete(`${URL}forums/${forumID}`)
 const fetchAllForums = async () => axios.get(`${URL}forums/all`)
   .then(response => {
     const { forums } = response.data;
-    // forums = Array.isArray(forums) ? forums : [];
 
     return { forums, success: true };
   })
@@ -244,8 +251,9 @@ const commentRemove = async comment => axios(
 
 export {
   URL,
-  userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin, fetchUser,
-  fetchLatestUsers, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
+  userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin,
+  fetchUser, fetchLatestUsers,
+  forumEdit, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
   postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
   commentNew, commentEdit, commentRemove,
 };
