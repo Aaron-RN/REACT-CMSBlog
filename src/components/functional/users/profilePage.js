@@ -85,7 +85,7 @@ const ProfilePage = ({
               </h3>
             </div>
           )}
-          {!isMyProfile && <h2>{`${selectedUser.username}'s Profile Page`}</h2>}
+          {!isMyProfile && <h2 className="text-camel">{`${selectedUser.username}'s Profile Page`}</h2>}
           {!selectedUser.profile_image && (
             <i className="fas fa-user profile-pic" />
           )}
