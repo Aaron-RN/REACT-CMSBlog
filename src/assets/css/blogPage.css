@@ -89,6 +89,7 @@
   font-size: 0.9em;
   border-radius: 0 0px 8px 0;
   margin-bottom: 4px;
+  text-transform: capitalize;
 }
 #BlogPage .pinned-post-body {
   font-size: 0.9em;
@@ -130,6 +131,7 @@
   font-size: 0.9em;
   padding: 0 4px;
   margin-bottom: 0;
+  text-transform: capitalize;
 }
 #BlogPage .post-body {
   font-size: 0.9em;
@@ -231,6 +233,7 @@
   color: #925858;
   margin-right: 8px;
   cursor: pointer;
+  text-transform: capitalize;
 }
 #CommentsSection .comment .comment-author:hover {
   text-decoration: underline;

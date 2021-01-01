@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import { modules, formats } from '../../misc/presets/quillModules';
 import 'react-quill/dist/quill.snow.css';
-import { fetchPost, postUpdate } from '../../misc/apiRequests';
+import { fetchPost, postEdit } from '../../misc/apiRequests';
 
 const EditPost = ({
   user, match, handlePostSelect, handleLoader, handleModal,
@@ -31,7 +31,7 @@ const EditPost = ({
     formData.append('post[body]', postBody);
 
     handleLoader(true);
-    postUpdate(id, formData)
+    postEdit(id, formData)
       .then(response => {
         if (response.success) handlePostSelect(response.post);
         if (!response.success) handleModal(response.errors);

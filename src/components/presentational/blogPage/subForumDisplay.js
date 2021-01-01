@@ -40,7 +40,7 @@ const SubForumDisplay = ({
         <div>
           {checkForumContraints() && (
             <Link
-              to={`/${forum.name}/${forumTitle}/posts/new?forum_id=${forum.id}`}
+              to={`/${forum.name}/${forumTitle}/posts/new?forum_id=${forum.id}&&subforum_id=${subforum.id}`}
               className="new-post-btn"
             >
               New Topic

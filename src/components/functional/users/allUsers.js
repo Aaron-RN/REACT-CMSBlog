@@ -26,7 +26,7 @@ const AllUsers = ({ handleLoader, handleModal }) => {
 
   const displayUser = () => allUsers.map(user => (
     <Link to={`/users/${user.id}`} key={user.id} className="allUsers">
-      <h3>{user.username}</h3>
+      <h3 className="text-camel">{user.username}</h3>
       {!user.profile_image && (
         <i className="fas fa-user profile-pic" />
       )}

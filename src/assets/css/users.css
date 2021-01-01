@@ -55,6 +55,7 @@
   padding: 2px 6px;
   color: var(--authorColor);
   cursor: pointer;
+  text-transform: capitalize;
 }
 .user:hover {
   text-decoration: underline;

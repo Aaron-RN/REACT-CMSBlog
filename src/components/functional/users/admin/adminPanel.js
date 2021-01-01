@@ -13,7 +13,7 @@ const AdminPanel = ({
 }) => {
   const [allForums, setForums] = useState([]);
   const [selectedForum, setSelectedForum] = useState({});
-  const [selectedSubforum, setSelectedSubforum] = useState('');
+  const [selectedSubforum, setSelectedSubforum] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [modalType, setModalType] = useState('renameForum');
 
@@ -23,11 +23,11 @@ const AdminPanel = ({
 
   const handleFormReset = () => {
     setSelectedForum({});
-    setSelectedSubforum('');
+    setSelectedSubforum({});
     setShowModal(false);
   };
 
-  const handleModal = (forum, formType = 'renameForum', subforum = '') => {
+  const handleModal = (forum, formType = 'renameForum', subforum = {}) => {
     setSelectedSubforum(subforum);
     setSelectedForum(forum);
     setModalType(formType);
@@ -53,11 +53,11 @@ const AdminPanel = ({
       <button
         type="button"
         title="Rename subforum"
-        key={subforum}
+        key={subforum.id}
         className="subforum"
         onClick={() => handleModal(forum, 'renameSubforum', subforum)}
       >
-        {`${subforum}`}
+        {`${subforum.name}`}
       </button>
     ));
 

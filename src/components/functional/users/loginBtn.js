@@ -8,7 +8,7 @@ const LoginBtn = ({ user }) => {
 
   const renderBtn = logged_in
     ? (
-      <Link to={`/users/${user.id}`} className="login-btn ml-1">
+      <Link to={`/users/${user.id}`} className="login-btn ml-1 text-camel">
         {username}
       </Link>
     )

@@ -139,6 +139,7 @@ button:hover { transform: scale(1.025); cursor: pointer; }
 .flex-wrap { flex-wrap: wrap; }
 .align-items-base { align-items: baseline !important; }
 
+.hover-red:hover { color: #c75243; }
 .text-bold { font-weight: bold; }
 .text-camel { text-transform: capitalize; }
 .text-caps { text-transform: uppercase; }

@@ -42,7 +42,7 @@ const NewBlogPost = ({
     formData.append('post[body]', newPostBody);
     // formData.append('post[bg_image]', newPostImage);
     formData.append('post[forum_id]', query.get('forum_id'));
-    formData.append('post[subforum]', subforum);
+    formData.append('post[subforum_id]', query.get('subforum_id'));
     formData.append('post[user_id]', user.id);
 
     handleLoader(true);

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
+import { subforumEdit } from '../../../../misc/apiRequests';
 
-const RenameSubforumModal = ({ forum, subforum, handleFormReset }) => {
-  const [subforumName, setSubforumName] = useState('');
+const RenameSubforumModal = ({
+  forum, subforum, handleForums, handleFormReset, handleLoader, handleModal,
+}) => {
+  const [subforumName, setSubforumName] = useState(subforum.name);
 
   // Handle renaming of selected Subforum
   const handleSubmit = e => {
@@ -10,10 +13,18 @@ const RenameSubforumModal = ({ forum, subforum, handleFormReset }) => {
     const subforumNameTrimmed = subforumName.trim();
     setSubforumName(subforumNameTrimmed);
     if (!subforumName) return;
-    const excludedSubforum = forum.subforums.filter(subforumData => subforumData !== subforum);
-    const editedForum = { name: forum.name, subforums: [...excludedSubforum, subforumNameTrimmed] };
-    console.log(editedForum);
-    handleFormReset();
+    const newSubforum = { id: subforum.id, name: subforumNameTrimmed };
+
+    handleLoader(true);
+    subforumEdit(newSubforum)
+      .then(response => {
+        if (response.success) {
+          handleForums(response.forums);
+          handleFormReset();
+        }
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+      });
   };
 
   return (
@@ -35,8 +46,11 @@ const RenameSubforumModal = ({ forum, subforum, handleFormReset }) => {
 
 RenameSubforumModal.propTypes = {
   forum: propTypes.instanceOf(Object).isRequired,
-  subforum: propTypes.string.isRequired,
+  subforum: propTypes.instanceOf(Object).isRequired,
+  handleForums: propTypes.func.isRequired,
   handleFormReset: propTypes.func.isRequired,
+  handleModal: propTypes.func.isRequired,
+  handleLoader: propTypes.func.isRequired,
 };
 
 export default RenameSubforumModal;

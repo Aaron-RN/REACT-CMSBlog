@@ -103,7 +103,6 @@ const fetchLatestUsers = async () => axios.get(`${URL}users`)
 const forumNew = async forum => axios.post(`${URL}forums`, { forum })
   .then(response => {
     const { forums } = response.data;
-    // forums = Array.isArray(forums) ? forums : [];
 
     return { forums, success: true };
   })
@@ -120,6 +119,24 @@ const forumEdit = async forum => axios.patch(`${URL}forums/${forum.id}`, { forum
 
 // Create New Forum
 const forumRemove = async forumID => axios.delete(`${URL}forums/${forumID}`)
+  .then(response => {
+    const { forums } = response.data;
+
+    return { forums, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// Create New Subforum
+const subforumNew = async subforum => axios.post(`${URL}subforums`, { subforum })
+  .then(response => {
+    const { forums } = response.data;
+
+    return { forums, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// Edit a Subforum
+const subforumEdit = async subforum => axios.patch(`${URL}subforums/${subforum.id}`, { subforum })
   .then(response => {
     const { forums } = response.data;
 
@@ -179,7 +196,7 @@ const postNew = async post => axios(
   .catch(error => errorCatch(error));
 
 // Create New Post
-const postUpdate = async (postID, post) => axios(
+const postEdit = async (postID, post) => axios(
   { method: 'patch', url: `${URL}posts/${postID}`, data: post },
   { headers: { 'Content-Type': 'multipart/form-data' } },
 )
@@ -205,6 +222,15 @@ const postHandlePin = async postID => axios.patch(`${URL}posts/${postID}/pin_pos
     const { post } = response.data;
 
     return { post, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// Remove a Post
+const postRemove = async postID => axios.delete(`${URL}posts/${postID}`)
+  .then(response => {
+    const { message } = response.data;
+
+    return { message, success: true };
   })
   .catch(error => errorCatch(error));
 
@@ -253,7 +279,9 @@ export {
   URL,
   userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin,
   fetchUser, fetchLatestUsers,
-  forumEdit, forumRemove, forumNew, fetchAllForums, fetchAllForumPosts, fetchForumPosts,
-  postNew, postUpdate, postHandleLock, postHandlePin, fetchPost,
+  forumEdit, forumRemove, forumNew,
+  subforumNew, subforumEdit,
+  fetchAllForums, fetchAllForumPosts, fetchForumPosts,
+  postNew, postEdit, postHandleLock, postHandlePin, fetchPost, postRemove,
   commentNew, commentEdit, commentRemove,
 };

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { forumEdit } from '../../../../misc/apiRequests';
+import { subforumNew } from '../../../../misc/apiRequests';
 
 const NewSubforumModal = ({
   forum, handleForums, handleFormReset, handleModal, handleLoader,
@@ -13,10 +13,10 @@ const NewSubforumModal = ({
     const subforumNameTrimmed = subforumName.trim();
     setSubforumName(subforumNameTrimmed);
     if (!subforumName) return;
-    const newSubforum = { id: forum.id, subforums: [...forum.subforums, subforumNameTrimmed] };
+    const newSubforum = { forum_id: forum.id, subforum: subforumNameTrimmed };
 
     handleLoader(true);
-    forumEdit(newSubforum)
+    subforumNew(newSubforum)
       .then(response => {
         if (response.success) {
           handleForums(response.forums);
