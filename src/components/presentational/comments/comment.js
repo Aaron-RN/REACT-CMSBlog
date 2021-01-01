@@ -19,7 +19,7 @@ const Comment = ({
       </span>
       <div className="comment-body">{comment.body}</div>
     </div>
-    {comment.user_id === user.id && (
+    {(comment.user_id === user.id || user.admin_level > 1) && (
       <div>
         <button type="button" onClick={() => handleRemoveComment(comment)} className="comment-remove-btn">
           <i className="fas fa-trash" />
