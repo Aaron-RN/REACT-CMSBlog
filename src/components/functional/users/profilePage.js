@@ -36,7 +36,7 @@ const ProfilePage = ({
     if (index > 3) return null;
     return (
       <button type="button" key={comment.id} onClick={() => handlePostSelect(post)}>
-        <h4>{`${comment.post_title} by ${comment.post_author}`}</h4>
+        <h4 className="text-camel">{`${comment.post_title} by ${comment.post_author}`}</h4>
         <span className="size-16">{`"${comment.body}"`}</span>
       </button>
     );
@@ -65,10 +65,17 @@ const ProfilePage = ({
       const allUserComments = selectedUser.comments;
       const latestComments = allUserComments.length > 0
         ? allUserComments.sort((a, b) => b.id - a.id) : [];
-      setUserPosts(latestPosts);
-      setUserComments(latestComments);
+      const isAdmin = user.admin_level > 0;
+      if (isAdmin) {
+        setUserPosts(latestPosts);
+        setUserComments(latestComments);
+      }
+      if (!isAdmin) {
+        setUserPosts(latestPosts.filter(post => !post.admin_only_view));
+        setUserComments(latestComments.filter(comment => !comment.admin_only_view));
+      }
     }
-  }, [selectedUser]);
+  }, [user, selectedUser]);
 
   return (
     <div id="UserProfile" className="bg-main">

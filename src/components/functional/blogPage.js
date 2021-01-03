@@ -35,7 +35,7 @@ const BlogPage = ({
     fetchAllForumPosts(forum.per_page, forum.page)
       .then(response => {
         if (response.success) {
-          setPinnedPosts(response.pinned_posts);
+          setPinnedPosts(response.pinned_posts.filter(post => !post.admin_only_view));
           setForumTopics(response.forums);
         }
         if (!response.success) handleModal(response.errors);
