@@ -101,6 +101,9 @@ const ProfilePage = ({
           )}
           {' '}
           {profileStatus()}
+          {!selectedUser.is_activated && (
+            <div className="text-suspended">Account not activated</div>
+          )}
           {!selectedUser.can_comment && (
             <div className="text-suspended">User&apos;s ability to comment on posts has been suspended</div>
           )}
