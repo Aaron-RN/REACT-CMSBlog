@@ -15,10 +15,11 @@ const ForumDisplay = ({
   const isAdmin = user.admin_level > 0;
 
   const canSeeForum = () => {
-    if (!forum.admin_view_only) return true;
-    if (forum.admin_view_only && isAdmin) return true;
+    if (!forum.admin_only_view) return true;
+    if (forum.admin_only_view && isAdmin) return true;
     return false;
   };
+
   const checkForumContraints = () => {
     if (!user.can_post) return false; // Takes precedence over all conditions
     if (!forum.admin_only) return true;

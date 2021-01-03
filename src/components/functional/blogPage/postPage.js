@@ -54,7 +54,7 @@ const PostPage = ({
       postRemove(id)
         .then(response => {
           if (response.success) {
-            setPageRedirect(true);
+            setPageRedirect(1);
           }
           if (!response.success) handleModal(response.errors);
           handleLoader(false);
@@ -85,8 +85,26 @@ const PostPage = ({
     if (bodyDiv) bodyDiv.innerHTML = body;
   });
 
+  useEffect(() => {
+    // Hides post from non Administrators if post has admin_only_view flag
+    const canSeePost = () => {
+      const isAdmin = user.admin_level > 0;
+      if (selectedPost.admin_only_view && !isAdmin) return false;
+      return true;
+    };
+
+    if (!canSeePost()) setPageRedirect(2);
+  }, [user, selectedPost, setPageRedirect]);
+
+  const checkRedirect = () => {
+    if (pageRedirect === 1) return (<Redirect to={`/${forum}${subforum ? `/${subforum}` : ''}`} />);
+    if (pageRedirect === 2) return (<Redirect to="/" />);
+    return false;
+  };
+
   /* eslint-disable camelcase */
-  return pageRedirect ? <Redirect to={`/${forum}${subforum ? `/${subforum}` : ''}`} />
+  return checkRedirect()
+    ? checkRedirect()
     : (
       <div id="BlogPage" className="bg-main">
         <div className="container-md">
