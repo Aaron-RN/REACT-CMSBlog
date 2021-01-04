@@ -141,6 +141,7 @@ button:hover { transform: scale(1.025); cursor: pointer; }
 
 .hover-red:hover { color: #c75243; }
 .text-bold { font-weight: bold; }
+.text-italic { font-style: italic; }
 .text-camel { text-transform: capitalize; }
 .text-caps { text-transform: uppercase; }
 
