@@ -1,11 +1,27 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
-import { subforumEdit } from '../../../../misc/apiRequests';
+import { subforumEdit, subforumRemove } from '../../../../misc/apiRequests';
 
 const RenameSubforumModal = ({
   forum, subforum, handleForums, handleFormReset, handleLoader, handleModal,
 }) => {
   const [subforumName, setSubforumName] = useState(subforum.name);
+
+  // Handle Subforum removal
+  const handleRemove = () => {
+    if (window.confirm('Are you sure you want to Delete this subforum, and all encompassed posts?')) {
+      handleLoader(true);
+      subforumRemove(subforum.id)
+        .then(response => {
+          if (response.success) {
+            handleForums(response.forums);
+            handleFormReset();
+          }
+          if (!response.success) handleModal(response.errors);
+          handleLoader(false);
+        });
+    }
+  };
 
   // Handle renaming of selected Subforum
   const handleSubmit = e => {
@@ -39,7 +55,10 @@ const RenameSubforumModal = ({
         minLength="3"
         required
       />
-      <button type="submit">Rename</button>
+      <div className="text-right">
+        <button type="button" className="remove-btn" onClick={() => handleRemove()}>Remove -</button>
+        <button type="submit">Rename</button>
+      </div>
     </form>
   );
 };

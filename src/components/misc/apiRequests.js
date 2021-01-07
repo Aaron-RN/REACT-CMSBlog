@@ -144,6 +144,15 @@ const subforumEdit = async subforum => axios.patch(`${URL}subforums/${subforum.i
   })
   .catch(error => errorCatch(error));
 
+// Create New Forum
+const subforumRemove = async subforumID => axios.delete(`${URL}subforums/${subforumID}`)
+  .then(response => {
+    const { forums } = response.data;
+
+    return { forums, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 // Fetch All Forums
 const fetchAllForums = async () => axios.get(`${URL}forums/all`)
   .then(response => {
@@ -280,7 +289,7 @@ export {
   userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin,
   fetchUser, fetchLatestUsers,
   forumEdit, forumRemove, forumNew,
-  subforumNew, subforumEdit,
+  subforumNew, subforumEdit, subforumRemove,
   fetchAllForums, fetchAllForumPosts, fetchForumPosts,
   postNew, postEdit, postHandleLock, postHandlePin, fetchPost, postRemove,
   commentNew, commentEdit, commentRemove,
