@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { URL, fetchLatestUsers } from '../../misc/apiRequests';
+import { fetchLatestUsers } from '../../misc/apiRequests';
 import '../../../assets/css/users.css';
 
 const AllUsers = ({ handleLoader, handleModal }) => {
   const [allUsers, setAllUsers] = useState([]);
+  console.log(allUsers);
 
   // Returns Whether a user is an administrator or not
   const profileStatus = user => {
@@ -31,7 +32,7 @@ const AllUsers = ({ handleLoader, handleModal }) => {
         <i className="fas fa-user profile-pic" />
       )}
       {user.profile_image && (
-        <image className="profile-pic" src={`${URL}${user.profile_image}`} />
+        <img className="profile-pic" alt="user's profile" src={`${user.profile_image}`} />
       )}
       {profileStatus(user)}
       {!user.can_comment && (

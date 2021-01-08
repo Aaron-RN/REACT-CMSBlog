@@ -81,6 +81,18 @@ const userSuspendComms = async user => axios.patch(`${URL}users/${user.id}/suspe
   })
   .catch(error => errorCatch(error));
 
+// Update a user's profile image
+const userImageUpdate = async (id, user) => axios(
+  { method: 'patch', url: `${URL}users/${id}/update_image`, data: user },
+  { headers: { 'Content-Type': 'multipart/form-data' } },
+)
+  .then(response => {
+    const { user } = response.data;
+
+    return { user, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 // Fetch user by ID
 const fetchUser = async id => axios.get(`${URL}users/${id}`)
   .then(response => {
@@ -287,7 +299,7 @@ const commentRemove = async comment => axios(
 export {
   URL,
   userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin,
-  fetchUser, fetchLatestUsers,
+  fetchUser, fetchLatestUsers, userImageUpdate,
   forumEdit, forumRemove, forumNew,
   subforumNew, subforumEdit, subforumRemove,
   fetchAllForums, fetchAllForumPosts, fetchForumPosts,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import populatePosts from '../../presentational/blogPage/populatePosts';
-import { URL, fetchUser } from '../../misc/apiRequests';
+import { fetchUser, userImageUpdate } from '../../misc/apiRequests';
 import AdminPanel from './admin/adminPanel';
 import Paginate from '../blogPage/paginatePosts';
 
@@ -11,6 +11,8 @@ const ProfilePage = ({
   const [selectedUser, setSelectedUser] = useState({});
   const [userPosts, setUserPosts] = useState([]);
   const [userComments, setUserComments] = useState([]);
+  const [renderUploader, setRenderUploader] = useState(false);
+  const [profileImage, setProfileImage] = useState();
   const isMyProfile = user.id === selectedUser.id;
 
   const handleSelectedUser = user => {
@@ -41,6 +43,29 @@ const ProfilePage = ({
       </button>
     );
   });
+
+  const handleCheckFileSize = e => {
+    const elem = e.target;
+    if (elem.files[0].size > 1048576) {
+      elem.value = '';
+    } else { setProfileImage(elem.files[0]); }
+  };
+
+  const handleProfileImageSubmit = e => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('user[profile_image]', profileImage);
+
+    handleLoader(true);
+    userImageUpdate(selectedUser.id, formData)
+      .then(response => {
+        if (response.success) setSelectedUser(response.user);
+        if (!response.success) handleModal(response.errors);
+        handleLoader(false);
+        setRenderUploader(!renderUploader);
+      });
+  };
 
   // Fetch the user, his related posts, and comments based on the URL id parameter
   useEffect(() => {
@@ -77,9 +102,31 @@ const ProfilePage = ({
     }
   }, [user, selectedUser]);
 
+  const renderUploaderForm = (
+    <div className="modal">
+      <button type="button" className="modal-bg" onClick={() => setRenderUploader(!renderUploader)}>x</button>
+      <div className="modal-content">
+        <div className="container-md">
+          <form className="modal-form" onSubmit={handleProfileImageSubmit} encType="multipart/form-data">
+            <h3 className="text-center">Upload Profile Image</h3>
+            <input
+              type="file"
+              id="profileImage"
+              name="profile_image"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={handleCheckFileSize}
+            />
+            <button type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div id="UserProfile" className="bg-main">
       <div className="container-md">
+        {(isMyProfile && renderUploader) && renderUploaderForm}
         <div className="section text-center">
           {isMyProfile && (
             <div>
@@ -97,7 +144,18 @@ const ProfilePage = ({
             <i className="fas fa-user profile-pic" />
           )}
           {selectedUser.profile_image && (
-            <image className="profile-pic" src={`${URL}${selectedUser.profile_image}`} />
+            <img className="profile-pic" alt="user's profile" src={`${selectedUser.profile_image}`} />
+          )}
+          {isMyProfile && (
+            <div>
+              <button
+                type="button"
+                className="image-btn"
+                onClick={() => setRenderUploader(!renderUploader)}
+              >
+                Change profile image
+              </button>
+            </div>
           )}
           {' '}
           {profileStatus()}
