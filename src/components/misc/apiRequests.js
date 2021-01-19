@@ -318,8 +318,8 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
 const commentNew = async comment => {
   let login;
   if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
-  return axios.post(`${URL}comments`, comment,
-    { headers: { 'Content-Type': 'multipart/form-data', Authorization: login.token } })
+  return axios.post(`${URL}comments`, { comment },
+    { headers: { Authorization: login.token } })
     .then(response => {
       const { comment, comments } = response.data;
 
