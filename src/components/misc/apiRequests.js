@@ -40,7 +40,7 @@ const userLogin = async user => {
 const userLoggedIn = async () => {
   if (sessionStorage.getItem('user')) {
     const user = JSON.parse(sessionStorage.getItem('user'));
-    return axios.get(`${URL}logged_in`, { params: { token: user.token } })
+    return axios.get(`${URL}logged_in`, { headers: { Authorization: user.token } })
       .then(response => {
         const retrievedUser = response.data.user;
 
@@ -64,34 +64,44 @@ const userRegister = async user => {
 };
 
 // Set a user's administrative rights
-const userToAdmin = async user => axios.patch(`${URL}users/${user.id}/set_admin_level`, { user })
-  .then(response => {
-    const { user } = response.data;
+const userToAdmin = async user => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  axios.patch(`${URL}users/${user.id}/set_admin_level`, { user }, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { user } = response.data;
 
-    return { user, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { user, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Suspend a user's communication capabilities
-const userSuspendComms = async user => axios.patch(`${URL}users/${user.id}/suspend_comms`, { user })
-  .then(response => {
-    const { user } = response.data;
+const userSuspendComms = async user => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.patch(`${URL}users/${user.id}/suspend_comms`, { user }, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { user } = response.data;
 
-    return { user, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { user, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Update a user's profile image
-const userImageUpdate = async (id, user) => axios(
-  { method: 'patch', url: `${URL}users/${id}/update_image`, data: user },
-  { headers: { 'Content-Type': 'multipart/form-data' } },
-)
-  .then(response => {
-    const { user } = response.data;
+const userImageUpdate = async (id, user) => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.patch(`${URL}users/${id}/update_image`, user,
+    { headers: { 'Content-Type': 'multipart/form-data', Authorization: login.token } })
+    .then(response => {
+      const { user } = response.data;
 
-    return { user, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { user, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Fetch user by ID
 const fetchUser = async id => axios.get(`${URL}users/${id}`)
@@ -112,58 +122,82 @@ const fetchLatestUsers = async () => axios.get(`${URL}users`)
   .catch(error => errorCatch(error));
 
 // Create New Forum
-const forumNew = async forum => axios.post(`${URL}forums`, { forum })
-  .then(response => {
-    const { forums } = response.data;
+const forumNew = async forum => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.post(`${URL}forums`, { forum }, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { forums } = response.data;
 
-    return { forums, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { forums, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Edit a Forum
-const forumEdit = async forum => axios.patch(`${URL}forums/${forum.id}`, { forum })
-  .then(response => {
-    const { forums } = response.data;
+const forumEdit = async forum => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.patch(`${URL}forums/${forum.id}`, { forum }, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { forums } = response.data;
 
-    return { forums, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { forums, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Create New Forum
-const forumRemove = async forumID => axios.delete(`${URL}forums/${forumID}`)
-  .then(response => {
-    const { forums } = response.data;
+const forumRemove = async forumID => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.delete(`${URL}forums/${forumID}`, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { forums } = response.data;
 
-    return { forums, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { forums, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Create New Subforum
-const subforumNew = async subforum => axios.post(`${URL}subforums`, { subforum })
-  .then(response => {
-    const { forums } = response.data;
+const subforumNew = async subforum => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.post(`${URL}subforums`, { subforum }, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { forums } = response.data;
 
-    return { forums, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { forums, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Edit a Subforum
-const subforumEdit = async subforum => axios.patch(`${URL}subforums/${subforum.id}`, { subforum })
-  .then(response => {
-    const { forums } = response.data;
+const subforumEdit = async subforum => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.patch(`${URL}subforums/${subforum.id}`, { subforum }, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { forums } = response.data;
 
-    return { forums, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { forums, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Create New Forum
-const subforumRemove = async subforumID => axios.delete(`${URL}subforums/${subforumID}`)
-  .then(response => {
-    const { forums } = response.data;
+const subforumRemove = async subforumID => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.delete(`${URL}subforums/${subforumID}`, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { forums } = response.data;
 
-    return { forums, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { forums, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Fetch All Forums
 const fetchAllForums = async () => axios.get(`${URL}forums/all`)
@@ -205,55 +239,71 @@ const fetchForumPosts = async (forum, subforum, per_page = 5, page = 1) => axios
   .catch(error => errorCatch(error));
 
 // Create New Post
-const postNew = async post => axios(
-  { method: 'post', url: `${URL}posts`, data: post },
-  { headers: { 'Content-Type': 'multipart/form-data' } },
-)
-  .then(response => {
-    const { post } = response.data;
+const postNew = async post => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.post(`${URL}posts`, post,
+    { headers: { 'Content-Type': 'multipart/form-data', Authorization: login.token } })
+    .then(response => {
+      const { post } = response.data;
 
-    return { post, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { post, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Create New Post
-const postEdit = async (postID, post) => axios(
-  { method: 'patch', url: `${URL}posts/${postID}`, data: post },
-  { headers: { 'Content-Type': 'multipart/form-data' } },
-)
-  .then(response => {
-    const { post } = response.data;
+const postEdit = async (postID, post) => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.patch(`${URL}posts/${postID}`, post,
+    { headers: { 'Content-Type': 'multipart/form-data', Authorization: login.token } })
+    .then(response => {
+      const { post } = response.data;
 
-    return { post, success: true };
-  })
-  .catch(error => errorCatch(error));
-
-// Lock/Unlock a Post
-const postHandleLock = async postID => axios.patch(`${URL}posts/${postID}/lock_post`)
-  .then(response => {
-    const { post } = response.data;
-
-    return { post, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { post, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Lock/Unlock a Post
-const postHandlePin = async postID => axios.patch(`${URL}posts/${postID}/pin_post`)
-  .then(response => {
-    const { post } = response.data;
+const postHandleLock = async postID => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.patch(`${URL}posts/${postID}/lock_post`, null, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { post } = response.data;
 
-    return { post, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { post, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
+
+// Lock/Unlock a Post
+const postHandlePin = async postID => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.patch(`${URL}posts/${postID}/pin_post`, null, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { post } = response.data;
+
+      return { post, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Remove a Post
-const postRemove = async postID => axios.delete(`${URL}posts/${postID}`)
-  .then(response => {
-    const { message } = response.data;
+const postRemove = async postID => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.delete(`${URL}posts/${postID}`, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { message } = response.data;
 
-    return { message, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { message, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Fetch post by ID
 const fetchPost = async id => axios.get(`${URL}posts/${id}`)
@@ -265,36 +315,51 @@ const fetchPost = async id => axios.get(`${URL}posts/${id}`)
   .catch(error => errorCatch(error));
 
 // Create New Comment
-const commentNew = async comment => axios(
-  { method: 'post', url: `${URL}comments`, data: comment },
-  { headers: { 'Content-Type': 'multipart/form-data' } },
-)
-  .then(response => {
-    const { comment, comments } = response.data;
+const commentNew = async comment => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.post(`${URL}comments`, comment,
+    { headers: { 'Content-Type': 'multipart/form-data', Authorization: login.token } })
+    .then(response => {
+      const { comment, comments } = response.data;
 
-    return { comment, comments, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { comment, comments, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Edit a Comment
-const commentEdit = async comment => axios.patch(`${URL}comments/${comment.id}`, { comment })
-  .then(response => {
-    const { comment, comments } = response.data;
+const commentEdit = async comment => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios.patch(`${URL}comments/${comment.id}`, { comment }, { headers: { Authorization: login.token } })
+    .then(response => {
+      const { comment, comments } = response.data;
 
-    return { comment, comments, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { comment, comments, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 // Remove a Comment
-const commentRemove = async comment => axios(
-  { method: 'delete', url: `${URL}comments/${comment.id}`, data: comment },
-)
-  .then(response => {
-    const { message, comments } = response.data;
+const commentRemove = async comment => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  return axios(
+    {
+      method: 'delete',
+      url: `${URL}comments/${comment.id}`,
+      headers: { Authorization: login.token },
+      data: comment,
+    },
+  )
+    .then(response => {
+      const { message, comments } = response.data;
 
-    return { message, comments, success: true };
-  })
-  .catch(error => errorCatch(error));
+      return { message, comments, success: true };
+    })
+    .catch(error => errorCatch(error));
+};
 
 export {
   URL,

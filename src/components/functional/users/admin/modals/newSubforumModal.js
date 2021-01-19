@@ -13,7 +13,7 @@ const NewSubforumModal = ({
     const subforumNameTrimmed = subforumName.trim();
     setSubforumName(subforumNameTrimmed);
     if (!subforumName) return;
-    const newSubforum = { forum_id: forum.id, subforum: subforumNameTrimmed };
+    const newSubforum = { forum_id: forum.id, name: subforumNameTrimmed };
 
     handleLoader(true);
     subforumNew(newSubforum)
