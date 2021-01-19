@@ -67,7 +67,7 @@ const userRegister = async user => {
 const userToAdmin = async user => {
   let login;
   if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
-  axios.patch(`${URL}users/${user.id}/set_admin_level`, { user }, { headers: { Authorization: login.token } })
+  return axios.patch(`${URL}users/${user.id}/set_admin_level`, { user }, { headers: { Authorization: login.token } })
     .then(response => {
       const { user } = response.data;
 
