@@ -41,6 +41,7 @@ const Login = ({ handleModal, handleLoader, handleLogin }) => {
             required
           />
           <button type="submit">Login</button>
+          <Link to="/forgot_password">Forgot Password?</Link>
           <Link to="/sign_up">Create an account?</Link>
         </form>
       </div>

@@ -36,6 +36,16 @@ const userLogin = async user => {
     .catch(error => errorCatch(error));
 };
 
+// User Logout
+const userLogout = async () => {
+  let login;
+  if (sessionStorage.getItem('user')) login = JSON.parse(sessionStorage.getItem('user'));
+  sessionStorage.clear();
+  return axios.patch(`${URL}logout`, null, { headers: { Authorization: login.token } })
+    .then(() => ({ success: true }))
+    .catch(error => errorCatch(error));
+};
+
 // Is User Still Logged In?
 const userLoggedIn = async () => {
   if (sessionStorage.getItem('user')) {
@@ -361,10 +371,28 @@ const commentRemove = async comment => {
     .catch(error => errorCatch(error));
 };
 
+// User Forgot Password
+const forgotPassword = async email => axios.patch(`${URL}forgot_password`, { email })
+  .then(response => {
+    const { message } = response.data;
+
+    return { message, success: true };
+  })
+  .catch(error => errorCatch(error));
+
+// User Change Password with Token
+const changePasswordWithToken = async (password_reset_token, user) => axios.patch(`${URL}change_password_with_token`, { password_reset_token, user })
+  .then(response => {
+    const { message } = response.data;
+
+    return { message, success: true };
+  })
+  .catch(error => errorCatch(error));
+
 export {
   URL,
-  userLogin, userLoggedIn, userRegister, userSuspendComms, userToAdmin,
-  fetchUser, fetchLatestUsers, userImageUpdate,
+  userLogin, userLogout, userLoggedIn, userRegister, userSuspendComms, userToAdmin,
+  fetchUser, fetchLatestUsers, userImageUpdate, forgotPassword, changePasswordWithToken,
   forumEdit, forumRemove, forumNew,
   subforumNew, subforumEdit, subforumRemove,
   fetchAllForums, fetchAllForumPosts, fetchForumPosts,

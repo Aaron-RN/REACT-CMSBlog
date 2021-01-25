@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 import logo from './assets/images/logo.svg';
 import './assets/css/App.css';
-import { userLoggedIn } from './components/misc/apiRequests';
+import { userLoggedIn, userLogout } from './components/misc/apiRequests';
 import BlogPage from './components/functional/blogPage';
 import PostPage from './components/functional/blogPage/postPage';
 import TopicForum from './components/functional/blogPage/topicForum';
@@ -17,6 +17,8 @@ import EditPost from './components/functional/blogPage/editPost';
 import NewUsers from './components/functional/users/newUsers';
 import AllUsers from './components/functional/users/allUsers';
 
+import ResetPassword from './components/functional/users/resetPassword';
+import ForgotPassword from './components/functional/users/forgotPassword';
 import Register from './components/functional/users/register';
 import Login from './components/functional/users/login';
 import Modal from './components/functional/modal';
@@ -52,7 +54,12 @@ const App = () => {
   };
 
   const handleLogout = () => {
-    setUser({ logged_in: false });
+    userLogout()
+      .then(response => {
+        if (!response.success) handleModal(response.errors);
+        setUser({ logged_in: false });
+        handleLoader(false);
+      });
   };
 
   // Check if user is logged in
@@ -120,6 +127,16 @@ const App = () => {
                 handleModal={handleModal}
               />
             )}
+          />
+          <Route
+            exact
+            path="/reset_password"
+            render={() => <ResetPassword handleModal={handleModal} handleLoader={handleLoader} />}
+          />
+          <Route
+            exact
+            path="/forgot_password"
+            render={() => <ForgotPassword handleModal={handleModal} handleLoader={handleLoader} />}
           />
           <Route
             exact

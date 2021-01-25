@@ -14,6 +14,10 @@ const Register = ({ handleModal, handleLoader }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    if (password !== passwordConfirm) {
+      return handleModal(["Password doesn't Match Confirmation!"]);
+    }
+
     const user = {
       username: username.trim(),
       email: email.trim(),
