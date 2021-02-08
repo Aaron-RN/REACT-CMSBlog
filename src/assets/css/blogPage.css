@@ -209,7 +209,7 @@
   align-items: center;
   font-size: 0.8em;
   padding: 6px;
-  max-width: 420px;
+  /* max-width: 420px; */
   background-color: #eed7ac54;
   border: 2px solid var(--postBG);
   border-radius: 6px;
