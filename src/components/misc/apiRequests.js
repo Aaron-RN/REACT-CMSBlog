@@ -381,6 +381,7 @@ const forgotPassword = async email => axios.patch(`${URL}forgot_password`, { ema
   .catch(error => errorCatch(error));
 
 // User Change Password with Token
+// eslint-disable-next-line camelcase
 const changePasswordWithToken = async (password_reset_token, user) => axios.patch(`${URL}change_password_with_token`, { password_reset_token, user })
   .then(response => {
     const { message } = response.data;

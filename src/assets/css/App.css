@@ -235,7 +235,7 @@ button:hover { transform: scale(1.025); cursor: pointer; }
   background-color: #fff;
   padding: 12px;
   min-height: 220px;
-  max-width: 420px; max-height: 620px;
+  max-width: 520px; max-height: 620px;
   border-radius: 8px;
   margin: auto;
   overflow-x: hidden;
