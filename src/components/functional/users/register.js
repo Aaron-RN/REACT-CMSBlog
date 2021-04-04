@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import propTypes from 'prop-types';
 import { userRegister } from '../../misc/apiRequests';
-import ConfirmPage from '../confirmPage';
+import ConfirmPage from '../../presentational/confirmPage';
 
 const Register = ({ handleModal, handleLoader }) => {
   const [username, setUsername] = useState('');
@@ -34,8 +34,8 @@ const Register = ({ handleModal, handleLoader }) => {
         if (!response.success) handleModal(response.errors);
         handleLoader(false);
       });
-    // if (result.success) setMessage(result.message);
-    // else handleModal(result.errors);
+
+    return null;
   };
 
   return emailConfirm
