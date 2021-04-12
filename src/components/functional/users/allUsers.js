@@ -6,7 +6,7 @@ import '../../../assets/css/users.css';
 
 const AllUsers = ({ handleLoader, handleModal }) => {
   const [allUsers, setAllUsers] = useState([]);
-  console.log(allUsers);
+  // console.log(allUsers);
 
   // Returns Whether a user is an administrator or not
   const profileStatus = user => {
