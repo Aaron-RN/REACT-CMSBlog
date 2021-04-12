@@ -34,8 +34,6 @@ const Register = ({ handleModal, handleLoader }) => {
         if (!response.success) handleModal(response.errors);
         handleLoader(false);
       });
-
-    return null;
   };
 
   return emailConfirm
