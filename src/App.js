@@ -23,7 +23,7 @@ import Register from './components/functional/users/register';
 import Login from './components/functional/users/login';
 import Modal from './components/functional/modal';
 import Loader from './components/presentational/loader';
-import LoginBtn from './components/functional/users/loginBtn';
+import LoginBtn from './components/presentational/users/loginBtn';
 import ProfilePage from './components/functional/users/profilePage';
 
 const App = () => {
