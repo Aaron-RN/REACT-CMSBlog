@@ -44,6 +44,7 @@ const ProfilePage = ({
     );
   });
 
+  // Ensures that the profile image uploaded doesn't go too far over 1 megabyte
   const handleCheckFileSize = e => {
     const elem = e.target;
     if (elem.files[0].size > 1048576) {
@@ -83,7 +84,7 @@ const ProfilePage = ({
 
   // Remove when adding Database
   useEffect(() => {
-    // Check to make sure the selectedUser variable is an object with properties
+    // Check to make sure the selectedUser variable/state is an object with properties
     if (Object.keys(selectedUser).length > 0) {
       const allUserPosts = selectedUser.posts;
       const latestPosts = allUserPosts.length > 0 ? allUserPosts.sort((a, b) => b.id - a.id) : [];
