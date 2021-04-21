@@ -21,8 +21,11 @@ const convertDate = (date, toggleTime = true) => {
   return resultDate;
 };
 
+// Simply removes the "Z" off the end of the DateTime string returned from a Rails PostgreSQL database
 const convertRailsDate = date => date.substring(0, date.length - 1);
 
+// Breaks down the given date value into an array with each index being relevant to argument values such as:
+// year, month, date, hour, and minute
 const convertToRubyDate = date => {
   const dateArray = date.split('-');
   let timeArray = dateArray[2].substring(dateArray[2].indexOf('T'));

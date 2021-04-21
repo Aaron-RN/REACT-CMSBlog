@@ -17,6 +17,8 @@ const PromoteUser = ({
     '(Can not be modified by any other moderator)',
   ];
 
+  // Used to populate a list of all capabilities related to the administrative level chosen
+  // Array.slice is used to combine different capabilities together
   const populateDesc = () => {
     if (adminLevel === 0) return <li>{descList[0]}</li>;
     if (adminLevel === 1) {
