@@ -11,6 +11,7 @@ const BlogPage = ({
   const [pinnedPosts, setPinnedPosts] = useState([]);
   const [forumTopics, setForumTopics] = useState([]);
 
+  // Populate Pinned Posts
   const populatePins = () => pinnedPosts.map(post => (
     <button type="button" key={post.id} className="bare-btn" onClick={() => handlePostSelect(post)}>
       <PinnedPostDisplay post={post} />

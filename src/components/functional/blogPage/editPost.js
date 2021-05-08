@@ -63,7 +63,7 @@ const EditPost = ({
     <div id="BlogPage" className="bg-main">
       <div className="container-md">
         <form className="newPost" onSubmit={handleSubmitPost} encType="multipart/form-data">
-          <Link to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}`}>
+          <Link to={`/${forum}${subforum ? `/${subforum}` : ''}/posts/${id}/show`}>
             <i className="fas fa-chevron-circle-left pr-01" />
             Back
           </Link>
