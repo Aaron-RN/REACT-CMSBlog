@@ -22,11 +22,14 @@ const Paginate = ({
     }
   };
 
+  // Calculates the max amount of pages using the length of the posts and postsPages props
   useEffect(() => {
     const pageMax = Math.ceil(posts.length / postsPerPage);
     setMaxPages(pageMax || 1);
   }, [posts, postsPerPage]);
 
+  // Filters and stores the posts prop array into pinned and unpinned posts.
+  // Unpinned posts are then paginated and stored into the selectedPosts state
   useEffect(() => {
     const postsPinned = posts.filter(post => post.is_pinned);
     const unPinnedPosts = posts.filter(post => !post.is_pinned);
