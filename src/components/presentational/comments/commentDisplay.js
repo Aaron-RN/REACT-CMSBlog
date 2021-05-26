@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import Comment from '../../presentational/comments/comment';
-import PaginateComments from './paginateComments';
+import Comment from './comment';
+import PaginateComments from '../../functional/comments/paginateComments';
 
 const CommentDisplay = ({
   user, allComments, comment, handleSelectComment, handleEditComment, handleRemoveComment,

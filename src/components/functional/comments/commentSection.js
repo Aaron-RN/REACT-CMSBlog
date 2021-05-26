@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import CommentDisplay from './commentDisplay';
+import CommentDisplay from '../../presentational/comments/commentDisplay';
 import PaginateComments from './paginateComments';
 import { commentNew, commentEdit, commentRemove } from '../../misc/apiRequests';
 
