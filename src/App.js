@@ -105,7 +105,7 @@ const App = () => {
         <p className="container mt-0">
           Welcome to the
           {' '}
-          <a className="header" href="https://hackernoon.com/" target="_blank" rel="noopener noreferrer">React.js CMS-Forum Demo</a>
+          <a className="header" href="https://hackernoon.com/creating-a-forum-cms-with-reactjs-and-ruby-on-rails-oz4t35ql" target="_blank" rel="noopener noreferrer">React.js CMS-Forum Demo</a>
           {' '}
           {/* eslint-disable react/jsx-one-expression-per-line */}
           which uses <span className="header">React-Quill</span> as the rich-text editor
