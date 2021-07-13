@@ -16,6 +16,7 @@ Front-end system built with React.js for user manageable Blog. Users will be abl
 ![screenshot](./screenshot.jpg)
 ![screenshot](./screenshot2.jpg)
 
+## [HaCkErNoOn Article](https://hackernoon.com/creating-a-forum-cms-with-reactjs-and-ruby-on-rails-oz4t35ql)
 ## [Live DEMO](https://arn-forum-cms.netlify.app/)
 
 ## Built With
